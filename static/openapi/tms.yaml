@@ -1,0 +1,354 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/tms/add:
+    post:
+      operationId: addEmail
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/assignAlert:
+    post:
+      operationId: assignTmsAlert
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsAlertAssignRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/bulkUpdateAlertData:
+    post:
+      description: 'This API will Bulk or Single update TMS Alert Data eg: status,
+        assigneeRole, assignedTo, conclusion, comments. If the id''s List contain
+        only 1 id, then it will update the TMS Alert Data for that particular id.
+        If the id''s List contain more than 1 id, then it will update the TMS Alert
+        Data for all those ids.'
+      operationId: bulkUpdateTmsAlertData
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkTmsAlertDataUpdate'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Bulk or Single Update TMS Alerts Data
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/getAllTmsAlert/{pageSize}/{currentPage}:
+    post:
+      operationId: getAllTmsAlert
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsAlertSearchRequest'
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/getAllTmsEmails/{pageSize}/{currentPage}:
+    post:
+      operationId: getTmsEmails
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/getDelayTransactions/{pageSize}/{currentPage}:
+    post:
+      operationId: getDelayTransactions
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DelayTransactionSearchRequest'
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/getRelatedTransactions:
+    post:
+      description: This api will return the related transactions of the Account based
+        on TMS Alert
+      operationId: getRelatedTransactions
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsAlertSearchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Related Transactions of the Account based on TMS Alert
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/getTmsRules:
+    get:
+      description: This api will return the related transactions of the Account based
+        on TMS Alert
+      operationId: getTmsRules
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Related Transactions of the Account based on TMS Alert
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/inactive:
+    post:
+      operationId: updateEmail
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/updateDelayTransactionStatus:
+    post:
+      operationId: updateDelayTransactionStatus
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDelayTransactionStatusRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - transaction-monitoring-system-controller
+  /api/v1/wallet/tms/updateTmsRuleConfig:
+    post:
+      description: This api will update the TMS Alert Configuration from the TMS_ALERT_RULES
+        table with Enable/Disable rules and changing frequency and time limit
+      operationId: updateTmsRuleConfig
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTmsRuleConfigRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Update TMS Alert Configuration
+      tags:
+      - transaction-monitoring-system-controller
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

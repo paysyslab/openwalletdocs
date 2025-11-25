@@ -1,0 +1,117 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/configuration/configureCdd:
+    post:
+      operationId: configureCdd
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CDDRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Configure CDD of Risk Customers
+      tags:
+      - configuration-controller
+  /api/v1/wallet/configuration/getCddData:
+    get:
+      operationId: getCddData
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get CDD Configured Data
+      tags:
+      - configuration-controller
+  /api/v1/wallet/configuration/getConfigurations:
+    get:
+      description: Get Referral Configuration
+      operationId: getReferralConfig
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Referral Configuration Details
+      tags:
+      - configuration-controller
+  /api/v1/wallet/configuration/getRiskCustomers:
+    get:
+      operationId: getCustomer_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Detail of customer
+      tags:
+      - configuration-controller
+  /api/v1/wallet/configuration/updateConfigurations:
+    post:
+      description: Update Configuration
+      operationId: updateReferralConfig
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfigRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Update Referral Configuration by Key and Value
+      tags:
+      - configuration-controller
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

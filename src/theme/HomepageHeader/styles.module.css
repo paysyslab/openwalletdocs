@@ -1,0 +1,16 @@
+.heroBanner {
+  padding: 4rem 0;
+  background-color: #ffffff !important;
+  text-align: center;
+}
+
+.heroTitle {
+  color: #000000;
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.heroSubtitle {
+  color: #000000;
+  font-size: 1.5rem;
+}

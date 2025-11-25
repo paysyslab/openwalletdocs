@@ -1,0 +1,766 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/bpm/configureCdd/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of CDD Configuration (Checker End)
+      operationId: userReturnedTasksReview_9
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CDDRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of CDD Configuration (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/kyc/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of Kyc Set (Checker End)
+      operationId: userReturnedTasksReview_8
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetReturnedReviewTask'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of Kyc Set (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/lienMarking/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of Lien Marking (Checker End)
+      operationId: userReturnedTasksReview_7
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LienMarkingRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of Lien Marking (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/process/getmergelist/{pageSize}/{currentPage}:
+    get:
+      description: Get merge pending list (Checker)
+      operationId: mergeResult
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: operation
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: object
+          description: OK
+      summary: Get merge pending list (Checker)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/process/getreturnedmergelist/{pageSize}/{currentPage}:
+    get:
+      description: Get Returned Pending List (Maker)
+      operationId: returnedMergeResult
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: operation
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: object
+          description: OK
+      summary: Get Returned Pending List (Maker)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/product/feeProfile/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of Product FEE PROFILE (Checker End)
+      operationId: userReturnedTasksReview_6
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFeeProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of Product FEE PROFILE (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/product/productCategory/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of Product Category Config (Checker End)
+      operationId: userReturnedTasksReview_5
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of Product Category Config (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/product/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of Product Config (Checker End)
+      operationId: userReturnedTasksReview_4
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of Product Config (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/product/taxProfile/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of Product TAX PROFILE (Checker End)
+      operationId: userReturnedTasksReview_3
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTaxProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of Product TAX PROFILE (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/reviewReturnedTasks:
+    post:
+      description: User Review Tasks (Checker End)
+      operationId: userReturnedTasksReview_2
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewReturnedTaskReq'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/reviewtasks:
+    post:
+      description: User Review Tasks (Checker End)
+      operationId: userPendingTasksReview
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: operation
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewTaskReq'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/transaction/tms/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of TMS Email (Checker End)
+      operationId: userReturnedTasksReview_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of TMS Email Config (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/bpm/updateTmsAlertConfig/reviewReturnedTasks:
+    post:
+      description: User Review Tasks of TMS Alert Config (Checker End)
+      operationId: userReturnedTasksReview
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTmsRuleConfigRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: OK
+      summary: User Review Tasks of TMS Alert Config (Checker End)
+      tags:
+      - gl-bpm-controller
+  /api/v1/wallet/gl/category/getAll:
+    get:
+      description: This API will return all GL categories
+      operationId: getAll_4
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: get all categories
+      tags:
+      - gl-category-controller
+  /api/v1/wallet/gl/coa/add/account:
+    post:
+      description: Initiate bpm process
+      operationId: post_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlCoaRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Initiate bpm process
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/coa/getAccountsForPosting:
+    get:
+      description: This API will return all GL categories
+      operationId: getAccountsForPosting
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: get all categories
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/coa/getAll:
+    get:
+      description: This API will return all GL Coa
+      operationId: getAll_3
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: get all Coa
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/coa/getAllHeirarchy:
+    get:
+      description: This API will return all GL categories
+      operationId: getAllHeirarchy
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: get all categories
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/coa/getCounterAccount:
+    get:
+      description: This API will return all GL categories
+      operationId: getCounterAccount
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: get all categories
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/coa/getParentsForAccountAdding:
+    get:
+      description: This API will return all GL Coa
+      operationId: getParentsForAccountAdding
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: get all Coa
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/coa/update/account:
+    post:
+      description: Initiate bpm process
+      operationId: update_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlCoaRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Initiate bpm process
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/coa/update/sapAccount:
+    post:
+      description: Update Sap account code
+      operationId: sapAccountUpdate
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlCoaRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Update Sap account code
+      tags:
+      - gl-coa-controller
+  /api/v1/wallet/gl/voucher/generate:
+    get:
+      description: This API will generate Voucher number for GL posting
+      operationId: generateVoucherNo
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Get voucher number
+      tags:
+      - gl-voucher-controller
+  /api/v1/wallet/gl/voucher/get/{pageSize}/{currentPage}:
+    post:
+      description: This API will return all vouchers with paging
+      operationId: getVouchers
+      parameters:
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetGlVoucherRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: get all Vouchers
+      tags:
+      - gl-voucher-controller
+  /api/v1/wallet/gl/voucher/getPurpose:
+    get:
+      description: This API will return purpose
+      operationId: getPurpose
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Get voucher types
+      tags:
+      - gl-voucher-controller
+  /api/v1/wallet/gl/voucher/getVoucherDetails:
+    get:
+      description: This API will return voucher detail
+      operationId: getVoucherDetails
+      parameters:
+      - in: query
+        name: voucherNo
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Get voucher detail
+      tags:
+      - gl-voucher-controller
+  /api/v1/wallet/gl/voucher/post:
+    post:
+      description: This API will post new voucher
+      operationId: post
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlJournalPostingRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Post Voucher
+      tags:
+      - gl-voucher-controller
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

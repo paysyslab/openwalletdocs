@@ -1,0 +1,887 @@
+openapi: 3.0.1
+info:
+  title: Unified Layer
+  description: Unified Layer Api Gateway For Channel
+  contact:
+    name: Paysys Labs
+    url: https://www.paysyslabs.com/
+    email: umer.atiq@paysyslabs.com
+  version: 1.0.0
+  x-gitbook-description-document:
+    object: document
+    data:
+      schemaVersion: 8
+    nodes:
+      - object: block
+        type: paragraph
+        isVoid: false
+        data: {}
+        nodes:
+          - object: text
+            leaves:
+              - object: leaf
+                text: Unified Layer Api Gateway For Channel
+                marks: []
+  x-gitbook-description-html: <p>Unified Layer Api Gateway For Channel</p>
+servers:
+  - url: https://sandbox.paysyslabs.com
+    description: Generated server url
+    x-gitbook-description-html: <p>Generated server url</p>
+security:
+  - bearerAuth: []
+paths:
+  /authenticate:
+    post:
+      tags:
+        - access-authentication
+      summary: Authentication
+      operationId: createAuthenticationToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/JwtResponse'
+          x-gitbook-description-html: <p>OK</p>
+        '400':
+          description: Bad Request
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/JwtResponse'
+          x-gitbook-description-html: <p>Bad Request</p>
+      x-codeSamples:
+        - lang: HTTP
+          label: HTTP
+          source: |
+            POST /authenticate HTTP/1.1
+            Host: gateway.paysyslabs.com:8443
+            Content-Type: application/json
+            Accept: */*
+
+            {
+              "username": "your-username",
+              "password": "your-password",
+              "channel": "your-channel"
+            }
+        - lang: cURL
+          label: cURL
+          source: >
+            curl -X POST "https://sandbox.paysyslabs.com/authenticate" \
+
+            -H "Content-Type: application/json" \
+
+            -d '{"username": "your-username", "password": "your-password",
+            "channel": "your-channel"}'
+        - lang: JavaScript
+          label: JavaScript
+          source: |
+            fetch("https://sandbox.paysyslabs.com/authenticate", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json"
+              },
+              body: JSON.stringify({
+                username: "your-username",
+                password: "your-password",
+                channel: "your-channel"
+              })
+            });
+        - lang: Python
+          label: Python
+          source: >
+            import requests
+
+
+            data = {
+              "username": "your-username",
+              "password": "your-password",
+              "channel": "your-channel"
+            }
+
+
+            response =
+            requests.post("https://sandbox.paysyslabs.com/authenticate",
+            json=data)
+
+            print(response.text)
+        - lang: PHP
+          label: PHP
+          source: |
+            <?php
+            $ch = curl_init('https://sandbox.paysyslabs.com/authenticate');
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Content-Type: application/json',
+                'Accept: */*'
+            ]);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode([
+                "username" => "your-username",
+                "password" => "your-password",
+                "channel" => "your-channel"
+            ]));
+            $response = curl_exec($ch);
+            curl_close($ch);
+            echo $response;
+  /api/v1/paysyslabs/accountverification:
+    post:
+      tags:
+        - account-verification
+      summary: Account Verification
+      operationId: accountVerification
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountVerification'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/txninquiry:
+    post:
+      tags:
+        - payment-controller
+      summary: Transaction Inquiry
+      operationId: transactionInquiry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TransactionInquiryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/returnpayment:
+    post:
+      tags:
+        - payment-controller
+      summary: Return Payment
+      operationId: returnPayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReturnPaymentRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/directposting:
+    post:
+      tags:
+        - payment-controller
+      summary: Payment
+      operationId: paymentDirectPosting
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DirectPostingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/customers/updateCustomerInfo:
+    post:
+      tags:
+        - customer-controller
+      operationId: updateCustomerInfo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/customers/oneStepCustomerRegister:
+    post:
+      tags:
+        - customer-controller
+      operationId: oneStepCustomerRegister
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OneStepCustomerRegistrationRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/customers/getCustomerInfoByUUID:
+    post:
+      tags:
+        - customer-controller
+      operationId: getCustomerInfoByUUID
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCustomerInfoRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/customers/getAllCustomers:
+    post:
+      tags:
+        - customer-controller
+      operationId: getAllCustomers
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllCustomersRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/customers/generateCustomerOTP:
+    post:
+      tags:
+        - customer-controller
+      operationId: generateCustomerOTP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GenerateCustomerOTPRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/customers/createCustomer:
+    post:
+      tags:
+        - customer-controller
+      operationId: createCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/customers/deleteCustomer:
+    delete:
+      tags:
+        - customer-controller
+      operationId: deleteCustomer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DeleteCustomerRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/participantlist:
+    get:
+      tags:
+        - general
+      operationId: getsBanklist
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/InstitutionListResponse'
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/gettransactionpurpose:
+    get:
+      tags:
+        - general
+      operationId: getTransactionPurpose
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+  /api/v1/paysyslabs/gettransactioncategories:
+    get:
+      tags:
+        - general
+      operationId: getTransactionCategories
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+          x-gitbook-description-html: <p>OK</p>
+components:
+  schemas:
+    JwtRequest:
+      required:
+        - channel
+        - password
+        - username
+      type: object
+      properties:
+        username:
+          type: string
+          example: ipsettest
+        password:
+          type: string
+          example: test@1234
+        channel:
+          type: string
+          example: mb
+    JwtResponse:
+      type: object
+      properties:
+        token:
+          type: string
+        expiry:
+          type: string
+    Info:
+      required:
+        - senderRef
+        - txnDateTime
+      type: object
+      properties:
+        senderRef:
+          maxLength: 26
+          minLength: 26
+          pattern: ^[A-Z]{8}[0-9]{18}$
+          type: string
+          example: IPSETAAX509014000000000159
+        txnDateTime:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}[+-]\d{2}:\d{2}$
+          type: string
+          example: '2023-06-24T00:00:00.000+03:00'
+    OrgTxnInfo:
+      required:
+        - originalTransactionID
+        - receiverParticipantBIC
+      type: object
+      properties:
+        originalTransactionID:
+          maxLength: 26
+          minLength: 26
+          pattern: ^[A-Z]{8}[0-9]{18}$
+          type: string
+          example: AWINETAA509014010010000408
+        receiverParticipantBIC:
+          maxLength: 16
+          minLength: 8
+          type: string
+          example: IPSETAAX
+    ReserveFields:
+      type: object
+      properties:
+        r1:
+          type: string
+        r2:
+          type: string
+        r3:
+          type: string
+        r4:
+          type: string
+        r5:
+          type: string
+    TransactionInquiryRequest:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        orgTxnInfo:
+          $ref: '#/components/schemas/OrgTxnInfo'
+        reserveFields:
+          $ref: '#/components/schemas/ReserveFields'
+    ReturnPaymentOrgTxnInfo:
+      required:
+        - bankBIC
+        - originalTransactionID
+        - reason
+        - reasonCode
+        - receiverAccount
+        - returnAmount
+        - senderAccount
+        - txnAmount
+      type: object
+      properties:
+        originalTransactionID:
+          maxLength: 26
+          minLength: 26
+          pattern: ^[A-Z]{8}[0-9]{18}$
+          type: string
+          example: AWINETAA509014010010000408
+        txnDateTime:
+          type: string
+          example: '2023-06-24T00:00:00.000+03:00'
+        bankBIC:
+          maxLength: 16
+          minLength: 8
+          type: string
+          example: IPSETAAX
+        senderAccount:
+          maxLength: 24
+          minLength: 10
+          type: string
+          example: 1234567890
+        receiverAccount:
+          maxLength: 24
+          minLength: 10
+          type: string
+          example: 1234567890
+        txnAmount:
+          minimum: 1
+          exclusiveMinimum: false
+          type: number
+          example: 100
+        returnAmount:
+          minimum: 1
+          exclusiveMinimum: false
+          type: number
+          example: 100
+        reasonCode:
+          maxLength: 10
+          minLength: 3
+          type: string
+          example: BLCK
+        reason:
+          type: string
+    ReturnPaymentRequest:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        orgTxnInfo:
+          $ref: '#/components/schemas/ReturnPaymentOrgTxnInfo'
+        reserveFields:
+          $ref: '#/components/schemas/ReserveFields'
+    DirectPostingRequest:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        senderinfo:
+          $ref: '#/components/schemas/SenderInfo'
+        receiverinfo:
+          $ref: '#/components/schemas/ReceiverInfo'
+        txnInfo:
+          $ref: '#/components/schemas/TxnInfo'
+        reserveFields:
+          $ref: '#/components/schemas/ReserveFields'
+    ReceiverInfo:
+      required:
+        - bankBIC
+        - toAccount
+        - toAccountTitle
+      type: object
+      properties:
+        bankBIC:
+          maxLength: 16
+          minLength: 8
+          type: string
+          example: IPSETAAX
+        toAccount:
+          maxLength: 24
+          minLength: 10
+          type: string
+          example: 1234567890
+        toAccountTitle:
+          maxLength: 50
+          minLength: 3
+          type: string
+          example: Test Account
+    SenderInfo:
+      required:
+        - address
+        - senderAccount
+        - senderAccountTitle
+        - senderAccountType
+      type: object
+      properties:
+        senderUID:
+          type: string
+        senderUIDValue:
+          type: string
+        senderAccount:
+          maxLength: 24
+          minLength: 10
+          type: string
+        senderAccountType:
+          maxLength: 4
+          minLength: 4
+          type: string
+        senderAccountTitle:
+          maxLength: 50
+          minLength: 3
+          type: string
+        address:
+          maxLength: 200
+          minLength: 3
+          type: string
+    TxnInfo:
+      required:
+        - purposeCode
+        - txnAmount
+        - txnCurrency
+      type: object
+      properties:
+        purposeCode:
+          maxLength: 10
+          minLength: 3
+          type: string
+        txnCurrency:
+          maxLength: 3
+          minLength: 3
+          type: string
+        txnAmount:
+          type: number
+        authId:
+          type: string
+    UpdateCustomerInfoRequest:
+      required:
+        - dob
+        - documentId
+        - documentType
+        - documentValidityDate
+        - externalId
+        - firstEmail
+        - firstName
+        - gender
+        - lastName
+        - linkageType
+        - msisdn
+        - secondEmail
+        - status
+        - type
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        firstName:
+          pattern: ^(?!.*<[^>]*>).*
+          type: string
+        lastName:
+          pattern: ^(?!.*<[^>]*>).*
+          type: string
+        gender:
+          type: string
+        dob:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        type:
+          type: string
+        firstEmail:
+          type: string
+        secondEmail:
+          type: string
+        externalId:
+          type: string
+        linkageType:
+          type: string
+        status:
+          pattern: ^(?!.*<[^>]*>).*
+          type: string
+        documentType:
+          type: string
+        documentId:
+          type: string
+        documentValidityDate:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        msisdn:
+          type: string
+    OneStepCustomerRegistrationRequest:
+      required:
+        - aliasExpireDate
+        - aliasStartDate
+        - aliasType
+        - aliasValue
+        - dob
+        - documentId
+        - documentType
+        - documentValidityDate
+        - externalId
+        - financialAddress
+        - financialAddressType
+        - firstName
+        - gender
+        - lastName
+        - linkageType
+        - msisdn
+        - type
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        firstName:
+          pattern: ^(?!.*<[^>]*>).*
+          type: string
+        lastName:
+          pattern: ^(?!.*<[^>]*>).*
+          type: string
+        gender:
+          pattern: ^(?!.*<[^>]*>).*
+          type: string
+        dob:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        type:
+          type: string
+        externalId:
+          type: string
+        linkageType:
+          type: string
+        documentType:
+          type: string
+        documentId:
+          type: string
+        documentValidityDate:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        msisdn:
+          type: string
+        aliasType:
+          type: string
+        aliasValue:
+          type: string
+        aliasStartDate:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        aliasExpireDate:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        financialAddressType:
+          type: string
+        financialAddress:
+          type: string
+        servicerIdType:
+          type: string
+        servicerID:
+          type: string
+    GetCustomerInfoRequest:
+      required:
+        - uuid
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        uuid:
+          type: string
+    GetAllCustomersRequest:
+      required:
+        - pageNo
+        - pageSize
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        pageNo:
+          type: string
+        pageSize:
+          type: string
+    GenerateCustomerOTPRequest:
+      required:
+        - uuid
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        uuid:
+          type: string
+    CreateCustomerRequest:
+      required:
+        - companyName
+        - dob
+        - documentId
+        - documentType
+        - documentValidityDate
+        - externalId
+        - firstEmail
+        - linkageType
+        - msisdn
+        - secondEmail
+        - type
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        companyName:
+          pattern: ^(?!.*<[^>]*>).*
+          type: string
+        dob:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        type:
+          type: string
+        firstEmail:
+          type: string
+        secondEmail:
+          type: string
+        externalId:
+          type: string
+        linkageType:
+          type: string
+        documentType:
+          type: string
+        documentId:
+          type: string
+        documentValidityDate:
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$
+          type: string
+        msisdn:
+          type: string
+    AccountVerification:
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        senderinfo:
+          $ref: '#/components/schemas/AccountVerificationSenderInfo'
+        receiverinfo:
+          $ref: '#/components/schemas/ReceiverInfo'
+        otherinfo:
+          $ref: '#/components/schemas/OtherInfo'
+        reserveFields:
+          $ref: '#/components/schemas/ReserveFields'
+    AccountVerificationSenderInfo:
+      required:
+        - senderAccount
+        - senderAccountType
+      type: object
+      properties:
+        senderAccount:
+          maxLength: 24
+          minLength: 10
+          type: string
+        senderAccountType:
+          maxLength: 4
+          minLength: 4
+          type: string
+    OtherInfo:
+      type: object
+      properties:
+        purposeCode:
+          type: string
+        txnCurrency:
+          type: string
+        txnAmount:
+          type: number
+    InstitutionListResponse:
+      type: object
+      properties:
+        response:
+          $ref: '#/components/schemas/ParticipantResponse'
+    ParticipantResponse:
+      type: object
+      properties:
+        response_code:
+          type: string
+        response_desc:
+          type: string
+        participants:
+          type: array
+          items:
+            $ref: '#/components/schemas/Participants'
+    Participants:
+      type: object
+      properties:
+        bankBIC:
+          type: string
+        bankDisplayName:
+          type: string
+        availableP2P:
+          type: boolean
+        availableTF:
+          type: boolean
+        availableBulk:
+          type: boolean
+        availableP2M:
+          type: boolean
+        availableP2MRTP:
+          type: boolean
+        availableP2PALIAS:
+          type: boolean
+    DeleteCustomerRequest:
+      required:
+        - uuid
+      type: object
+      properties:
+        info:
+          $ref: '#/components/schemas/Info'
+        uuid:
+          type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

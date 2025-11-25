@@ -1,0 +1,683 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/customer/accountStatusChange:
+    post:
+      operationId: accountStatusChange
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountStatusChangeRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Account Status change request
+      tags:
+      - customer-controller
+    put:
+      operationId: accountStatusChangeWithoutCM
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountStatusChangeRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Account Status change request without C/M
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/changeCddAlertStatus:
+    post:
+      description: Change Cdd Alerts status and customer status with respect to the
+        changing state.
+      operationId: changeCddAlertStatus
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCddAlertStatusRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Change CDD Alerts Status Maker/Checker
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/dashboard:
+    get:
+      description: View Dashboard Analytics
+      operationId: getDashboardAnalytics
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: View Details of Dashboard Analytics that includes total customers,
+        active customers, inactive customers, blocked customers, and pending customers.
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getAllAccountStatusChangeLogs/{pageSize}/{currentPage}:
+    post:
+      operationId: getAllAccountStatusChangeLogs
+      parameters:
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllAccountStatusChangeLogRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get All Account Status Change Logs
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getAllCustomers/{pageSize}/{currentPage}:
+    post:
+      description: View all the Customers
+      operationId: getAllCustomer
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllCustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get All Customers
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getCddAlerts/{pageSize}/{currentPage}:
+    post:
+      description: Fetch and return CDD alerts for customers cdd alerts based on the
+        provided request parameters.
+      operationId: getCddAlerts
+      parameters:
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: header
+        name: ModuleName
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CddAlertRequest'
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Customers CDD Alerts
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getCustomer:
+    post:
+      operationId: getCustomer
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Detail of customer
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getCustomerDocument:
+    post:
+      operationId: getCustomerDocument
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Documents of customer
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getCustomerLimits:
+    post:
+      operationId: getCustomerLimits
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Available limit of customer
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getCustomerRisk:
+    post:
+      operationId: getCustomerRisk
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Risks of customer
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getCustomerTransactions/{pageSize}/{currentPage}:
+    post:
+      operationId: getCustomerTransactions
+      parameters:
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerTransactionSearchRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Transaction of customer
+      tags:
+      - customer-controller
+  /api/v1/wallet/customer/getMotherAndPlaceOfBirthRelation:
+    post:
+      operationId: getRelationBetweenMotherAndDateOfPlace
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MotherAndPOBRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get Relation of Mother and Place of Birth, Returns True if relation
+        exists
+      tags:
+      - customer-controller
+  /api/v1/wallet/dao/customer/account/add:
+    post:
+      description: This API will create account of given customer
+      operationId: addAccount
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAccountRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Add Account
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/account/upgrade:
+    post:
+      description: This API will Upgrade account of given customer
+      operationId: upgradeAccount
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountUpgradeRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Upgrade Account
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/attribute/exist:
+    post:
+      description: This API checks whether a given attribute exists in the system.
+      operationId: attributeExists
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KYCAttributeExistRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Check if an attribute exists
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/attributeByProduct/exist:
+    post:
+      description: This API checks whether a given attribute (Customer) exists in
+        the system with the product code.
+      operationId: attributeExistsByProduct
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttributeExistByProductRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Check if an attribute (Customer) exists by Product Code
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/bvs/add:
+    post:
+      description: This API will Upgrade account of given customer
+      operationId: addBvsData
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BvsCustomerInfoRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Upgrade Account
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/customer/create:
+    post:
+      description: This API will create the customer which is approved from DAO.
+      operationId: createCustomer
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Create Customer initiated from DAO
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/document/upload:
+    post:
+      description: This API will upload document of customer
+      operationId: uploadDocument
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadDocumentsRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Upload documents
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/getKyc/{identValue}/{mobileNumber}:
+    get:
+      description: This API will return Kyc of customer
+      operationId: getKyc
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      - in: path
+        name: identValue
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: mobileNumber
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Get Kyc
+      tags:
+      - dao-customer-controller
+  /api/v1/wallet/dao/customer/getProductDetail/{accountNumber}:
+    get:
+      description: This API will return details of given product
+      operationId: getProductDetail
+      parameters:
+      - in: header
+        name: UserId
+        required: false
+        schema:
+          type: string
+      - in: path
+        name: accountNumber
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: SUCCESS
+        '400':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: Internal Server Error
+      summary: Get Product detail
+      tags:
+      - dao-customer-controller
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

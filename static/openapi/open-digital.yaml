@@ -1,0 +1,68 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/opendigital/account/updateStatus:
+    post:
+      description: Initiate reactivation of account.
+      operationId: initiateUpdateStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountStatusChangeRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+          description: OK
+      summary: initiate reactivation of account
+      tags:
+      - Open Digital
+  /api/v1/wallet/opendigital/getCustomerKycDetails:
+    post:
+      description: Check if customer exists, return Customer Details if exists.
+      operationId: getCustomerKycDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCustomerKycDetailRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+          description: OK
+      summary: Get Customer KYC Details
+      tags:
+      - Open Digital
+  /api/v1/wallet/opendigital/updateAttributes:
+    post:
+      description: Validates and Customer KYC Attributes.
+      operationId: updateAttributes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAttributesRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+          description: OK
+      summary: Update Customer KYC Attributes (Generic Api)
+      tags:
+      - Open Digital
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

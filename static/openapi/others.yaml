@@ -1,0 +1,637 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/account/verifyReferralCode:
+    post:
+      description: Verify Referral Code
+      operationId: verifyReferralCode
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyReferralCodeRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Verify Referral Code if its available and the user is not registered.
+      tags:
+      - account-controller
+  /api/v1/wallet/city/getAll:
+    get:
+      description: Fetches all Cities
+      operationId: getAllCities
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - city-controller
+  /api/v1/wallet/city/getByProvince/{provinceId}:
+    get:
+      description: Fetches Cities by Province ID
+      operationId: getCitiesByProvinceId
+      parameters:
+      - in: path
+        name: provinceId
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - city-controller
+  /api/v1/wallet/country/getAll:
+    get:
+      description: Fetches all Countries
+      operationId: getAllCountries
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - country-controller
+  /api/v1/wallet/country/getHierarchy:
+    get:
+      description: Fetches Full Hierarchy
+      operationId: getHierarchy
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - country-controller
+  /api/v1/wallet/district/getAll:
+    get:
+      description: Fetches all Districts
+      operationId: getAllDistricts
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - district-controller
+  /api/v1/wallet/district/getByCity/{cityCode}:
+    get:
+      description: Fetches Districts by City Code
+      operationId: getDistrictsByCityCode
+      parameters:
+      - in: path
+        name: cityCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - district-controller
+  /api/v1/wallet/investor/add:
+    post:
+      description: Add a new Product
+      operationId: add_6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-controller
+  /api/v1/wallet/investor/getAll:
+    get:
+      description: View all the Investor Types
+      operationId: getAllInvestorTypes
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-controller
+  /api/v1/wallet/investor/getByCode/{code}:
+    get:
+      description: Get Investor Type by Code
+      operationId: getByCode_3
+      parameters:
+      - in: path
+        name: code
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-controller
+  /api/v1/wallet/investor/getByCodes:
+    post:
+      description: Fetches the Investor Type by List of Codes
+      operationId: getByCodes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                type: string
+              type: array
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-controller
+  /api/v1/wallet/investor/updateByCode:
+    post:
+      description: Update Investor Type By Code.
+      operationId: updateByCode_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-controller
+  /api/v1/wallet/investortypegroup/add:
+    post:
+      description: Add a new InvestorTypeGroup and its details
+      operationId: add_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeGroupRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-type-group-controller
+  /api/v1/wallet/investortypegroup/filler:
+    get:
+      description: Filler for all the Active InvestorTypeGroups
+      operationId: filler_4
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-type-group-controller
+  /api/v1/wallet/investortypegroup/getAll:
+    get:
+      description: View all the Active InvestorTypeGroups and its details
+      operationId: getAllInvestorTypeGroupAndDetails
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-type-group-controller
+  /api/v1/wallet/investortypegroup/getById/{InvestorTypeGroupId}:
+    get:
+      description: Fetches the specified InvestorTypeGroup by Id
+      operationId: getById_5
+      parameters:
+      - in: path
+        name: InvestorTypeGroupId
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-type-group-controller
+  /api/v1/wallet/investortypegroup/getByName/{name}:
+    get:
+      description: Fetches the specified InvestorTypeGroup by Name
+      operationId: getByName_2
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-type-group-controller
+  /api/v1/wallet/investortypegroup/updateById:
+    post:
+      description: Updates the specified InvestorTypeGroup and its details
+      operationId: updateById_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeGroupRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-type-group-controller
+  /api/v1/wallet/investortypegroup/updateStatusById:
+    post:
+      description: Active/Deactive the specified InvestorTypeGroup
+      operationId: updateStatusById_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeGroupRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - investor-type-group-controller
+  /api/v1/wallet/paymentmode/filler:
+    get:
+      description: Get Payment Mode Filler
+      operationId: getAllAccountStatus
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - payment-mode-controller
+  /api/v1/wallet/paymentmode/getByCustTypeCode/{custTypeCode}:
+    get:
+      description: Get Payement Mode By Operating Mode
+      operationId: getByOperModeCode
+      parameters:
+      - in: path
+        name: custTypeCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - payment-mode-controller
+  /api/v1/wallet/paymentmode/getPaymentModeByTranCode/{tranCode}:
+    get:
+      description: Get Payement Mode By Transaction Code
+      operationId: getPaymentModeByTranCode
+      parameters:
+      - in: path
+        name: tranCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - payment-mode-controller
+  /api/v1/wallet/province/getAll:
+    get:
+      description: Fetches all Provinces
+      operationId: getAllProvinces
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - province-controller
+  /api/v1/wallet/province/getByCountry/{countryCode}:
+    get:
+      description: Fetches Provinces by Country Code
+      operationId: getProvincesByCountryCode
+      parameters:
+      - in: path
+        name: countryCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - province-controller
+  /api/v1/wallet/uiAuditLog/getUiLogs/{pageSize}/{currentPage}:
+    post:
+      description: Get All the UI Audit Logs (Non Financial)
+      operationId: getAllUiAuditLogs
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllUiAuditLogRequest'
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - ui-audit-log-controller
+  /api/v1/wallet/uiAuditLog/{id}:
+    get:
+      description: Get UI Audit Log by ID (Non Financial)
+      operationId: getUiAuditLogById
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - ui-audit-log-controller
+  /api/v1/wallet/validator/add:
+    post:
+      description: Add a new Validator along with its Arguments and Types
+      operationId: add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatorRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/filler:
+    get:
+      description: Validator List Filler
+      operationId: filler
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/getAll:
+    get:
+      description: View all the Validators
+      operationId: getAllValidator
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/getById/{id}:
+    get:
+      description: Fetches the specified Validator by Id
+      operationId: getById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/getByName/{name}:
+    get:
+      description: Fetches the specified Validator by Name
+      operationId: getByName
+      parameters:
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/getIdentifierFiller:
+    get:
+      description: Fetches the specified Validator by Name
+      operationId: getIdentifierFiller
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/getRegexByIdenName:
+    post:
+      description: Fetches the specified Regex by Product Code And Investor Type Code
+        And Validator Name
+      operationId: getRegexByIdenName
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KYCFillerRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/getRegexByKycCodeAndKycName:
+    post:
+      description: Fetches the specified Regex by  Validator Name and attribute code
+      operationId: getRegexByKycCodeAndKycName
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KYCFillerRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+  /api/v1/wallet/validator/updateById:
+    post:
+      description: Updates the specified Validator and its Arguments along with its
+        Types
+      operationId: updateById
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatorRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - validator-controller
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

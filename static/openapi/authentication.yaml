@@ -1,0 +1,28 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/authenticate:
+    post:
+      description: This API create token
+      operationId: createAuthenticationToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtRequest'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                type: object
+          description: OK
+      summary: Get Access Token
+      tags:
+      - jwt-authentication-controller
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

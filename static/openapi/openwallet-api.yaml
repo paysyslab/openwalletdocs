@@ -1,0 +1,6644 @@
+openapi: 3.0.1
+info:
+  title: OpenAPI definition
+  version: v0
+
+servers:
+  - url: http://10.6.60.8:9000
+    description: Generated server url
+
+tags:
+  - name: Get Started
+    description: OpenWallet API overview and introduction for developers.
+  - name: Open Digital
+    description: APIs for Open Digital Services
+paths:    
+          
+  /api/v1/wallet/customer/accountStatusChange:
+    put:
+      tags:
+      - customer-controller
+      summary: Account Status change request without C/M
+      operationId: accountStatusChangeWithoutCM
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountStatusChangeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+    post:
+      tags:
+      - customer-controller
+      summary: Account Status change request
+      operationId: accountStatusChange
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountStatusChangeRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/updateById:
+    post:
+      tags:
+      - validator-controller
+      description: Updates the specified Validator and its Arguments along with its
+        Types
+      operationId: updateById
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatorRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/getRegexByKycCodeAndKycName:
+    post:
+      tags:
+      - validator-controller
+      description: Fetches the specified Regex by  Validator Name and attribute code
+      operationId: getRegexByKycCodeAndKycName
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KYCFillerRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/getRegexByIdenName:
+    post:
+      tags:
+      - validator-controller
+      description: Fetches the specified Regex by Product Code And Investor Type Code
+        And Validator Name
+      operationId: getRegexByIdenName
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KYCFillerRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/add:
+    post:
+      tags:
+      - validator-controller
+      description: Add a new Validator along with its Arguments and Types
+      operationId: add
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ValidatorRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/uiAuditLog/getUiLogs/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - ui-audit-log-controller
+      description: Get All the UI Audit Logs (Non Financial)
+      operationId: getAllUiAuditLogs
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllUiAuditLogRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/transactions/history:
+    post:
+      tags:
+      - transaction-activity-controller
+      summary: Get Customer Transaction History
+      operationId: getCustomerTransactionHistory
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrxHistoryRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/transactions/account-statement:
+    post:
+      tags:
+      - transaction-activity-controller
+      summary: Get Customer Account Statement
+      operationId: getAccountStatement
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountStatementRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/transactions/:
+    post:
+      tags:
+      - transaction-activity-controller
+      summary: Get Customer Transaction History Detail
+      operationId: getTransactionDetail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TrxDetailsRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/updateTmsRuleConfig:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      summary: Update TMS Alert Configuration
+      description: This api will update the TMS Alert Configuration from the TMS_ALERT_RULES
+        table with Enable/Disable rules and changing frequency and time limit
+      operationId: updateTmsRuleConfig
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTmsRuleConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/updateDelayTransactionStatus:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      operationId: updateDelayTransactionStatus
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateDelayTransactionStatusRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/inactive:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      operationId: updateEmail
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/getRelatedTransactions:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      summary: Get Related Transactions of the Account based on TMS Alert
+      description: This api will return the related transactions of the Account based
+        on TMS Alert
+      operationId: getRelatedTransactions
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsAlertSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/getDelayTransactions/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      operationId: getDelayTransactions
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DelayTransactionSearchRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/getAllTmsEmails/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      operationId: getTmsEmails
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/getAllTmsAlert/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      operationId: getAllTmsAlert
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsAlertSearchRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/bulkUpdateAlertData:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      summary: Bulk or Single Update TMS Alerts Data
+      description: 'This API will Bulk or Single update TMS Alert Data eg: status,
+        assigneeRole, assignedTo, conclusion, comments. If the id''s List contain
+        only 1 id, then it will update the TMS Alert Data for that particular id.
+        If the id''s List contain more than 1 id, then it will update the TMS Alert
+        Data for all those ids.'
+      operationId: bulkUpdateTmsAlertData
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BulkTmsAlertDataUpdate'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/assignAlert:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      operationId: assignTmsAlert
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsAlertAssignRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/add:
+    post:
+      tags:
+      - transaction-monitoring-system-controller
+      operationId: addEmail
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productkycset/getByProdInvstCode:
+    post:
+      tags:
+      - product-kyc-set-controller
+      description: Fetches the specified KycAttributes by ProductCode And InvestorCode
+      operationId: getByProdInvstCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductKycSearchRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/updateById:
+    post:
+      tags:
+      - product-channel-tran-controller
+      description: Updates the specified ProductChannelTranRel by Id
+      operationId: updateById_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductChannelTranRelRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/add:
+    post:
+      tags:
+      - product-channel-tran-controller
+      description: Add a new ProductChannelTranRel
+      operationId: add_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductChannelTranRelRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productTax/updateTax:
+    post:
+      tags:
+      - product-tax-controller
+      description: Update Product Fee
+      operationId: updateTax
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTaxProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productTax/getAllTax/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - product-tax-controller
+      description: View all the Product Taxes with pagination
+      operationId: getAllProductTax
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductFeeAndTaxSearchDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productTax/addTax:
+    post:
+      tags:
+      - product-tax-controller
+      description: Add a new Product Fee
+      operationId: addTax
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTaxProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/updateFee:
+    post:
+      tags:
+      - product-fee-controller
+      description: Update Product Fee
+      operationId: updateFee
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFeeProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/getAllFee/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - product-fee-controller
+      description: View all the Product Fees with pagination
+      operationId: getAllProductFees
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductFeeAndTaxSearchDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/addFee:
+    post:
+      tags:
+      - product-fee-controller
+      description: Add a new Product Fee
+      operationId: addFee
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFeeProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/addFed:
+    post:
+      tags:
+      - product-fee-controller
+      description: All Fee Fed for Tax on Fees
+      operationId: addFeeFed
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFedRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productCategory/update:
+    post:
+      tags:
+      - product-category-controller
+      description: Updates the specified Product Category with BPM Flow
+      operationId: updateByCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productCategory/add:
+    post:
+      tags:
+      - product-category-controller
+      description: Add a new Product Category with BPM Flow
+      operationId: add_2
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/update:
+    post:
+      tags:
+      - product-controller
+      description: Update Product and its related details
+      operationId: update
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/getAll/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - product-controller
+      description: View all the Product
+      operationId: getAllProducts
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductSearchRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/add:
+    post:
+      tags:
+      - product-controller
+      description: Add a new Product
+      operationId: add_3
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/payments/title:
+    post:
+      tags:
+      - transaction-controller
+      operationId: titleFetch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/payments/executeTrx:
+    post:
+      tags:
+      - transaction-controller
+      operationId: executeTrx
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/payments/debitRelease:
+    post:
+      tags:
+      - transaction-controller
+      operationId: debitRelease
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/payments/debitInquiry:
+    post:
+      tags:
+      - transaction-controller
+      operationId: debitInquiry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/payments/debitHold:
+    post:
+      tags:
+      - transaction-controller
+      operationId: debitHold
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/payments/debitConfirm:
+    post:
+      tags:
+      - transaction-controller
+      operationId: debitConfirm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/payments/creditInquiry:
+    post:
+      tags:
+      - transaction-controller
+      operationId: creditInquiry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/payments/balanceInquiry:
+    post:
+      tags:
+      - transaction-controller
+      operationId: balanceInquiry
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TitleFetchTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/opendigital/updateAttributes:
+    post:
+      tags:
+      - Open Digital
+      summary: Update Customer KYC Attributes (Generic Api)
+      description: Validates and Customer KYC Attributes.
+      operationId: updateAttributes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateAttributesRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/opendigital/getCustomerKycDetails:
+    post:
+      tags:
+      - Open Digital
+      summary: Get Customer KYC Details
+      description: Check if customer exists, return Customer Details if exists.
+      operationId: getCustomerKycDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCustomerKycDetailRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/opendigital/account/updateStatus:
+    post:
+      tags:
+      - Open Digital
+      summary: initiate reactivation of account
+      description: Initiate reactivation of account.
+      operationId: initiateUpdateStatus
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountStatusChangeRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/TransactionResponse'
+  /api/v1/wallet/kycset-setattribute/updateStatusById:
+    post:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: Active/Deactive the specified KycSet
+      operationId: updateStatusById
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycset-setattribute/updateKycSet:
+    post:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: Updates the specified KycSet and its Attributes
+      operationId: updateKycSet
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetReturnedReviewTask'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycset-setattribute/getAll/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: View all the KYC Sets
+      operationId: getAllKycSet
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetSearchDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycset-setattribute/addKycSet:
+    post:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: Add a new KycSet and tag it with Attributes
+      operationId: add_4
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetReturnedReviewTask'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investortypegroup/updateStatusById:
+    post:
+      tags:
+      - investor-type-group-controller
+      description: Active/Deactive the specified InvestorTypeGroup
+      operationId: updateStatusById_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeGroupRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investortypegroup/updateById:
+    post:
+      tags:
+      - investor-type-group-controller
+      description: Updates the specified InvestorTypeGroup and its details
+      operationId: updateById_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeGroupRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investortypegroup/add:
+    post:
+      tags:
+      - investor-type-group-controller
+      description: Add a new InvestorTypeGroup and its details
+      operationId: add_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeGroupRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investor/updateByCode:
+    post:
+      tags:
+      - investor-controller
+      description: Update Investor Type By Code.
+      operationId: updateByCode_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investor/getByCodes:
+    post:
+      tags:
+      - investor-controller
+      description: Fetches the Investor Type by List of Codes
+      operationId: getByCodes
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: string
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investor/add:
+    post:
+      tags:
+      - investor-controller
+      description: Add a new Product
+      operationId: add_6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InvestorTypeRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/voucher/post:
+    post:
+      tags:
+      - gl-voucher-controller
+      summary: Post Voucher
+      description: This API will post new voucher
+      operationId: post
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlJournalPostingRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/voucher/get/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - gl-voucher-controller
+      summary: get all Vouchers
+      description: This API will return all vouchers with paging
+      operationId: getVouchers
+      parameters:
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetGlVoucherRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/update/sapAccount:
+    post:
+      tags:
+      - gl-coa-controller
+      summary: Update Sap account code
+      description: Update Sap account code
+      operationId: sapAccountUpdate
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlCoaRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/update/account:
+    post:
+      tags:
+      - gl-coa-controller
+      summary: Initiate bpm process
+      description: Initiate bpm process
+      operationId: update_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlCoaRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/add/account:
+    post:
+      tags:
+      - gl-coa-controller
+      summary: Initiate bpm process
+      description: Initiate bpm process
+      operationId: post_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GlCoaRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/document/upload:
+    post:
+      tags:
+      - dao-customer-controller
+      summary: Upload documents
+      description: This API will upload document of customer
+      operationId: uploadDocument
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadDocumentsRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/customer/create:
+    post:
+      tags:
+      - dao-customer-controller
+      summary: Create Customer initiated from DAO
+      description: This API will create the customer which is approved from DAO.
+      operationId: createCustomer
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/bvs/add:
+    post:
+      tags:
+      - dao-customer-controller
+      summary: Upgrade Account
+      description: This API will Upgrade account of given customer
+      operationId: addBvsData
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BvsCustomerInfoRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/attributeByProduct/exist:
+    post:
+      tags:
+      - dao-customer-controller
+      summary: Check if an attribute (Customer) exists by Product Code
+      description: This API checks whether a given attribute (Customer) exists in
+        the system with the product code.
+      operationId: attributeExistsByProduct
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttributeExistByProductRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/attribute/exist:
+    post:
+      tags:
+      - dao-customer-controller
+      summary: Check if an attribute exists
+      description: This API checks whether a given attribute exists in the system.
+      operationId: attributeExists
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KYCAttributeExistRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/account/upgrade:
+    post:
+      tags:
+      - dao-customer-controller
+      summary: Upgrade Account
+      description: This API will Upgrade account of given customer
+      operationId: upgradeAccount
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AccountUpgradeRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/account/add:
+    post:
+      tags:
+      - dao-customer-controller
+      summary: Add Account
+      description: This API will create account of given customer
+      operationId: addAccount
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OpenAccountRequest'
+        required: true
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/submitLienMarking:
+    post:
+      tags:
+      - transaction-adjustment-controller
+      summary: Submit Lien Marking for a Customer's Transaction
+      operationId: submitLienMarking
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LienMarkingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/postReversal:
+    post:
+      tags:
+      - transaction-adjustment-controller
+      summary: Get Customer transactions for Reversal
+      operationId: postReversal
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReversalTransactionRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+  /api/v1/wallet/customer/getReversalList/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - transaction-adjustment-controller
+      summary: get customer posting list
+      description: get customer posting list
+      operationId: getReversalList
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReversalListRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getMotherAndPlaceOfBirthRelation:
+    post:
+      tags:
+      - customer-controller
+      summary: Get Relation of Mother and Place of Birth, Returns True if relation
+        exists
+      operationId: getRelationBetweenMotherAndDateOfPlace
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MotherAndPOBRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getLienMarkingList/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - transaction-adjustment-controller
+      summary: Get List View of Lien Marking
+      operationId: getLienMarkingList
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LienMarkingListRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCustomer:
+    post:
+      tags:
+      - customer-controller
+      summary: Get Detail of customer
+      operationId: getCustomer
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCustomerTransactions/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - customer-controller
+      summary: Get Transaction of customer
+      operationId: getCustomerTransactions
+      parameters:
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerTransactionSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCustomerTransactionForReversal/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - transaction-adjustment-controller
+      summary: Get Customer transactions for Reversal
+      operationId: getCustomerTransactionForReversal
+      parameters:
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReversalTransactionSearchingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCustomerRisk:
+    post:
+      tags:
+      - customer-controller
+      summary: Get Risks of customer
+      operationId: getCustomerRisk
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCustomerPosting/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - transaction-adjustment-controller
+      summary: get customer posting list
+      description: get customer posting list
+      operationId: getCustomerPosting
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetCustomerPostingList'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCustomerLimits:
+    post:
+      tags:
+      - customer-controller
+      summary: Get Available limit of customer
+      operationId: getCustomerLimits
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCustomerDocument:
+    post:
+      tags:
+      - customer-controller
+      summary: Get Documents of customer
+      operationId: getCustomerDocument
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getCddAlerts/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - customer-controller
+      summary: Get Customers CDD Alerts
+      description: Fetch and return CDD alerts for customers cdd alerts based on the
+        provided request parameters.
+      operationId: getCddAlerts
+      parameters:
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CddAlertRequest'
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getAllCustomers/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - customer-controller
+      summary: Get All Customers
+      description: View all the Customers
+      operationId: getAllCustomer
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllCustomerSearchRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getAllAccountStatusChangeLogs/{pageSize}/{currentPage}:
+    post:
+      tags:
+      - customer-controller
+      summary: Get All Account Status Change Logs
+      operationId: getAllAccountStatusChangeLogs
+      parameters:
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetAllAccountStatusChangeLogRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/customerPosting:
+    post:
+      tags:
+      - transaction-adjustment-controller
+      summary: Initiate bpm process
+      description: Initiate bpm process
+      operationId: customerPosting
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerPostingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+                enum:
+                - 100 CONTINUE
+                - 101 SWITCHING_PROTOCOLS
+                - 102 PROCESSING
+                - 103 EARLY_HINTS
+                - 103 CHECKPOINT
+                - 200 OK
+                - 201 CREATED
+                - 202 ACCEPTED
+                - 203 NON_AUTHORITATIVE_INFORMATION
+                - 204 NO_CONTENT
+                - 205 RESET_CONTENT
+                - 206 PARTIAL_CONTENT
+                - 207 MULTI_STATUS
+                - 208 ALREADY_REPORTED
+                - 226 IM_USED
+                - 300 MULTIPLE_CHOICES
+                - 301 MOVED_PERMANENTLY
+                - 302 FOUND
+                - 302 MOVED_TEMPORARILY
+                - 303 SEE_OTHER
+                - 304 NOT_MODIFIED
+                - 305 USE_PROXY
+                - 307 TEMPORARY_REDIRECT
+                - 308 PERMANENT_REDIRECT
+                - 400 BAD_REQUEST
+                - 401 UNAUTHORIZED
+                - 402 PAYMENT_REQUIRED
+                - 403 FORBIDDEN
+                - 404 NOT_FOUND
+                - 405 METHOD_NOT_ALLOWED
+                - 406 NOT_ACCEPTABLE
+                - 407 PROXY_AUTHENTICATION_REQUIRED
+                - 408 REQUEST_TIMEOUT
+                - 409 CONFLICT
+                - 410 GONE
+                - 411 LENGTH_REQUIRED
+                - 412 PRECONDITION_FAILED
+                - 413 PAYLOAD_TOO_LARGE
+                - 413 REQUEST_ENTITY_TOO_LARGE
+                - 414 URI_TOO_LONG
+                - 414 REQUEST_URI_TOO_LONG
+                - 415 UNSUPPORTED_MEDIA_TYPE
+                - 416 REQUESTED_RANGE_NOT_SATISFIABLE
+                - 417 EXPECTATION_FAILED
+                - 418 I_AM_A_TEAPOT
+                - 419 INSUFFICIENT_SPACE_ON_RESOURCE
+                - 420 METHOD_FAILURE
+                - 421 DESTINATION_LOCKED
+                - 422 UNPROCESSABLE_ENTITY
+                - 423 LOCKED
+                - 424 FAILED_DEPENDENCY
+                - 425 TOO_EARLY
+                - 426 UPGRADE_REQUIRED
+                - 428 PRECONDITION_REQUIRED
+                - 429 TOO_MANY_REQUESTS
+                - 431 REQUEST_HEADER_FIELDS_TOO_LARGE
+                - 451 UNAVAILABLE_FOR_LEGAL_REASONS
+                - 500 INTERNAL_SERVER_ERROR
+                - 501 NOT_IMPLEMENTED
+                - 502 BAD_GATEWAY
+                - 503 SERVICE_UNAVAILABLE
+                - 504 GATEWAY_TIMEOUT
+                - 505 HTTP_VERSION_NOT_SUPPORTED
+                - 506 VARIANT_ALSO_NEGOTIATES
+                - 507 INSUFFICIENT_STORAGE
+                - 508 LOOP_DETECTED
+                - 509 BANDWIDTH_LIMIT_EXCEEDED
+                - 510 NOT_EXTENDED
+                - 511 NETWORK_AUTHENTICATION_REQUIRED
+  /api/v1/wallet/customer/changeCddAlertStatus:
+    post:
+      tags:
+      - customer-controller
+      summary: Change CDD Alerts Status Maker/Checker
+      description: Change Cdd Alerts status and customer status with respect to the
+        changing state.
+      operationId: changeCddAlertStatus
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangeCddAlertStatusRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/configuration/updateConfigurations:
+    post:
+      tags:
+      - configuration-controller
+      summary: Update Referral Configuration by Key and Value
+      description: Update Configuration
+      operationId: updateReferralConfig
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateConfigRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/configuration/configureCdd:
+    post:
+      tags:
+      - configuration-controller
+      summary: Configure CDD of Risk Customers
+      operationId: configureCdd
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CDDRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/bpm/updateTmsAlertConfig/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of TMS Alert Config (Checker End)
+      description: User Review Tasks of TMS Alert Config (Checker End)
+      operationId: userReturnedTasksReview
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTmsRuleConfigRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/transaction/tms/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of TMS Email Config (Checker End)
+      description: User Review Tasks of TMS Email (Checker End)
+      operationId: userReturnedTasksReview_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TmsEmailRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/reviewtasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks (Checker End)
+      description: User Review Tasks (Checker End)
+      operationId: userPendingTasksReview
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: operation
+        in: header
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewTaskReq'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks (Checker End)
+      description: User Review Tasks (Checker End)
+      operationId: userReturnedTasksReview_2
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReviewReturnedTaskReq'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/product/taxProfile/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of Product TAX PROFILE (Checker End)
+      description: User Review Tasks of Product TAX PROFILE (Checker End)
+      operationId: userReturnedTasksReview_3
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTaxProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/product/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of Product Config (Checker End)
+      description: User Review Tasks of Product Config (Checker End)
+      operationId: userReturnedTasksReview_4
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/product/productCategory/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of Product Category Config (Checker End)
+      description: User Review Tasks of Product Category Config (Checker End)
+      operationId: userReturnedTasksReview_5
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/product/feeProfile/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of Product FEE PROFILE (Checker End)
+      description: User Review Tasks of Product FEE PROFILE (Checker End)
+      operationId: userReturnedTasksReview_6
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFeeProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/lienMarking/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of Lien Marking (Checker End)
+      description: User Review Tasks of Lien Marking (Checker End)
+      operationId: userReturnedTasksReview_7
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LienMarkingRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/kyc/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of Kyc Set (Checker End)
+      description: User Review Tasks of Kyc Set (Checker End)
+      operationId: userReturnedTasksReview_8
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetReturnedReviewTask'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/bpm/configureCdd/reviewReturnedTasks:
+    post:
+      tags:
+      - gl-bpm-controller
+      summary: User Review Tasks of CDD Configuration (Checker End)
+      description: User Review Tasks of CDD Configuration (Checker End)
+      operationId: userReturnedTasksReview_9
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CDDRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/wallet/authenticate:
+    post:
+      tags:
+      - jwt-authentication-controller
+      summary: Get Access Token
+      description: This API create token
+      operationId: createAuthenticationToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JwtRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/wallet/account/verifyReferralCode:
+    post:
+      tags:
+      - account-controller
+      summary: Verify Referral Code if its available and the user is not registered.
+      description: Verify Referral Code
+      operationId: verifyReferralCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VerifyReferralCodeRequestDTO'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/getIdentifierFiller:
+    get:
+      tags:
+      - validator-controller
+      description: Fetches the specified Validator by Name
+      operationId: getIdentifierFiller
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/getByName/{name}:
+    get:
+      tags:
+      - validator-controller
+      description: Fetches the specified Validator by Name
+      operationId: getByName
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/getById/{id}:
+    get:
+      tags:
+      - validator-controller
+      description: Fetches the specified Validator by Id
+      operationId: getById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/getAll:
+    get:
+      tags:
+      - validator-controller
+      description: View all the Validators
+      operationId: getAllValidator
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/validator/filler:
+    get:
+      tags:
+      - validator-controller
+      description: Validator List Filler
+      operationId: filler
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/uiAuditLog/{id}:
+    get:
+      tags:
+      - ui-audit-log-controller
+      description: Get UI Audit Log by ID (Non Financial)
+      operationId: getUiAuditLogById
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/tms/getTmsRules:
+    get:
+      tags:
+      - transaction-monitoring-system-controller
+      summary: Get Related Transactions of the Account based on TMS Alert
+      description: This api will return the related transactions of the Account based
+        on TMS Alert
+      operationId: getTmsRules
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: ModuleName
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/province/getByCountry/{countryCode}:
+    get:
+      tags:
+      - province-controller
+      description: Fetches Provinces by Country Code
+      operationId: getProvincesByCountryCode
+      parameters:
+      - name: countryCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/province/getAll:
+    get:
+      tags:
+      - province-controller
+      description: Fetches all Provinces
+      operationId: getAllProvinces
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productkycset/getByProductCode/{code}:
+    get:
+      tags:
+      - product-kyc-set-controller
+      description: Fetches the specified ProductKycSet by ProductCode
+      operationId: getByProductCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productkycset/getById/{id}:
+    get:
+      tags:
+      - product-kyc-set-controller
+      description: Fetches the specified ProductKycSet by Id
+      operationId: getById_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productkycset/deleteById/{Id}:
+    get:
+      tags:
+      - product-kyc-set-controller
+      description: Deletes the specified ProductKycSet
+      operationId: deleteById
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getByTransactionCode/{transactionCode}:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: Fetches the specified ProductChannelTranRel by TransactionCode
+      operationId: getByTransactionCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: transactionCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getByTaxId/{taxId}:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: Fetches the specified ProductChannelTranRel by TaxId
+      operationId: getByTaxId
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: taxId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getByPurchaseCode/{purchaseCode}:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: Fetches the specified ProductChannelTranRel by PurchaseModeCode
+      operationId: getByPurchaseCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: purchaseCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getByProductCode/{productCode}:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: Fetches the specified ProductChannelTranRel by ProductCode
+      operationId: getByProductCode_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: productCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getById/{id}:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: Fetches the specified ProductChannelTranRel by Id
+      operationId: getById_2
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getByFeeId/{feeId}:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: Fetches the specified ProductChannelTranRel by FeeId
+      operationId: getByFeeId
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: feeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getByChannelCode/{channelCode}:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: Fetches the specified ProductChannelTranRel by ChannelCode
+      operationId: getByChannelCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: channelCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productchanneltran/getAll:
+    get:
+      tags:
+      - product-channel-tran-controller
+      description: View all the ProductChannelTranRel
+      operationId: getAllProductChannelTranRel
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productTax/getTaxById/{id}:
+    get:
+      tags:
+      - product-tax-controller
+      description: Update Product Fee
+      operationId: getTaxById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productTax/getAllConfiguredTaxes:
+    get:
+      tags:
+      - product-tax-controller
+      summary: Get all configured and non-configured Product Taxes
+      description: View all the Product Taxes in a simple list, configured for both
+        configured and non-configured fees
+      operationId: getAllConfiguredTaxes
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: isConfigured
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/getFeeById/{id}:
+    get:
+      tags:
+      - product-fee-controller
+      description: Update Product Fee
+      operationId: getFeeById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/getAllFeeFed:
+    get:
+      tags:
+      - product-fee-controller
+      description: View all the Product Fees FED
+      operationId: getAllProductFeesFed
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/getAllConfiguredFees:
+    get:
+      tags:
+      - product-fee-controller
+      summary: Get all configured and non-configured Product Fees
+      description: View all the Product Fees in a simple list, configured for both
+        configured and non-configured fees
+      operationId: getAllConfiguredFees
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: isConfigured
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productFee/getAllConfiguredFed:
+    get:
+      tags:
+      - product-fee-controller
+      summary: Get all configured and non-configured Product Fee Feds
+      description: View all the Product Fee Feds in a simple list, configured for
+        both configured and non-configured Fee Feds
+      operationId: getAllConfiguredFed
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: isConfigured
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productCategory/getByCode/{categoryCode}:
+    get:
+      tags:
+      - product-category-controller
+      description: Fetches the specified Product Category by Code
+      operationId: getByCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: categoryCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productCategory/getAll:
+    get:
+      tags:
+      - product-category-controller
+      description: Fetches All The Product Categories both Active and Inactive
+      operationId: getAll
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/productCategory/getAllActive:
+    get:
+      tags:
+      - product-category-controller
+      description: Fetches All Active The Product Categories
+      operationId: getAllActive
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/getLovs:
+    get:
+      tags:
+      - product-controller
+      description: Fetches all Product Lovs(Trans Codes, Category Codes, Kyc Sets,
+        Channel Codes, Product Levels)
+      operationId: getProductLovs
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/getByProductCategory/{productCategoryCode}:
+    get:
+      tags:
+      - product-controller
+      description: Fetches the specified Products by Product Category Code
+      operationId: getByProductCategory
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: productCategoryCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/getByLevelName/{levelName}:
+    get:
+      tags:
+      - product-controller
+      description: Fetches all Products by Level Name
+      operationId: getProductsByLevelName
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: levelName
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/getByCode/{productCode}:
+    get:
+      tags:
+      - product-controller
+      description: Fetches the specified Product by Code
+      operationId: getByCode_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: productCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/getAllProducts:
+    get:
+      tags:
+      - product-controller
+      operationId: getAllProducts_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/filler:
+    get:
+      tags:
+      - product-controller
+      description: View all the Products that are active as a filer
+      operationId: filler_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/product/code/{id}:
+    get:
+      tags:
+      - product-controller
+      description: Get Product by ID
+      operationId: fetchByCode
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/predefineList/getAll:
+    get:
+      tags:
+      - predefine-list-controller
+      description: Get all Predefine List
+      operationId: getAll_1
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/predefineList/filler:
+    get:
+      tags:
+      - predefine-list-controller
+      description: Predefine List Filler
+      operationId: filler_2
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/paymentmode/getPaymentModeByTranCode/{tranCode}:
+    get:
+      tags:
+      - payment-mode-controller
+      description: Get Payement Mode By Transaction Code
+      operationId: getPaymentModeByTranCode
+      parameters:
+      - name: tranCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/paymentmode/getByCustTypeCode/{custTypeCode}:
+    get:
+      tags:
+      - payment-mode-controller
+      description: Get Payement Mode By Operating Mode
+      operationId: getByOperModeCode
+      parameters:
+      - name: custTypeCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/paymentmode/filler:
+    get:
+      tags:
+      - payment-mode-controller
+      description: Get Payment Mode Filler
+      operationId: getAllAccountStatus
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycset-setattribute/getByName/{name}:
+    get:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: Fetches the specified KycSet by Name
+      operationId: getByName_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycset-setattribute/getByKycAttributeId/{getByKycAttributeId}:
+    get:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: Fetches the specified KycSet by kyc attribute id
+      operationId: getByKycAttributeId
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: getByKycAttributeId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycset-setattribute/getById/{Id}:
+    get:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: Fetches the specified KycSet by Id
+      operationId: getById_3
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: Id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycset-setattribute/filler:
+    get:
+      tags:
+      - kyc-set-and-set-attributes-controller
+      description: View all the active KycSets as a filer
+      operationId: filler_3
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycattribute-list/getById/{kycAttributeId}:
+    get:
+      tags:
+      - kyc-attribute-and-list-controller
+      description: Fetches the specified KycAttributes by Id
+      operationId: getById_4
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: kycAttributeId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycattribute-list/getByCode/{attributeCode}:
+    get:
+      tags:
+      - kyc-attribute-and-list-controller
+      description: Fetches the specified KycAttributes by Code
+      operationId: getByCode_2
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: attributeCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/kycattribute-list/getAll:
+    get:
+      tags:
+      - kyc-attribute-and-list-controller
+      description: View all the KycAttributes and Lists
+      operationId: getAll_2
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investortypegroup/getByName/{name}:
+    get:
+      tags:
+      - investor-type-group-controller
+      description: Fetches the specified InvestorTypeGroup by Name
+      operationId: getByName_2
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investortypegroup/getById/{InvestorTypeGroupId}:
+    get:
+      tags:
+      - investor-type-group-controller
+      description: Fetches the specified InvestorTypeGroup by Id
+      operationId: getById_5
+      parameters:
+      - name: InvestorTypeGroupId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investortypegroup/getAll:
+    get:
+      tags:
+      - investor-type-group-controller
+      description: View all the Active InvestorTypeGroups and its details
+      operationId: getAllInvestorTypeGroupAndDetails
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investortypegroup/filler:
+    get:
+      tags:
+      - investor-type-group-controller
+      description: Filler for all the Active InvestorTypeGroups
+      operationId: filler_4
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investor/getByCode/{code}:
+    get:
+      tags:
+      - investor-controller
+      description: Get Investor Type by Code
+      operationId: getByCode_3
+      parameters:
+      - name: code
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/investor/getAll:
+    get:
+      tags:
+      - investor-controller
+      description: View all the Investor Types
+      operationId: getAllInvestorTypes
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/voucher/getVoucherDetails:
+    get:
+      tags:
+      - gl-voucher-controller
+      summary: Get voucher detail
+      description: This API will return voucher detail
+      operationId: getVoucherDetails
+      parameters:
+      - name: voucherNo
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/voucher/getPurpose:
+    get:
+      tags:
+      - gl-voucher-controller
+      summary: Get voucher types
+      description: This API will return purpose
+      operationId: getPurpose
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/voucher/generate:
+    get:
+      tags:
+      - gl-voucher-controller
+      summary: Get voucher number
+      description: This API will generate Voucher number for GL posting
+      operationId: generateVoucherNo
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/getParentsForAccountAdding:
+    get:
+      tags:
+      - gl-coa-controller
+      summary: get all Coa
+      description: This API will return all GL Coa
+      operationId: getParentsForAccountAdding
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/getCounterAccount:
+    get:
+      tags:
+      - gl-coa-controller
+      summary: get all categories
+      description: This API will return all GL categories
+      operationId: getCounterAccount
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/getAll:
+    get:
+      tags:
+      - gl-coa-controller
+      summary: get all Coa
+      description: This API will return all GL Coa
+      operationId: getAll_3
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/getAllHeirarchy:
+    get:
+      tags:
+      - gl-coa-controller
+      summary: get all categories
+      description: This API will return all GL categories
+      operationId: getAllHeirarchy
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/coa/getAccountsForPosting:
+    get:
+      tags:
+      - gl-coa-controller
+      summary: get all categories
+      description: This API will return all GL categories
+      operationId: getAccountsForPosting
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/gl/category/getAll:
+    get:
+      tags:
+      - gl-category-controller
+      summary: get all categories
+      description: This API will return all GL categories
+      operationId: getAll_4
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/district/getByCity/{cityCode}:
+    get:
+      tags:
+      - district-controller
+      description: Fetches Districts by City Code
+      operationId: getDistrictsByCityCode
+      parameters:
+      - name: cityCode
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/district/getAll:
+    get:
+      tags:
+      - district-controller
+      description: Fetches all Districts
+      operationId: getAllDistricts
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/getProductDetail/{accountNumber}:
+    get:
+      tags:
+      - dao-customer-controller
+      summary: Get Product detail
+      description: This API will return details of given product
+      operationId: getProductDetail
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: accountNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/dao/customer/getKyc/{identValue}/{mobileNumber}:
+    get:
+      tags:
+      - dao-customer-controller
+      summary: Get Kyc
+      description: This API will return Kyc of customer
+      operationId: getKyc
+      parameters:
+      - name: UserId
+        in: header
+        required: false
+        schema:
+          type: string
+      - name: identValue
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: mobileNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '400':
+          description: Internal Server Error
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+        '200':
+          description: SUCCESS
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/getListAdjustment:
+    get:
+      tags:
+      - transaction-adjustment-controller
+      summary: Get List of Adjustments Transaction codes
+      operationId: getListAdjustment
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/customer/dashboard:
+    get:
+      tags:
+      - customer-controller
+      summary: View Details of Dashboard Analytics that includes total customers,
+        active customers, inactive customers, blocked customers, and pending customers.
+      description: View Dashboard Analytics
+      operationId: getDashboardAnalytics
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/country/getHierarchy:
+    get:
+      tags:
+      - country-controller
+      description: Fetches Full Hierarchy
+      operationId: getHierarchy
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/country/getAll:
+    get:
+      tags:
+      - country-controller
+      description: Fetches all Countries
+      operationId: getAllCountries
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/configuration/getRiskCustomers:
+    get:
+      tags:
+      - configuration-controller
+      summary: Get Detail of customer
+      operationId: getCustomer_1
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/configuration/getConfigurations:
+    get:
+      tags:
+      - configuration-controller
+      summary: Get Referral Configuration Details
+      description: Get Referral Configuration
+      operationId: getReferralConfig
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/configuration/getCddData:
+    get:
+      tags:
+      - configuration-controller
+      summary: Get CDD Configured Data
+      operationId: getCddData
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/city/getByProvince/{provinceId}:
+    get:
+      tags:
+      - city-controller
+      description: Fetches Cities by Province ID
+      operationId: getCitiesByProvinceId
+      parameters:
+      - name: provinceId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/city/getAll:
+    get:
+      tags:
+      - city-controller
+      description: Fetches all Cities
+      operationId: getAllCities
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+  /api/v1/wallet/bpm/process/getreturnedmergelist/{pageSize}/{currentPage}:
+    get:
+      tags:
+      - gl-bpm-controller
+      summary: Get Returned Pending List (Maker)
+      description: Get Returned Pending List (Maker)
+      operationId: returnedMergeResult
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: operation
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/wallet/bpm/process/getmergelist/{pageSize}/{currentPage}:
+    get:
+      tags:
+      - gl-bpm-controller
+      summary: Get merge pending list (Checker)
+      description: Get merge pending list (Checker)
+      operationId: mergeResult
+      parameters:
+      - name: UserId
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: operation
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: pageSize
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      - name: currentPage
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: object
+components:
+  schemas:
+    AccountStatusChangeRequest:
+      required:
+      - accountNumber
+      - toStatusCode
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        fromStatusCode:
+          type: string
+        fromStatusName:
+          type: string
+        toStatusCode:
+          type: string
+        toStatusName:
+          type: string
+        attributeValue:
+          type: string
+        attributeCode:
+          type: string
+        remarks:
+          type: string
+    ServiceResponse:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+        data:
+          type: object
+    ValidatorArgumentRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        validatorValue:
+          type: string
+        validatorId:
+          type: integer
+          format: int64
+    ValidatorRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        validatorArgumentsRequest:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidatorArgumentRequestDTO'
+    KYCFillerRequestDTO:
+      type: object
+      properties:
+        productCode:
+          maxLength: 4
+          minLength: 4
+          pattern: ^\d+$
+          type: string
+        investorCode:
+          maxLength: 3
+          minLength: 3
+          pattern: ^\d+$
+          type: string
+        kycCode:
+          maxLength: 20
+          minLength: 0
+          type: string
+        kycName:
+          maxLength: 100
+          minLength: 0
+          type: string
+    GetAllUiAuditLogRequest:
+      type: object
+      properties:
+        requestDate:
+          type: string
+        workFlowStatus:
+          type: string
+        requestType:
+          type: string
+        userId:
+          type: string
+    TrxHistoryRequest:
+      required:
+      - accountNumber
+      - endDate
+      - pageNumber
+      - pageSize
+      - startDate
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        pageNumber:
+          type: string
+        pageSize:
+          type: string
+        rrn:
+          type: string
+        stan:
+          type: string
+    AccountStatementRequest:
+      required:
+      - accountNumber
+      - endDate
+      - startDate
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        startDate:
+          type: string
+        endDate:
+          type: string
+        rrn:
+          type: string
+        stan:
+          type: string
+    TrxDetailsRequest:
+      required:
+      - transactionId
+      type: object
+      properties:
+        transactionId:
+          type: string
+        rrn:
+          type: string
+        stan:
+          type: string
+    UpdateTmsRuleConfigRequest:
+      required:
+      - id
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        id:
+          type: integer
+          format: int64
+        isActive:
+          type: string
+        timeLimit:
+          minimum: 1
+          type: integer
+          format: int32
+        frequency:
+          minimum: 1
+          type: integer
+          format: int32
+        value:
+          minimum: 1
+          type: integer
+          format: int32
+        req:
+          $ref: '#/components/schemas/UpdateTmsRuleConfigRequest'
+    UpdateDelayTransactionStatusRequest:
+      required:
+      - delayTransactionId
+      - status
+      - userType
+      type: object
+      properties:
+        delayTransactionId:
+          type: integer
+          format: int64
+        status:
+          type: string
+        userType:
+          type: string
+    TmsEmailRequest:
+      required:
+      - description
+      - email
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        id:
+          type: integer
+          format: int64
+        email:
+          pattern: ^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$
+          type: string
+        description:
+          type: string
+        createdBy:
+          type: string
+        req:
+          $ref: '#/components/schemas/TmsEmailRequest'
+        inActive:
+          type: boolean
+    TmsAlertSearchRequest:
+      type: object
+      properties:
+        assigneeRole:
+          type: string
+        assignedTo:
+          type: string
+        conclusion:
+          type: string
+          enum:
+          - CLEAR
+          - SUSPICIOUS
+          - NOT_SUSPICIOUS
+        status:
+          type: string
+        id:
+          type: integer
+          format: int64
+        accountId:
+          type: integer
+          format: int64
+        toDate:
+          type: string
+    DelayTransactionSearchRequest:
+      type: object
+      properties:
+        assignee:
+          type: string
+        status:
+          type: string
+        accountNumber:
+          type: string
+        accountId:
+          type: string
+        referenceNumber:
+          type: string
+        channelCode:
+          type: string
+        transactionCode:
+          type: string
+    BulkTmsAlertDataUpdate:
+      type: object
+      properties:
+        tmsAlertData:
+          $ref: '#/components/schemas/TmsAlertDataUpdate'
+        tmsAlertIds:
+          type: array
+          items:
+            type: integer
+            format: int64
+    TmsAlertDataUpdate:
+      type: object
+      properties:
+        status:
+          type: string
+        conclusion:
+          type: string
+          enum:
+          - CLEAR
+          - SUSPICIOUS
+          - NOT_SUSPICIOUS
+        comment:
+          type: string
+        userType:
+          type: string
+        userId:
+          type: string
+    TmsAlertAssignRequest:
+      required:
+      - alertId
+      - isAssigned
+      - userId
+      - userType
+      type: object
+      properties:
+        alertId:
+          type: integer
+          format: int64
+        isAssigned:
+          type: boolean
+        userType:
+          type: string
+        userId:
+          type: string
+    ProductKycSearchRequestDTO:
+      type: object
+      properties:
+        productCode:
+          type: string
+        investorTypeCode:
+          type: string
+    ChannelRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        description:
+          type: string
+        active:
+          type: string
+        channelType:
+          type: string
+    EventFeeListsDTO:
+      type: object
+      properties:
+        eventFeeId:
+          type: integer
+          format: int64
+        event:
+          $ref: '#/components/schemas/Filler'
+        amountType:
+          $ref: '#/components/schemas/Filler'
+        recurrence:
+          $ref: '#/components/schemas/Filler'
+        value:
+          type: number
+        isRecurring:
+          $ref: '#/components/schemas/Filler'
+        waiverAllowed:
+          $ref: '#/components/schemas/Filler'
+        glAccountId:
+          $ref: '#/components/schemas/Filler'
+        isEdit:
+          type: boolean
+        isNew:
+          type: boolean
+        isActive:
+          type: boolean
+    EventFeeTabDTO:
+      type: object
+      properties:
+        eventFeeList:
+          type: array
+          items:
+            $ref: '#/components/schemas/EventFeeListsDTO'
+    FeeRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        active:
+          type: string
+        description:
+          type: string
+    Filler:
+      type: object
+      properties:
+        value:
+          type: string
+        label:
+          type: string
+        typeId:
+          type: string
+    PaymentModeRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        active:
+          type: string
+    ProductChannelTranRelRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        channel:
+          $ref: '#/components/schemas/ChannelRequestDTO'
+        paymentMode:
+          $ref: '#/components/schemas/PaymentModeRequestDTO'
+        transaction:
+          $ref: '#/components/schemas/TransactionRequestDTO'
+        fee:
+          $ref: '#/components/schemas/FeeRequestDTO'
+        product:
+          $ref: '#/components/schemas/ProductRequestDTO'
+        tax:
+          $ref: '#/components/schemas/TaxRequestDTO'
+        active:
+          type: string
+        limitDetail:
+          $ref: '#/components/schemas/ProductLimitRequestDTO'
+    ProductInvestmentListDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        customerType:
+          type: string
+        startRange:
+          type: number
+        endRange:
+          type: number
+        startCycle:
+          type: string
+        endCycle:
+          type: string
+        jointDivisor:
+          type: number
+        isNew:
+          type: boolean
+    ProductLimitRequestDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    ProductLimitTabDTO:
+      type: object
+      properties:
+        productLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductInvestmentListDTO'
+        transactionLimits:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductLimitsListDTO'
+    ProductLimitsListDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        limitType:
+          type: string
+          enum:
+          - D
+          - C
+        dailyLimit:
+          type: number
+        monthlyLimit:
+          type: number
+        yearlyLimit:
+          type: number
+        startDate:
+          type: string
+        endDate:
+          type: string
+        isNew:
+          type: boolean
+    ProductRequestDTO:
+      required:
+      - code
+      - name
+      - tabName
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        code:
+          pattern: ^\d{4}$
+          type: string
+        name:
+          maxLength: 100
+          minLength: 1
+          type: string
+        tabName:
+          maxLength: 50
+          minLength: 1
+          type: string
+        productTab:
+          $ref: '#/components/schemas/ProductTabDTO'
+        kycSet:
+          $ref: '#/components/schemas/Filler'
+        productLimitTab:
+          $ref: '#/components/schemas/ProductLimitTabDTO'
+        transactionTab:
+          $ref: '#/components/schemas/TransactionTabDTO'
+        eventFeeTab:
+          $ref: '#/components/schemas/EventFeeTabDTO'
+        req:
+          $ref: '#/components/schemas/ProductRequestDTO'
+    ProductTabDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        shortName:
+          type: string
+        zakatApplicable:
+          $ref: '#/components/schemas/Filler'
+        description:
+          type: string
+        level:
+          $ref: '#/components/schemas/Filler'
+        productCategory:
+          $ref: '#/components/schemas/Filler'
+    TaxRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        active:
+          type: string
+        description:
+          type: string
+    TransactionRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        financial:
+          type: string
+        narration:
+          type: string
+        type:
+          type: string
+        active:
+          type: string
+        reversedTranCode:
+          type: string
+    TransactionTabDTO:
+      type: object
+      properties:
+        transList:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionsList'
+    TransactionsList:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        channelCode:
+          $ref: '#/components/schemas/Filler'
+        transCode:
+          $ref: '#/components/schemas/Filler'
+        feeId:
+          type: integer
+          format: int64
+        taxId:
+          type: integer
+          format: int64
+        glAccount:
+          type: integer
+          format: int64
+        isActive:
+          type: boolean
+        isEdit:
+          type: boolean
+        isNew:
+          type: boolean
+    AddTaxProfileRequestDTO:
+      required:
+      - code
+      - name
+      - tax
+      - taxSlabList
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        code:
+          maxLength: 2147483647
+          minLength: 4
+          type: string
+        name:
+          type: string
+        tax:
+          $ref: '#/components/schemas/Filler'
+        taxSlabList:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/TaxSlabList'
+        req:
+          $ref: '#/components/schemas/AddTaxProfileRequestDTO'
+    TaxSlabList:
+      required:
+      - amount
+      - effectiveDate
+      - filer
+      - glCoa
+      - slabHigh
+      - slabLow
+      - type
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        isNew:
+          type: boolean
+        slabHigh:
+          minimum: 0.0
+          exclusiveMinimum: true
+          type: number
+        slabLow:
+          minimum: 0.0
+          exclusiveMinimum: false
+          type: number
+        amount:
+          minimum: 0.0
+          exclusiveMinimum: false
+          type: number
+        effectiveDate:
+          type: string
+        type:
+          $ref: '#/components/schemas/Filler'
+        filer:
+          $ref: '#/components/schemas/Filler'
+        glCoa:
+          $ref: '#/components/schemas/Filler'
+    ProductFeeAndTaxSearchDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        active:
+          type: string
+    AddFeeProfileRequestDTO:
+      required:
+      - code
+      - fee
+      - name
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        code:
+          type: string
+        name:
+          type: string
+        fee:
+          $ref: '#/components/schemas/Filler'
+        feeSlabList:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/FeeSlabListDTO'
+        req:
+          $ref: '#/components/schemas/AddFeeProfileRequestDTO'
+    FedRequestDTO:
+      required:
+      - active
+      - amountType
+      - description
+      - filer
+      - glCoa
+      - id
+      - name
+      - value
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        profileName:
+          type: string
+        profileCode:
+          type: string
+        value:
+          type: string
+        description:
+          type: string
+        amountType:
+          type: string
+        active:
+          type: string
+        glCoa:
+          $ref: '#/components/schemas/Filler'
+        filer:
+          $ref: '#/components/schemas/Filler'
+    FeeSlabListDTO:
+      required:
+      - amount
+      - effectiveDate
+      - glCoa
+      - slabHigh
+      - slabLow
+      - type
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        glCoa:
+          $ref: '#/components/schemas/Filler'
+        type:
+          $ref: '#/components/schemas/Filler'
+        amount:
+          type: number
+        slabHigh:
+          type: number
+        slabLow:
+          minimum: 0
+          type: number
+        minimumCap:
+          type: number
+        maximumCap:
+          minimum: 0
+          type: number
+        extraFixedAmount:
+          minimum: 0
+          type: number
+        effectiveDate:
+          type: string
+        fedList:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/FedRequestDTO'
+    AddFedRequestDTO:
+      required:
+      - amountType
+      - fee
+      - filer
+      - glCoa
+      - profileCode
+      - profileName
+      - value
+      type: object
+      properties:
+        profileCode:
+          type: string
+        profileName:
+          type: string
+        value:
+          type: string
+        fee:
+          $ref: '#/components/schemas/Filler'
+        glCoa:
+          $ref: '#/components/schemas/Filler'
+        amountType:
+          $ref: '#/components/schemas/Filler'
+        filer:
+          $ref: '#/components/schemas/Filler'
+    ProductCategoryRequestDTO:
+      required:
+      - categoryCode
+      - description
+      - glCoaCode
+      - isActive
+      - isAmlAllowed
+      - isBulkOnboardingAllowed
+      - isDigitalAppAllowed
+      - isIndividualOnboardingAllowed
+      - isReferralAllowed
+      - levelCount
+      - shortDescription
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        categoryCode:
+          type: string
+        shortDescription:
+          type: string
+        description:
+          type: string
+        glCoaCode:
+          $ref: '#/components/schemas/Filler'
+        levelCount:
+          type: integer
+          format: int32
+        isActive:
+          $ref: '#/components/schemas/Filler'
+        isReferralAllowed:
+          $ref: '#/components/schemas/Filler'
+        isBulkOnboardingAllowed:
+          $ref: '#/components/schemas/Filler'
+        isDigitalAppAllowed:
+          $ref: '#/components/schemas/Filler'
+        isIndividualOnboardingAllowed:
+          $ref: '#/components/schemas/Filler'
+        isAmlAllowed:
+          $ref: '#/components/schemas/Filler'
+        req:
+          $ref: '#/components/schemas/ProductCategoryRequestDTO'
+    ProductSearchRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        category:
+          type: string
+        level:
+          type: string
+        status:
+          type: string
+    AccountCustomerRequest:
+      type: object
+      properties:
+        identType:
+          type: string
+        identValue:
+          type: string
+    AccountRequest:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        accountTitle:
+          type: string
+        accountType:
+          type: string
+        accountCurrency:
+          type: string
+        primaryCustomer:
+          $ref: '#/components/schemas/AccountCustomerRequest'
+        secondaryCustomer:
+          $ref: '#/components/schemas/AccountCustomerRequest'
+    AdditionalAccountInfo:
+      type: object
+      properties:
+        trackData:
+          type: string
+        trackDataExtended:
+          type: string
+    AdditionalBillInfo:
+      type: object
+      properties:
+        clientID:
+          type: string
+        channelID:
+          type: string
+        stan:
+          type: string
+        companyCode:
+          type: string
+        consumerNo:
+          type: string
+        authID:
+          type: string
+        responseDetail:
+          type: string
+        reserved01:
+          type: string
+        reserved02:
+          type: string
+        billInquiryDetails:
+          $ref: '#/components/schemas/AdditionalBillInquiryDetails'
+    AdditionalBillInquiryDetails:
+      type: object
+      properties:
+        payeeCNIC:
+          type: string
+        city:
+          type: string
+        province:
+          type: string
+        accountId:
+          type: string
+        fromAccountType:
+          type: string
+        fromAccountTitle:
+          type: string
+        bundleId:
+          type: string
+        bundleQuantity:
+          type: string
+        billStatus:
+          type: string
+        billingMonth:
+          type: string
+        branchCode:
+          type: string
+        branchName:
+          type: string
+        dueDate:
+          type: string
+        amountWithinDueDate:
+          type: string
+        amountAfterDueDate:
+          type: string
+        totalLoanAmount:
+          type: string
+        totalOutstandingAmount:
+          type: string
+        feeAmount:
+          type: string
+        maxLimit:
+          type: string
+        minLimit:
+          type: string
+        supportingInfo1:
+          type: string
+        supportingInfo2:
+          type: string
+    AdditionalCardInfo:
+      type: object
+      properties:
+        pan:
+          type: string
+        cardExpiry:
+          type: string
+        panSeqNumber:
+          type: string
+        cardAcceptorCode:
+          type: string
+        paymentScheme:
+          type: string
+    AdditionalInfoRequest:
+      type: object
+      properties:
+        accountInfo:
+          $ref: '#/components/schemas/AdditionalAccountInfo'
+        merchantInfo:
+          $ref: '#/components/schemas/AdditionalMerchantInfo'
+        terminalInfo:
+          $ref: '#/components/schemas/AdditionalTerminalInfo'
+        settlementInfo:
+          $ref: '#/components/schemas/AdditionalSettlementInfo'
+        securityInfo:
+          $ref: '#/components/schemas/AdditionalSecurityInfo'
+        responseInfo:
+          $ref: '#/components/schemas/AdditionalResponseInfo'
+        reservedFields:
+          $ref: '#/components/schemas/ReserveFieldsRequest'
+        networkInfo:
+          $ref: '#/components/schemas/AdditionalNetworkInfo'
+        transactionInfoExtended:
+          $ref: '#/components/schemas/AdditionalTransactionInfoExtended'
+        cardInfo:
+          $ref: '#/components/schemas/AdditionalCardInfo'
+        supportingInfo:
+          $ref: '#/components/schemas/AdditionalSupportingInfo'
+        billInfo:
+          $ref: '#/components/schemas/AdditionalBillInfo'
+        raastInfo:
+          $ref: '#/components/schemas/RaastInfo'
+    AdditionalMerchantInfo:
+      type: object
+      properties:
+        merchantCategoryCode:
+          type: string
+        acquiringInstitutionIdentificationCode:
+          type: string
+        forwardingInstitutionIdentificationCode:
+          type: string
+        merchantIdCode:
+          type: string
+        merchantNameLocation:
+          type: string
+        merchantType:
+          type: string
+    AdditionalNetworkInfo:
+      type: object
+      properties:
+        networkInternationalIdentifier:
+          type: string
+        networkDestinationIdentifier:
+          type: string
+        networkInstitutionIdentifier:
+          type: string
+        acquiringInstitutionId:
+          type: string
+        forwardingInstitutionId:
+          type: string
+    AdditionalResponseInfo:
+      type: object
+      properties:
+        authorizationIdentificationResponseCode:
+          type: string
+        messageAuthenticationCode:
+          type: string
+    AdditionalSecurityInfo:
+      type: object
+      properties:
+        securityControlInfo:
+          type: string
+        iccData:
+          type: string
+        securityControlInfoVisaMastercard:
+          type: string
+    AdditionalSettlementInfo:
+      type: object
+      properties:
+        settlementDate:
+          type: string
+        settlementAmount:
+          type: string
+        mdr:
+          type: string
+        fedOnMdr:
+          type: string
+        captureDate:
+          type: string
+        currencyCodeTransaction:
+          type: string
+        currencyCodeSettlement:
+          type: string
+        currencyCodeCardholderBilling:
+          type: string
+        conversionRateSettlement:
+          type: string
+        conversionDate:
+          type: string
+        transmissionDateTime:
+          type: string
+    AdditionalSupportingInfo:
+      type: object
+      properties:
+        additionalDataNational:
+          type: string
+        additionalData:
+          type: string
+        additionalAmounts:
+          type: string
+        additionalEmvInformation:
+          type: string
+        cardAuthInformation:
+          type: string
+        originalDataElement:
+          type: string
+        reservedNational6:
+          type: string
+        reservedNational7:
+          type: string
+        reservedNational8:
+          type: string
+        recordData:
+          type: string
+        supportingInformation:
+          type: string
+    AdditionalTerminalInfo:
+      type: object
+      properties:
+        terminalId:
+          type: string
+        additionalTerminalLocation:
+          type: string
+        terminalLocation:
+          type: string
+        pointOfServiceEntryMode:
+          type: string
+        pointOfServiceConditionCode:
+          type: string
+        posPINCaptureCode:
+          type: string
+        receiptGenerated:
+          type: string
+    AdditionalTransactionInfoExtended:
+      type: object
+      properties:
+        networkInternationalIdentifier:
+          type: string
+        networkDestinationIdentifier:
+          type: string
+        acquiringInstitutionId:
+          type: string
+        forwardingInstitutionId:
+          type: string
+    AmountRequest:
+      type: object
+      properties:
+        value:
+          type: number
+        currency:
+          type: string
+    FeeRequest:
+      type: object
+      properties:
+        feeAmount:
+          type: number
+    RaastInfo:
+      type: object
+      properties:
+        paymentType:
+          type: string
+        endToEndId:
+          type: string
+        msgId:
+          type: string
+        beneficiaryAccountNumber:
+          type: string
+        beneficiaryMobileNumber:
+          type: string
+        transactionId:
+          type: string
+        senderBic:
+          type: string
+        receiverBic:
+          type: string
+        traceReferenceId:
+          type: string
+    ReserveFieldsRequest:
+      type: object
+      properties:
+        reservedField01:
+          type: string
+        reservedField02:
+          type: string
+        reservedField03:
+          type: string
+        reservedField04:
+          type: string
+        reservedField05:
+          type: string
+    TipRequest:
+      type: object
+      properties:
+        tipAmount:
+          type: number
+    TitleFetchTransactionRequest:
+      type: object
+      properties:
+        rrn:
+          type: string
+        stan:
+          type: string
+        transactionDate:
+          type: string
+        channel:
+          type: string
+        systemId:
+          type: string
+        msgId:
+          type: string
+        transaction:
+          $ref: '#/components/schemas/TransactionDetailsRequest'
+        toAccount:
+          $ref: '#/components/schemas/AccountRequest'
+        fromAccount:
+          $ref: '#/components/schemas/AccountRequest'
+        additionalInfo:
+          $ref: '#/components/schemas/AdditionalInfoRequest'
+        orgRrn:
+          type: string
+        orgStan:
+          type: string
+        orgMsgId:
+          type: string
+    TransactionDetailsRequest:
+      type: object
+      properties:
+        code:
+          type: string
+        purposeCode:
+          type: string
+        narration:
+          type: string
+        amount:
+          $ref: '#/components/schemas/AmountRequest'
+        fee:
+          $ref: '#/components/schemas/FeeRequest'
+        tip:
+          $ref: '#/components/schemas/TipRequest'
+    TransactionResponse:
+      type: object
+      properties:
+        responseCode:
+          type: string
+        responseDesc:
+          type: string
+        data:
+          type: object
+    UpdateAttributesRequest:
+      type: object
+      properties:
+        custIdentityValue:
+          type: string
+        custIdentityKey:
+          type: string
+        attributes:
+          type: object
+          additionalProperties:
+            type: string
+    GetCustomerKycDetailRequest:
+      required:
+      - custIdentificationCode
+      - custIdentificationValue
+      type: object
+      properties:
+        custIdentificationCode:
+          type: string
+        custIdentificationValue:
+          type: string
+        rrn:
+          type: string
+        stan:
+          type: string
+    AccountStatusChangeRequestDTO:
+      type: object
+      properties:
+        identificationValue:
+          type: string
+        accountNumber:
+          type: string
+        mobileNumber:
+          type: string
+        type:
+          type: string
+        accountStatus:
+          type: string
+    KycAttributeRequestDTO:
+      required:
+      - attributeCode
+      - attributeName
+      - isMandatory
+      type: object
+      properties:
+        attributeCode:
+          type: string
+        attributeName:
+          type: string
+        isMandatory:
+          maxLength: 1
+          minLength: 1
+          type: string
+    KycSetAttributeRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        kycAttribute:
+          $ref: '#/components/schemas/KycAttributeRequestDTO'
+        kycSet:
+          $ref: '#/components/schemas/KycSetRequestDTO'
+    KycSetRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        kycStatus:
+          type: string
+        setName:
+          type: string
+        kycSetAttributesRequest:
+          type: array
+          items:
+            $ref: '#/components/schemas/KycSetAttributeRequestDTO'
+    KycSetReturnedReviewTask:
+      required:
+      - id
+      - kycAttr
+      - kycStatus
+      - setName
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        id:
+          type: integer
+          format: int64
+        setName:
+          maxLength: 100
+          minLength: 5
+          type: string
+        kycStatus:
+          maxLength: 1
+          minLength: 1
+          type: string
+        kycAttr:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/KycAttributeRequestDTO'
+        approvalStatus:
+          type: string
+        req:
+          $ref: '#/components/schemas/KycSetReturnedReviewTask'
+    KycSetSearchDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+        setName:
+          type: string
+        approvalStatus:
+          type: string
+    InvestorTypeGroupDetailRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        investorTypeGroup:
+          $ref: '#/components/schemas/InvestorTypeGroupRequestDTO'
+        investorType:
+          $ref: '#/components/schemas/InvestorTypeRequestDTO'
+    InvestorTypeGroupRequestDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        groupName:
+          type: string
+        active:
+          type: string
+        investorTypeGroupDetails:
+          type: array
+          items:
+            $ref: '#/components/schemas/InvestorTypeGroupDetailRequestDTO'
+    InvestorTypeRequestDTO:
+      type: object
+      properties:
+        code:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        active:
+          type: string
+        minAge:
+          type: string
+        maxAge:
+          type: string
+    GlJournalEntry:
+      type: object
+      properties:
+        coa:
+          $ref: '#/components/schemas/Filler'
+        creditAmount:
+          type: number
+        debitAmount:
+          type: number
+        narration:
+          type: string
+        counterAccount:
+          type: boolean
+    GlJournalPostingRequest:
+      required:
+      - entries
+      - postingDate
+      - transactionType
+      type: object
+      properties:
+        voucherNumber:
+          type: string
+        postingDate:
+          type: string
+          format: date-time
+        voucherDate:
+          type: string
+          format: date-time
+        purpose:
+          $ref: '#/components/schemas/Filler'
+        transactionType:
+          type: string
+          enum:
+          - GL Journal In Creation
+          - GL Journal Out Creation
+          - GL Journal Entry Creation
+          - GL Journal In Updation
+          - GL Journal Out Updation
+          - GL Journal Entry Updation
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/GlJournalEntry'
+        totalDebit:
+          type: number
+        totalCredit:
+          type: number
+        supportingDocData:
+          type: string
+        documentRefNumber:
+          type: string
+        voucherStatus:
+          type: string
+        modified:
+          type: boolean
+    GetGlVoucherRequest:
+      type: object
+      properties:
+        voucherNumber:
+          type: string
+        voucherDate:
+          type: string
+        postingDate:
+          type: string
+        purpose:
+          type: string
+        createdBy:
+          type: string
+        status:
+          type: string
+    GlCoaRequest:
+      type: object
+      properties:
+        coaId:
+          type: integer
+          format: int64
+        coaCode:
+          type: string
+        coaDescription:
+          type: string
+        coaLevel:
+          type: integer
+          format: int32
+        coaParentId:
+          type: integer
+          format: int64
+        parent:
+          $ref: '#/components/schemas/Filler'
+        categoryData:
+          $ref: '#/components/schemas/Filler'
+        categoryId:
+          type: integer
+          format: int64
+        coaCurrency:
+          type: string
+        coaNature:
+          type: string
+        creditAllow:
+          type: boolean
+        debitAllow:
+          type: boolean
+        negativeBalanceAllow:
+          type: boolean
+        negativeBalanceAllowed:
+          $ref: '#/components/schemas/Filler'
+        minBalance:
+          type: number
+        maxBalance:
+          type: number
+        openingBalance:
+          type: number
+        isActive:
+          type: boolean
+        sapGl:
+          type: string
+        activation:
+          type: boolean
+    DocumentDataRequest:
+      type: object
+      properties:
+        documentRefNo:
+          type: string
+        documentType:
+          type: string
+        nature:
+          type: string
+        serverPath:
+          type: string
+    UploadDocumentsRequest:
+      type: object
+      properties:
+        customerIdentKey:
+          type: string
+        customerIdentValue:
+          type: string
+        customerCode:
+          type: string
+        receiveDate:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        channelCode:
+          type: string
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentDataRequest'
+        productCode:
+          type: string
+    CreateCustomerRequest:
+      type: object
+      properties:
+        customerIdentKey:
+          type: string
+        customerIdentValue:
+          type: string
+        customerName:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        channelCode:
+          type: string
+        isPep:
+          type: string
+        daoScreening:
+          type: string
+        productCategoryCode:
+          type: string
+        customerKycs:
+          type: object
+          additionalProperties:
+            type: string
+    BvsCustomerInfoRequest:
+      required:
+      - currentAddress
+      - dateOfBirth
+      - firstName
+      - identificationKey
+      - identificationValue
+      - parantageValue
+      - permanentAddress
+      type: object
+      properties:
+        channelCode:
+          type: string
+        identificationKey:
+          type: string
+        identificationValue:
+          pattern: \d{13}
+          type: string
+        firstName:
+          type: string
+        parantageValue:
+          type: string
+        dateOfBirth:
+          pattern: \d{4}-\d{2}-\d{2}
+          type: string
+        currentAddress:
+          type: string
+        permanentAddress:
+          type: string
+        referenceNumber:
+          type: string
+    AttributeExistByProductRequest:
+      required:
+      - attributeCode
+      - attributeValue
+      - productCategoryCode
+      type: object
+      properties:
+        attributeCode:
+          type: string
+        attributeValue:
+          type: string
+        productCategoryCode:
+          type: string
+    KYCAttributeExistRequest:
+      type: object
+      properties:
+        custIdentificationKey:
+          type: string
+        custIdentificationValue:
+          type: string
+        attributeCode:
+          type: string
+        attributeValue:
+          type: string
+        channelCode:
+          type: string
+    AccountUpgradeRequest:
+      type: object
+      properties:
+        channelCode:
+          type: string
+        identificationKey:
+          type: string
+        identificationValue:
+          type: string
+        productCode:
+          type: string
+        accountNumber:
+          type: string
+        updateDate:
+          type: string
+          format: date-time
+    OpenAccountCustomerRequest:
+      type: object
+      properties:
+        customerCode:
+          type: string
+        accountTitle:
+          type: string
+        openingDate:
+          type: string
+          format: date-time
+        amount:
+          type: number
+        customerIdentityKey:
+          type: string
+        customerIdentityValue:
+          type: string
+        isPrimary:
+          type: string
+    OpenAccountRequest:
+      type: object
+      properties:
+        channelCode:
+          type: string
+        productCode:
+          type: string
+        createdDate:
+          type: string
+          format: date-time
+        createdBy:
+          type: string
+        customerType:
+          type: string
+        isCardRequested:
+          type: string
+        mobileNumber:
+          type: string
+        referrerReferalCode:
+          type: string
+        customer:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenAccountCustomerRequest'
+    LienMarkingRequest:
+      required:
+      - accountId
+      - accountNumber
+      - availableBalance
+      - currentBalance
+      - customerCnic
+      - customerMobile
+      - customerTitle
+      - iban
+      - lienAmount
+      - purpose
+      - status
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        customerCnic:
+          type: string
+        customerTitle:
+          type: string
+        customerMobile:
+          type: string
+        accountNumber:
+          type: string
+        accountId:
+          type: integer
+          format: int64
+        iban:
+          type: string
+        currentBalance:
+          type: number
+        availableBalance:
+          type: number
+        lienAmount:
+          type: number
+        status:
+          type: string
+        narration:
+          maxLength: 100
+          minLength: 0
+          type: string
+        purpose:
+          $ref: '#/components/schemas/Filler'
+        lienMarkingId:
+          type: integer
+          format: int64
+        req:
+          $ref: '#/components/schemas/LienMarkingRequest'
+    ReversalTransactionRequest:
+      required:
+      - accountNumber
+      - amount
+      - fee
+      - narration
+      - postingDate
+      - referenceNumber
+      - rrn
+      - tax
+      - transactionCode
+      type: object
+      properties:
+        referenceNumber:
+          type: string
+        rrn:
+          type: string
+        accountNumber:
+          type: string
+        postingDate:
+          type: string
+          format: date-time
+        transactionCode:
+          type: string
+        amount:
+          type: number
+        tax:
+          type: number
+        fee:
+          type: number
+        narration:
+          type: string
+        purpose:
+          $ref: '#/components/schemas/Filler'
+    ReversalListRequest:
+      type: object
+      properties:
+        referenceNumber:
+          type: string
+        accountNumber:
+          type: string
+        postingDate:
+          type: string
+          format: date-time
+        transactionCode:
+          type: string
+        status:
+          type: string
+        purpose:
+          type: string
+    MotherAndPOBRequest:
+      required:
+      - customerIdentityValue
+      - motherName
+      - placeOfBirth
+      type: object
+      properties:
+        motherName:
+          type: string
+        placeOfBirth:
+          type: string
+        customerIdentityValue:
+          type: string
+    LienMarkingListRequest:
+      type: object
+      properties:
+        customerCnic:
+          type: string
+        customerMobile:
+          type: string
+        accountNumber:
+          type: string
+        iban:
+          type: string
+        status:
+          type: string
+        dateCreated:
+          type: string
+          format: date-time
+        dateModified:
+          type: string
+          format: date-time
+    CustomerSearchRequest:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    CustomerTransactionSearchRequest:
+      required:
+      - accountNumber
+      type: object
+      properties:
+        referenceNumber:
+          type: string
+        transactionDate:
+          pattern: \d{4}-\d{2}-\d{2}
+          type: string
+        accountNumber:
+          type: string
+        rrn:
+          type: string
+        fromAccount:
+          type: string
+        toAccount:
+          type: string
+        narration:
+          type: string
+    ReversalTransactionSearchingRequest:
+      required:
+      - accountNumber
+      type: object
+      properties:
+        referenceNumber:
+          type: string
+        transactionCode:
+          type: string
+        stan:
+          type: string
+        rrn:
+          type: string
+        accountNumber:
+          type: string
+    GetCustomerPostingList:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        purpose:
+          type: string
+        status:
+          type: string
+        transaction:
+          type: string
+        transactionDate:
+          type: string
+          format: date
+    CddAlertRequest:
+      type: object
+      properties:
+        customerCnic:
+          type: string
+        accountNumber:
+          type: string
+        status:
+          type: string
+        previousRiskRating:
+          type: string
+        currentRiskRating:
+          type: string
+        dateCreated:
+          type: string
+        assigneeRole:
+          type: string
+    GetAllCustomerSearchRequest:
+      type: object
+      properties:
+        accountNumber:
+          type: string
+        iban:
+          type: string
+        productCode:
+          type: string
+        createdBy:
+          type: string
+        mobileNumber:
+          type: string
+        cnicNumber:
+          type: string
+    GetAllAccountStatusChangeLogRequest:
+      type: object
+      properties:
+        userId:
+          type: string
+        accountId:
+          type: string
+        statusTo:
+          type: string
+        statusFrom:
+          type: string
+    CustomerPostingDetailRequest:
+      required:
+      - accountnumber
+      - transaction
+      type: object
+      properties:
+        transaction:
+          $ref: '#/components/schemas/Filler'
+        accountnumber:
+          type: string
+        title:
+          type: string
+        credit:
+          type: number
+        debit:
+          type: number
+        narration:
+          type: string
+        id:
+          type: integer
+          format: int64
+    CustomerPostingRequest:
+      type: object
+      properties:
+        postingDate:
+          type: string
+          format: date-time
+        purpose:
+          $ref: '#/components/schemas/Filler'
+        supportingRefNumber:
+          type: string
+        data:
+          $ref: '#/components/schemas/CustomerPostingDetailRequest'
+    ChangeCddAlertStatusRequest:
+      required:
+      - accountNumber
+      - comment
+      - id
+      - status
+      - userId
+      - userType
+      type: object
+      properties:
+        status:
+          type: string
+        id:
+          type: integer
+          format: int64
+        userType:
+          type: string
+        userId:
+          type: string
+        comment:
+          type: string
+        accountNumber:
+          type: string
+    UpdateConfigList:
+      required:
+      - id
+      - isActive
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        isActive:
+          pattern: ^[YN]$
+          type: string
+    UpdateConfigRequestDTO:
+      required:
+      - configList
+      type: object
+      properties:
+        configList:
+          maxItems: 2147483647
+          minItems: 1
+          type: array
+          items:
+            $ref: '#/components/schemas/UpdateConfigList'
+    CDDFrequency:
+      required:
+      - days
+      - times
+      - type
+      type: object
+      properties:
+        days:
+          type: integer
+          format: int32
+        times:
+          type: integer
+          format: int32
+        type:
+          type: string
+    CDDRequest:
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        cddConfigList:
+          type: array
+          items:
+            $ref: '#/components/schemas/CDDFrequency'
+        req:
+          $ref: '#/components/schemas/CDDRequest'
+    ReviewTaskReq:
+      required:
+      - processid
+      - reason
+      type: object
+      properties:
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+    ReviewReturnedTaskReq:
+      required:
+      - processid
+      - reason
+      type: object
+      properties:
+        coaId:
+          type: integer
+          format: int64
+        coaCode:
+          type: string
+        coaDescription:
+          type: string
+        coaLevel:
+          type: integer
+          format: int32
+        coaParentId:
+          type: integer
+          format: int64
+        parent:
+          $ref: '#/components/schemas/Filler'
+        categoryData:
+          $ref: '#/components/schemas/Filler'
+        categoryId:
+          type: integer
+          format: int64
+        coaCurrency:
+          type: string
+        coaNature:
+          type: string
+        creditAllow:
+          type: boolean
+        debitAllow:
+          type: boolean
+        negativeBalanceAllow:
+          type: boolean
+        negativeBalanceAllowed:
+          $ref: '#/components/schemas/Filler'
+        minBalance:
+          type: number
+        maxBalance:
+          type: number
+        openingBalance:
+          type: number
+        isActive:
+          type: boolean
+        sapGl:
+          type: string
+        processid:
+          type: string
+        isaccepted:
+          type: boolean
+        reason:
+          maxLength: 500
+          minLength: 1
+          type: string
+        req:
+          $ref: '#/components/schemas/GlCoaRequest'
+        innerRequest:
+          $ref: '#/components/schemas/ReviewReturnedTaskReq'
+        activation:
+          type: boolean
+    JwtRequest:
+      required:
+      - channel
+      - password
+      - username
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+        channel:
+          type: string
+    VerifyReferralCodeRequestDTO:
+      type: object
+      properties:
+        referralCode:
+          type: string
+        identificationCode:
+          type: string
+        identificationValue:
+          type: string

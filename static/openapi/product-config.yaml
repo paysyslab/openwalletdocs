@@ -1,0 +1,1077 @@
+info:
+  title: OpenAPI definition
+  version: v0
+openapi: 3.0.1
+paths:
+  /api/v1/wallet/kycattribute-list/getAll:
+    get:
+      description: View all the KycAttributes and Lists
+      operationId: getAll_2
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-attribute-and-list-controller
+  /api/v1/wallet/kycattribute-list/getByCode/{attributeCode}:
+    get:
+      description: Fetches the specified KycAttributes by Code
+      operationId: getByCode_2
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: attributeCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-attribute-and-list-controller
+  /api/v1/wallet/kycattribute-list/getById/{kycAttributeId}:
+    get:
+      description: Fetches the specified KycAttributes by Id
+      operationId: getById_4
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: kycAttributeId
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-attribute-and-list-controller
+  /api/v1/wallet/kycset-setattribute/addKycSet:
+    post:
+      description: Add a new KycSet and tag it with Attributes
+      operationId: add_4
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetReturnedReviewTask'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/kycset-setattribute/filler:
+    get:
+      description: View all the active KycSets as a filer
+      operationId: filler_3
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/kycset-setattribute/getAll/{pageSize}/{currentPage}:
+    post:
+      description: View all the KYC Sets
+      operationId: getAllKycSet
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetSearchDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/kycset-setattribute/getById/{Id}:
+    get:
+      description: Fetches the specified KycSet by Id
+      operationId: getById_3
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: Id
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/kycset-setattribute/getByKycAttributeId/{getByKycAttributeId}:
+    get:
+      description: Fetches the specified KycSet by kyc attribute id
+      operationId: getByKycAttributeId
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: getByKycAttributeId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/kycset-setattribute/getByName/{name}:
+    get:
+      description: Fetches the specified KycSet by Name
+      operationId: getByName_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/kycset-setattribute/updateKycSet:
+    post:
+      description: Updates the specified KycSet and its Attributes
+      operationId: updateKycSet
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetReturnedReviewTask'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/kycset-setattribute/updateStatusById:
+    post:
+      description: Active/Deactive the specified KycSet
+      operationId: updateStatusById
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KycSetRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - kyc-set-and-set-attributes-controller
+  /api/v1/wallet/product/add:
+    post:
+      description: Add a new Product
+      operationId: add_3
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/code/{id}:
+    get:
+      description: Get Product by ID
+      operationId: fetchByCode
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/filler:
+    get:
+      description: View all the Products that are active as a filer
+      operationId: filler_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/getAll/{pageSize}/{currentPage}:
+    post:
+      description: View all the Product
+      operationId: getAllProducts
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductSearchRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/getAllProducts:
+    get:
+      operationId: getAllProducts_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/getByCode/{productCode}:
+    get:
+      description: Fetches the specified Product by Code
+      operationId: getByCode_1
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: productCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/getByLevelName/{levelName}:
+    get:
+      description: Fetches all Products by Level Name
+      operationId: getProductsByLevelName
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: levelName
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/getByProductCategory/{productCategoryCode}:
+    get:
+      description: Fetches the specified Products by Product Category Code
+      operationId: getByProductCategory
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: productCategoryCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/getLovs:
+    get:
+      description: Fetches all Product Lovs(Trans Codes, Category Codes, Kyc Sets,
+        Channel Codes, Product Levels)
+      operationId: getProductLovs
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/product/update:
+    post:
+      description: Update Product and its related details
+      operationId: update
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-controller
+  /api/v1/wallet/productCategory/add:
+    post:
+      description: Add a new Product Category with BPM Flow
+      operationId: add_2
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-category-controller
+  /api/v1/wallet/productCategory/getAll:
+    get:
+      description: Fetches All The Product Categories both Active and Inactive
+      operationId: getAll
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-category-controller
+  /api/v1/wallet/productCategory/getAllActive:
+    get:
+      description: Fetches All Active The Product Categories
+      operationId: getAllActive
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-category-controller
+  /api/v1/wallet/productCategory/getByCode/{categoryCode}:
+    get:
+      description: Fetches the specified Product Category by Code
+      operationId: getByCode
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: categoryCode
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-category-controller
+  /api/v1/wallet/productCategory/update:
+    post:
+      description: Updates the specified Product Category with BPM Flow
+      operationId: updateByCode
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductCategoryRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-category-controller
+  /api/v1/wallet/productFee/addFed:
+    post:
+      description: All Fee Fed for Tax on Fees
+      operationId: addFeeFed
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFedRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productFee/addFee:
+    post:
+      description: Add a new Product Fee
+      operationId: addFee
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFeeProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productFee/getAllConfiguredFed:
+    get:
+      description: View all the Product Fee Feds in a simple list, configured for
+        both configured and non-configured Fee Feds
+      operationId: getAllConfiguredFed
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: isConfigured
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get all configured and non-configured Product Fee Feds
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productFee/getAllConfiguredFees:
+    get:
+      description: View all the Product Fees in a simple list, configured for both
+        configured and non-configured fees
+      operationId: getAllConfiguredFees
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: isConfigured
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get all configured and non-configured Product Fees
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productFee/getAllFee/{pageSize}/{currentPage}:
+    post:
+      description: View all the Product Fees with pagination
+      operationId: getAllProductFees
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductFeeAndTaxSearchDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productFee/getAllFeeFed:
+    get:
+      description: View all the Product Fees FED
+      operationId: getAllProductFeesFed
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productFee/getFeeById/{id}:
+    get:
+      description: Update Product Fee
+      operationId: getFeeById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productFee/updateFee:
+    post:
+      description: Update Product Fee
+      operationId: updateFee
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddFeeProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-fee-controller
+  /api/v1/wallet/productTax/addTax:
+    post:
+      description: Add a new Product Fee
+      operationId: addTax
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTaxProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-tax-controller
+  /api/v1/wallet/productTax/getAllConfiguredTaxes:
+    get:
+      description: View all the Product Taxes in a simple list, configured for both
+        configured and non-configured fees
+      operationId: getAllConfiguredTaxes
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: query
+        name: isConfigured
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      summary: Get all configured and non-configured Product Taxes
+      tags:
+      - product-tax-controller
+  /api/v1/wallet/productTax/getAllTax/{pageSize}/{currentPage}:
+    post:
+      description: View all the Product Taxes with pagination
+      operationId: getAllProductTax
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: pageSize
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - in: path
+        name: currentPage
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductFeeAndTaxSearchDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-tax-controller
+  /api/v1/wallet/productTax/getTaxById/{id}:
+    get:
+      description: Update Product Fee
+      operationId: getTaxById
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-tax-controller
+  /api/v1/wallet/productTax/updateTax:
+    post:
+      description: Update Product Fee
+      operationId: updateTax
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddTaxProfileRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-tax-controller
+  /api/v1/wallet/productkycset/deleteById/{Id}:
+    get:
+      description: Deletes the specified ProductKycSet
+      operationId: deleteById
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: Id
+        required: true
+        schema:
+          format: int64
+          type: integer
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-kyc-set-controller
+  /api/v1/wallet/productkycset/getById/{id}:
+    get:
+      description: Fetches the specified ProductKycSet by Id
+      operationId: getById_1
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int64
+          type: integer
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-kyc-set-controller
+  /api/v1/wallet/productkycset/getByProdInvstCode:
+    post:
+      description: Fetches the specified KycAttributes by ProductCode And InvestorCode
+      operationId: getByProdInvstCode
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductKycSearchRequestDTO'
+        required: true
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-kyc-set-controller
+  /api/v1/wallet/productkycset/getByProductCode/{code}:
+    get:
+      description: Fetches the specified ProductKycSet by ProductCode
+      operationId: getByProductCode
+      parameters:
+      - in: header
+        name: UserId
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: code
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/ServiceResponse'
+          description: OK
+      tags:
+      - product-kyc-set-controller
+servers:
+- description: Generated server url
+  url: http://10.6.60.8:9000

@@ -7,11 +7,11 @@ sidebar_label: Bulk Customer Posting
 
 The **Bulk Customer Posting** module works like [Customer Posting](/docs/backoffice/transaction-management/customer-posting), but lets you post to many customer accounts at once by uploading a file instead of posting to each customer one by one.
 
+As with Customer Posting, every posting moves funds between the customer's account and a **GL account**. A debit to the customer's account is credited to the GL account, and a credit to the customer's account is debited from the GL account. This lets operations teams post directly between customer accounts and the general ledger, for example to pay out a bonus from an expense GL or to recover a charge into an income GL.
+
 ![Bulk Customer Posting](/img/bulk-customer-posting.png)
 
----
-
-## 📤 How It Works
+## How It Works
 
 1. Click **Add Bulk Customer Posting**.
 2. Choose the transaction type for the file: **Credit In** (credit customer accounts) or **Credit Out** (debit customer accounts).
@@ -20,9 +20,7 @@ The **Bulk Customer Posting** module works like [Customer Posting](/docs/backoff
 
 Each file holds **one transaction type only**. To credit some customers and debit others, upload two separate files.
 
----
-
-## 📋 Bulk Posting Listing
+## Bulk Posting Listing
 
 The listing shows every uploaded file and its progress:
 
@@ -38,17 +36,13 @@ The listing shows every uploaded file and its progress:
 
 You can filter the list by file name, transaction type, created date and status.
 
----
-
-## ✅ What This Module Enables
+## What This Module Enables
 
 - Post the same kind of entry to many accounts in one step, e.g. bonus payouts, refunds or bulk adjustments
 - Reduce manual effort and data-entry errors
 - Keep each upload under maker–checker approval
 
----
-
-## 📝 Notes
+## Notes
 
 - A file is posted only after it is **approved**. Rejected files are not posted.
 - All actions are recorded in the [Audit Log](/docs/backoffice/audit-management).

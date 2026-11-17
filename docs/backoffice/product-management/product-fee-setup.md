@@ -12,56 +12,51 @@ The **fee types** are already defined in the backend and linked to specific tran
 **Backend decides *what* the fee is for.**  
 **UI decides *how much* to charge.**
 
----
 ![Product Fee Setup Image](/img/product-fee-setup.png)
 
-## 📌 Add Fee Profile
+## Add Fee Profile
 
----
-
-## **1. Fee Profile Info**
+## 1. Fee Profile Info
 
 This section identifies which fee profile you're configuring.
 
-### **Fee Profile Code**
+### Fee Profile Code
 Auto-generated or selected depending on the configuration being edited.
 
-### **Fee Profile Name**
+### Fee Profile Name
 A descriptive name like **“IBFT Fees”**, **“Wallet Transfer Fee”**, etc.
 
-### **Effective Date**
+### Effective Date
 The date when this fee setup becomes active.  
 Make sure it's accurate — no guesswork here.
 
-### **Fee Category**
+### Fee Category
 Choose the right bucket (Fee, Charge, Tax, etc.) so the system knows how to apply it.
 
----
-
-## **2. Fee Slab Detail**
+## 2. Fee Slab Detail
 
 This is where you define how the fee behaves for different transaction ranges.
 
 You can configure **multiple slabs**, each with unique conditions.
 
-### **Fee Slab Fields**
+### Fee Slab Fields
 
-#### **Fee Type**
+#### Fee Type
 Select one of:
 
 - Flat Fee  
 - Percentage  
 - Hybrid (if supported)
 
-#### **Fee Value**
+#### Fee Value
 - **Flat:** amount  
 - **Percentage:** rate (e.g., 2.5%)  
 - **Hybrid:** based on defined rules  
 
-#### **GL Account**
+#### GL Account
 The ledger account where the fee amount will be posted.
 
-#### **Slab Low / Slab High**
+#### Slab Low / Slab High
 Define the amount range where this slab applies.
 
 **Example:**
@@ -72,28 +67,21 @@ Define the amount range where this slab applies.
 
 You can add as many slabs as needed.
 
----
-
-## **3. Fee Tax Detail**
+## 3. Fee Tax Detail
 
 If taxes apply, configure them here.
 
-### **Fee Tax List**
+### Fee Tax List
 Select the tax profile (e.g., **FED**, **GST**).  
 The system calculates tax based on backend rules.
 
----
-
-## **4. Add Fee Slab**
+## 4. Add Fee Slab
 
 Click the **Add Fee Slab** button to create a new slab.
 
-A new fields section opens → fill in details → save.  
-Pricing teams love slabs… so expect many. 😭
+A new set of slab fields opens. Fill in the details and save. You can add as many slabs as your pricing requires.
 
----
-
-## **5. Submit Request**
+## 5. Submit Request
 
 Once everything is set:
 
@@ -105,6 +93,4 @@ Depending on workflow:
 
 - It may require approval  
 - Or it may apply instantly  
-
----
 

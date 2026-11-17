@@ -38,8 +38,10 @@ const sidebars: SidebarsConfig = {
         label: 'Non-Financial',
         collapsed: true,
         items: [
-          'functional-specifications/non-financial/index'
-          // add more later
+          'functional-specifications/non-financial/index',
+          'functional-specifications/non-financial/account-closure',
+          'functional-specifications/non-financial/account-block',
+          'functional-specifications/non-financial/debit-block',
         ],
       },
     ],
@@ -60,6 +62,14 @@ const sidebars: SidebarsConfig = {
       id: 'backoffice/dashboard',
       label: 'Dashboard',
     },
+    {
+      type: 'category',
+      label: 'User Management',
+      items: [
+        'backoffice/user-management/roles',
+        'backoffice/user-management/users',
+      ],
+    },
   
     {
       type: 'category',
@@ -69,6 +79,7 @@ const sidebars: SidebarsConfig = {
         'backoffice/general-ledger/gl-posting',
         'backoffice/general-ledger/journal-in',
         'backoffice/general-ledger/journal-out',
+        'backoffice/general-ledger/backdated-gl-posting',
       ],
     },
     {

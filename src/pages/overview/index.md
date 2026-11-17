@@ -9,9 +9,8 @@ This document provides a complete overview of the OpenWallet platform, including
 Wallet offers a comprehensive set of modules to support end-to-end integrations and onboarding processes. This includes a middleware switch for third-party integrations, a digital channel for customer account opening, and an API gateway for seamless connectivity with internal and external systems to manage core financial transactions. 
 
 ![Wallet Architecture](/img/wallet-architecture.png)
----
 
-## 🌐 Vision & Introduction
+## Vision & Introduction
 
 > We aspire to be the leading providers of innovative and impactful solutions for digital payments and financial services.
 
@@ -27,9 +26,7 @@ OpenWallet provides an omni-channel wallet management ecosystem supporting:
 
 The platform is built for performance, security, and interoperability.
 
----
-
-# 1. Platform Overview
+## 1. Platform Overview
 
 OpenWallet enables institutions to manage:
 
@@ -41,9 +38,7 @@ OpenWallet enables institutions to manage:
 
 The engine is transaction-agnostic, supporting multiple financial flows including W2W, bank transfers, QR payments, POS, bill payments, and salary disbursements.
 
----
-
-# 2. Solution Overview
+## 2. Solution Overview
 
 The OpenWallet platform is an extensive solution designed to manage consumer and dealer wallets or accounts. It enables institutions to define products for consumers and businesses, allowing users and corporate clients to open accounts and maintain balances seamlessly.
 
@@ -56,18 +51,13 @@ The platform incorporates:
 - API Gateway for internal/external interactions  
 - Middleware switch for 3rd-party integrations  
 
----
-
-## 2.1 Key Features
+### 2.1 Key Features
 
 ![Overview Intro Image](/img/overview-intro.png)
 
+### 2.2 Core Modules
 
----
-
-## 2.2 Core Modules
-
-### **🔹 GL Setup**
+#### GL Setup
 Configures a multi-level COA and supports:
 
 - Real-time transaction posting  
@@ -75,9 +65,7 @@ Configures a multi-level COA and supports:
 - Accurate reconciliation  
 - Audit-ready tracking  
 
----
-
-### **🔹 Master Setup**
+#### Master Setup
 Prerequisite configurations for product setup:
 
 - Channels  
@@ -90,9 +78,7 @@ Prerequisite configurations for product setup:
 - Taxes  
 - Fees  
 
----
-
-### **🔹 Product Setup**
+#### Product Setup
 Enables configuration of:
 
 - Product KYC  
@@ -103,18 +89,14 @@ Enables configuration of:
 - Fee plans  
 - Tax rules  
 
----
-
-### **🔹 API Gateway**
+#### API Gateway
 Supports secure internal/external flows:
 
 - Customer onboarding  
 - Financial & non-financial transactions  
 - Statement retrieval  
 
----
-
-### **🔹 Recurring Jobs (CBA)**
+#### Recurring Jobs (CBA)
 
 - Daily settlement & reconciliation  
 - End-of-day processing  
@@ -125,9 +107,7 @@ Supports secure internal/external flows:
 - Scheduled deductions  
 - Zakat calculation  
 
----
-
-### **🔹 User Interface**
+#### User Interface
 
 - Digital account opening  
 - User management  
@@ -136,19 +116,15 @@ Supports secure internal/external flows:
 - Reports  
 - Dashboards  
 
----
+#### Customer Account Management
 
-### **🔹 Customer Account Management**
-
-#### **1. Account Opening**
+##### 1. Account Opening
 Handles discrepancies, approvals, KYC, and compliance checks.
 
-#### **2. Account Closure**
+##### 2. Account Closure
 Supports closures due to customer request, deceased status, or regulatory requirements.
 
----
-
-### **🔹 Integration with Allied Platforms**
+#### Integration with Allied Platforms
 
 Supported via **OpenConnect**:
 
@@ -163,6 +139,4 @@ Supported via **OpenConnect**:
 - National Identity Verification Service (e-services)  
 
 Supports REST, SOAP, ISO8583, ISO20022 with consistent CBA protocol.
-
----
 

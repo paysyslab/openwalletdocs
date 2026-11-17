@@ -7,15 +7,11 @@ sidebar_label: Lien Marking
 
 The **Lien Marking** module allows authorized users to search customers and place a lien (hold) on their wallet account. A lien restricts a defined amount from being used until it is confirmed or released.
 
----
-
-## 🖼️ Module Overview
+## Module Overview
 
 ![Lien Marking](/img/lien-marking.png)
 
----
-
-## 🔍 Customer Search
+## Customer Search
 
 You can search a customer using the **Mobile Number** field.
 
@@ -29,22 +25,17 @@ Once a valid customer is found, the system displays the following details:
 
 This ensures that the lien is always applied to the correct customer account.
 
----
-
-## 💰 Account Balance
+## Account Balance
 
 The system displays two balance values:
 
-### **Actual Balance**
+### Actual Balance
 The total amount currently present in the customer’s wallet.
 
-### **Available Balance**
-The amount the customer can use for transactions.  
-This value decreases when a lien is placed.
+### Available Balance
+The balance the customer can actually spend. It is the actual balance minus any amounts held under a lien, so it decreases when a lien is placed. Transactions are checked against the available balance, not the actual balance.
 
----
-
-## 📝 Lien Marking Detail
+## Lien Marking Detail
 
 After retrieving the customer, the following fields must be filled to mark a lien:
 
@@ -57,26 +48,22 @@ After retrieving the customer, the following fields must be filled to mark a lie
 - **Narration**  
   Additional descriptive notes for audit purposes.
 
----
+## Lien Lifecycle
 
-## 🔄 Lien Lifecycle
-
-### **1. Lien Marked**
+### 1. Lien Marked
 - The actual balance is **not deducted**.  
 - The lien amount is **held** and subtracted from the available balance.  
 - The customer cannot perform transactions exceeding the updated available balance.
 
-### **2. Lien Confirmed**
+### 2. Lien Confirmed
 - The actual balance is **deducted** permanently.  
 - The lien becomes a finalized hold.
 
-### **3. Lien Released**
+### 3. Lien Released
 - The lien amount is **returned** to the available balance.  
 - The customer regains full access to the funds.
 
----
-
-## 📌 Module Capabilities
+## Module Capabilities
 
 - Apply holds on customer balances  
 - Prevent spending beyond available balance  
@@ -84,13 +71,10 @@ After retrieving the customer, the following fields must be filled to mark a lie
 - Support marking, confirming, and releasing lien amounts  
 - Provide full audit logging for compliance  
 
----
-
-## ⚠️ Important Notes
+## Important Notes
 
 - Lien marking affects **available balance only** until confirmed.  
 - Only authorized users may perform lien operations.  
 - Always verify customer identity before placing a lien.  
 - All actions are recorded in system audit logs.
 
----

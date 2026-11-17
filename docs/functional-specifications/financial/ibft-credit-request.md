@@ -1,6 +1,5 @@
 # IBFT Credit Request
 
-
 <div className="spec-split">
 <div className="spec-split__table">
 

@@ -2,8 +2,6 @@
 
 This flow describes the process when a channel initiates an outward title fetch, with Domestic Instant Payment System (IPS) preferred and fallback allowed.
 
----
-
 <div className="spec-split">
 <div className="spec-split__table">
 
@@ -39,9 +37,7 @@ This flow describes the process when a channel initiates an outward title fetch,
 </div>
 </div>
 
----
-
-## 📌 Notes
+## Notes
 
 - If IBAN is missing and fallback is allowed → OC fetches IMD and routes through Domestic Payment Switch.
 - Final response includes the destination HostName and beneficiary details.

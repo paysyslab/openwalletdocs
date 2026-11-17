@@ -8,15 +8,11 @@ sidebar_label: Audit Log
 The **Audit Log** module records and displays all activities performed across the back-office system.  
 It provides full traceability of user actions, API interactions, and module events to support security, compliance, and operational monitoring.
 
----
-
-## 🖼️ Module Overview
+## Module Overview
 
 ![Audit Log](/img/audit-list.png)
 
----
-
-## 📋 Audit Log Listing
+## Audit Log Listing
 
 The main audit log table displays a complete activity history, including:
 
@@ -29,10 +25,9 @@ The main audit log table displays a complete activity history, including:
 
 This provides a centralized and chronological view of all system operations.
 
----
 ![Audit Log](/img/audit-detail.png)
 
-## 🔎 Search & Filters
+## Search & Filters
 
 Every column in the audit log supports inline filtering:
 
@@ -43,9 +38,7 @@ Every column in the audit log supports inline filtering:
 
 These features help administrators quickly locate specific logs for investigation or review.
 
----
-
-## 🧾 Pagination
+## Pagination
 
 The module supports large log volumes with full pagination controls:
 
@@ -55,9 +48,7 @@ The module supports large log volumes with full pagination controls:
 
 This ensures efficient browsing even for high-volume environments.
 
----
-
-## 📄 Log Details View
+## Log Details View
 
 Each audit entry includes an **Actions** button that opens a detailed view of the log.
 
@@ -81,9 +72,7 @@ The detailed log typically displays:
 
 This level of detail supports troubleshooting, forensic analysis, and audit compliance.
 
----
-
-## 📌 Use Cases for Audit Logs
+## Use Cases for Audit Logs
 
 The audit module helps administrators:
 
@@ -93,13 +82,10 @@ The audit module helps administrators:
 - Debug API failures or system errors  
 - Provide evidence for compliance or regulatory inspections  
 
----
-
-## ⚠️ Important Notes
+## Important Notes
 
 - Audit logs cannot be modified or deleted to maintain data integrity.  
 - Only authorized users can view detailed logs.  
 - All logs are stored with strict timestamp accuracy.  
 - Download/export functionality may be available depending on system configuration.  
 
----

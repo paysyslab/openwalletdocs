@@ -8,16 +8,11 @@ sidebar_label: Call Center
 The **Call Center** module allows customer support agents to search and view detailed customer information using multiple identifiers.  
 This module provides a complete customer profile, including demographics, documents, transactions, balances, and risk rating.
 
----
-
-## 🖼️ Module Overview
+## Module Overview
 
 ![Call Center](/img/crm-search.png)
 
-
----
-
-## 🔍 Customer Search
+## Customer Search
 
 Call Center agents can search a customer using any of the following identifiers:
 
@@ -28,10 +23,9 @@ Call Center agents can search a customer using any of the following identifiers:
 
 Once a valid record is found, the system loads the complete customer profile for review and assistance.
 
----
 ![Call Center](/img/crms-detail.png)
 
-## 👤 Demographics
+## Demographics
 
 The **Demographics** tab displays all mandatory and optional customer information, including:
 
@@ -55,9 +49,7 @@ The **Demographics** tab displays all mandatory and optional customer informatio
 
 This information helps support agents verify customer identity and respond to queries accurately.
 
----
-
-## 📄 Documents
+## Documents
 
 The **Documents** tab contains the customer’s uploaded verification documents such as:
 
@@ -67,9 +59,7 @@ The **Documents** tab contains the customer’s uploaded verification documents 
 
 Agents can review documents during verification or for resolving customer disputes.
 
----
-
-## 💳 Transactions
+## Transactions
 
 The **Transactions** tab provides a list of all transactions performed by the customer.  
 Each record typically includes:
@@ -82,9 +72,7 @@ Each record typically includes:
 
 This helps agents address transactional disputes, confirmations, or customer inquiries.
 
----
-
-## 💰 Balance & Limits
+## Balance & Limits
 
 The **Balance & Limits** tab displays critical financial information:
 
@@ -96,9 +84,7 @@ The **Balance & Limits** tab displays critical financial information:
 
 This is particularly helpful when customers face transaction failures or limit-related issues.
 
----
-
-## ⚠️ Risk Rating
+## Risk Rating
 
 The **Risk Rating** tab shows the customer’s AML or system-generated risk category:
 
@@ -108,9 +94,7 @@ The **Risk Rating** tab shows the customer’s AML or system-generated risk cate
 
 Agents can use this information to escalate cases or enforce enhanced verification procedures.
 
----
-
-## 🛑 Account Actions
+## Account Actions
 
 Authorized users may see account-level actions such as:
 
@@ -120,12 +104,9 @@ Authorized users may see account-level actions such as:
 
 These actions are used during fraud, suspicious activity, or customer-initiated requests.
 
----
-
-## ⚠️ Important Notes
+## Important Notes
 
 - Only authorized call center agents may access customer profiles.  
 - Sensitive customer data must be handled according to organizational security and privacy policies.  
 - All actions performed on the customer profile are logged for audit and compliance.
 
----

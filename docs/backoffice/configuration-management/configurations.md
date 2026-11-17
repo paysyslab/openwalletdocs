@@ -9,9 +9,7 @@ The **Configurations** screen holds system-wide settings that control customer i
 
 ![Configurations](/img/configurations.png)
 
----
-
-## ⚙️ Available Settings
+## Available Settings
 
 | Setting | Type | What it controls |
 | ------- | ---- | ---------------- |
@@ -21,9 +19,7 @@ The **Configurations** screen holds system-wide settings that control customer i
 | **Account Opening Bonus Amount** | Value | The bonus amount credited to each eligible new customer. |
 | **Account Opening Bonus Max User Cap** | Value | The total number of customers who can receive the account opening bonus. |
 
----
-
-## 🎁 How the Account Opening Bonus Cap Works
+## How the Account Opening Bonus Cap Works
 
 The **Max User Cap** is a running total, not a per-period limit:
 
@@ -33,9 +29,7 @@ The **Max User Cap** is a running total, not a per-period limit:
 
 **Example:** The cap is set to **10,000** and has been reached. To give the bonus to **2,000** more customers, update the cap to **12,000**. Setting it to 2,000 would have no effect, because the count is already above that number.
 
----
-
-## 📝 Notes
+## Notes
 
 - Referral bonuses apply only to products whose product group allows referrals (see **Is Referral Allowed?** in [Product Group Setup](/docs/backoffice/product-management/product-group)).
 - All changes are recorded in the [Audit Log](/docs/backoffice/audit-management).

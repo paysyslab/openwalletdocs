@@ -7,15 +7,11 @@ sidebar_label: Transaction Reversal
 
 The **Transaction Reversal** module allows authorized users to search a customer, view their complete transaction history, and reverse eligible debit transactions when required.
 
----
-
-## 🖼️ Module Overview
+## Module Overview
 
 ![Transaction Reversal](/img/transaction-reversal.png)
 
----
-
-## 🔍 Customer Search
+## Customer Search
 
 You can search a customer using the **Mobile Number** field.  
 Once the customer is found, the system displays:
@@ -28,9 +24,7 @@ Once the customer is found, the system displays:
 
 This ensures that the reversal is always applied to the correct customer account.
 
----
-
-## 📄 Customer Transactions
+## Customer Transactions
 
 After the customer is retrieved, the system lists **all transactions** associated with the customer.
 
@@ -46,9 +40,7 @@ Each transaction includes key information such as:
 
 You can scroll or filter through the transaction list to locate the transaction that needs to be reversed.
 
----
-
-## ↩️ Eligible Transactions for Reversal
+## ↩ Eligible Transactions for Reversal
 
 Only **debit transactions** are eligible for reversal through this module.  
 This typically includes:
@@ -61,9 +53,7 @@ This typically includes:
 
 Credit transactions **cannot** be reversed from this module.
 
----
-
-## 📝 Reversal Request Form
+## Reversal Request Form
 
 When a debit transaction is selected, a reversal form appears on the right side of the screen.
 
@@ -91,22 +81,17 @@ When a debit transaction is selected, a reversal form appears on the right side 
 
 Once all fields are verified, the user clicks **Submit Request**.
 
----
-
-## 🔄 What Happens After Reversal
+## What Happens After Reversal
 
 - The system posts a **credit entry** equal to the reversed debit amount.  
 - Customer balance is updated instantly.  
 - The reversal is stored in audit logs for compliance and traceability.  
 - The reversed transaction appears in the customer's transaction history.
 
----
-
-## ⚠️ Important Notes
+## Important Notes
 
 - Only authorized users can perform reversals.  
 - Ensure that the reversal request matches the correct transaction.  
 - Some transactions may require supervisor approval depending on system configuration.  
 - All reversal actions are fully logged for audit review.
 
----

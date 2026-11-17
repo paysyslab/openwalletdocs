@@ -8,15 +8,11 @@ sidebar_label: EDD
 The **Enhanced Due Diligence (EDD)** module displays customers whose **risk rating has escalated** based on the latest AML/Risk Engine evaluation.  
 EDD is initiated when the customer’s risk score increases significantly (e.g., Low → High or Medium → High), requiring additional review, documentation, and compliance intervention.
 
----
-
-## 🖼️ Module Overview
+## Module Overview
 
 ![EDD Frequency Configuration](/img/edd.png)
 
----
-
-## 📌 Purpose of EDD
+## Purpose of EDD
 
 EDD is triggered when the system detects:
 
@@ -28,9 +24,7 @@ EDD is triggered when the system detects:
 
 The module helps the compliance team identify customers requiring deeper investigation.
 
----
-
-## 📋 EDD Customer Listing
+## EDD Customer Listing
 
 The EDD list displays all customers who have been escalated for enhanced due diligence.  
 Each record includes:
@@ -45,9 +39,7 @@ Each record includes:
 
 This provides a complete view of all customers who require further compliance handling.
 
----
-
-## 🔎 Search & Filters
+## Search & Filters
 
 Each column contains a search box for quick filtering by:
 
@@ -67,9 +59,7 @@ There is also a **Status dropdown** to filter:
 
 This helps compliance analysts quickly locate specific customers or risk cases.
 
----
-
-## 🔄 Risk Score Progression
+## Risk Score Progression
 
 The table allows compliance officers to view how a customer’s risk level has changed:
 
@@ -83,24 +73,20 @@ A change such as:
 
 Indicates a **high-risk escalation**, automatically placing the customer in the EDD queue.
 
----
-
-## 🛑 Status Indicators
+## Status Indicators
 
 The **Status** column helps determine what action has been taken:
 
-### Blocked Account  
+### Blocked Account
 Customer has been temporarily blocked due to severe risk escalation.
 
-### Closed Alert  
+### Closed Alert
 Compliance teams completed review and resolved the risk case.
 
-### Active / Pending  
+### Active / Pending
 The customer is still under EDD review.
 
----
-
-## 📝 Manual Review & EDD Actions
+## Manual Review & EDD Actions
 
 For customers listed in the EDD module, compliance agents may:
 
@@ -114,9 +100,7 @@ For customers listed in the EDD module, compliance agents may:
 
 All actions are logged for regulatory compliance.
 
----
-
-## ⚠️ Important Notes
+## Important Notes
 
 - EDD is only triggered when the risk score increases significantly.  
 - All escalations are automatically detected by the AML/Risk Engine.  
@@ -124,4 +108,3 @@ All actions are logged for regulatory compliance.
 - Blocking/unblocking must follow internal SOPs and AML guidelines.  
 - All updates are recorded with full audit trails.
 
----

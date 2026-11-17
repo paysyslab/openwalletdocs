@@ -11,9 +11,7 @@ See: [Product Configuration](./product-configuration.md)
 
 This ensures the system enforces the correct KYC tier during onboarding, upgrades, and compliance checks.
 
----
-
-# 📌 Structure of a KYC Group
+## Structure of a KYC Group
 
 Start by naming the group on the **Add KYC Group** tab:
 
@@ -21,9 +19,7 @@ Start by naming the group on the **Add KYC Group** tab:
 
 The group is then configured across **three main sections**:
 
----
-
-# 1️⃣ KYC Information
+## 1. KYC Information
 
 This section defines the personal information that must be collected from the customer.
 
@@ -44,9 +40,7 @@ This allows the institution to set **minimum data requirements** for each onboar
 
 ![KYC Group Screen](/img/kyc-information.png)
 
----
-
-# 2️⃣ Document Requirements
+## 2. Document Requirements
 
 This section lists the documents the customer must submit for verification.
 
@@ -67,9 +61,7 @@ These configurations support strict compliance with regulatory documentation req
 
 ![KYC Group Screen](/img/kyc-document.png)
 
----
-
-# 3️⃣ Verification Requirements
+## 3. Verification Requirements
 
 This section defines the identity verification checks the system must perform.  
 Each check can be configured as 
@@ -88,9 +80,8 @@ Supported verification types:
 A **Select All Required Fields** option allows quick full-enforcement of all checks.
 
 ![KYC Group Screen](/img/kyc-verification.png)
----
 
-# 🎯 Purpose of KYC Groups
+## Purpose of KYC Groups
 
 KYC Groups allow the institution to establish multiple KYC tiers to support different customer profiles and regulatory journeys, such as:
 

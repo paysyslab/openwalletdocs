@@ -8,15 +8,11 @@ sidebar_label: Customer Management
 The **Customer Management** module provides a consolidated view of all customers registered in the digital wallet system.  
 Authorized users can browse, search, and filter customer records and access detailed information for any customer with a single click.
 
----
-
-## 🖼️ Module Overview
+## Module Overview
 
 ![Customer Management](/img/customer-information.png)
 
----
-
-## 📋 Customer Listing
+## Customer Listing
 
 The module displays a comprehensive list of all wallet customers in a single unified table.  
 Each record includes:
@@ -31,9 +27,7 @@ Each record includes:
 
 This listing allows operators to review and analyze all wallet holders without navigating multiple screens.
 
----
-
-## 🔎 Search & Filters
+## Search & Filters
 
 Each column includes an inline search box, enabling quick filtering by:
 
@@ -47,9 +41,7 @@ Each column includes an inline search box, enabling quick filtering by:
 
 These filters support fast customer lookup and help operators locate specific customer profiles efficiently.
 
----
-
-## 📄 Pagination & Navigation
+## Pagination & Navigation
 
 The customer list supports full pagination for large datasets.  
 Users can:
@@ -60,9 +52,7 @@ Users can:
 
 This ensures smooth browsing even when managing thousands of customer records.
 
----
-
-## 👤 Detailed Customer View
+## Detailed Customer View
 
 Clicking on any customer record opens a **detailed customer profile**, which may include:
 
@@ -75,9 +65,7 @@ Clicking on any customer record opens a **detailed customer profile**, which may
 
 This provides a complete operational snapshot of the customer for administrative or support purposes.
 
----
-
-## 📂 Export Options
+## Export Options
 
 The **Export** button allows authorized users to download the complete customer list in a structured format.  
 This feature supports:
@@ -87,13 +75,10 @@ This feature supports:
 - Audit activities  
 - External data review  
 
----
-
-## ⚠️ Important Notes
+## Important Notes
 
 - Only authorized personnel can access customer-level information.  
 - Exported data must be handled securely according to organizational policies.  
 - Customer details may be subject to AML, risk, or compliance checks.  
 - Ensure compliant use of customer information at all times.
 
----

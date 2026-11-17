@@ -8,24 +8,22 @@ import type { ScalarOptions } from '@scalar/docusaurus'
 const config: Config = {
   title: 'OpenWallet',
   tagline: 'Dinosaurs are cool',
-  favicon: 'img/logo.png',
+  favicon: '/openwalletdocs/img/logo.png',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
     v4: true, // Improve compatibility with the upcoming Docusaurus v4
   },
 
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/',
+url: 'https://paysyslab.github.io',
+baseUrl: '/openwalletdocs/',
+projectName: 'openwalletdocs',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'paysyslab', // Usually your GitHub org/user name.
-  projectName: 'OpenWallet', // Usually your repo name.
-  deploymentBranch: 'main',
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
 
@@ -80,9 +78,9 @@ const config: Config = {
       label: 'API Specifications',
       route: '/api-specifications',
       showNavLink: false,
-      configuration: {
-        url: '/openapi/openwallet-api.yaml',
-      },
+            configuration: {
+          url: '/openwalletdocs/openapi/openwallet-api2.yaml',
+        },
     },
   ],
 ],
@@ -97,7 +95,7 @@ const config: Config = {
 
       logo: {
         alt: 'My Site Logo',
-        src: 'img/logo.png',
+        src: '/openwalletdocs/img/logo.png',
       },
 
       
@@ -128,11 +126,11 @@ const config: Config = {
             position: 'left',
           },
 
-        {
-          href: 'https://github.com/facebook/docusaurus',
-          label: 'GitHub',
-          position: 'right',
-        },
+        //{
+          //href: 'https://github.com/facebook/docusaurus',
+          //label: 'GitHub',
+         // position: 'right',
+        //},
       ],
     },
    footer: {

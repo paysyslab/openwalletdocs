@@ -1,4 +1,6 @@
 import type {ReactNode} from 'react';
+import useBaseUrl from '@docusaurus/useBaseUrl';
+
 import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
@@ -19,11 +21,9 @@ function HomepageHeader() {
       and monitoring of customer wallets. It manages wallet activation, balance updates, transaction processing, and applies product rules like limits, fees, and KYC requirements. All transactions are tracked in real time and posted to the correct GL accounts, 
       ensuring smooth and compliant digital payment operations.</p>
 
-    <img
-      src="/img/openwallet-banner.png"
-      alt="OpenWallet Banner"
-      style={{ width: '60%', marginTop: '20px' }}
-    />
+    <img src={`${useBaseUrl('img/openwallet-banner.png')}`} 
+     alt="OpenWallet Banner"
+     style={{ width: '60%', marginTop: '20px' }} />
   </div>
     </header>
   );

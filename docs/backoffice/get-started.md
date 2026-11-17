@@ -71,8 +71,3 @@ When creating a product, the following items must be configured:
 - Product Limit
 
 ![Product Setup](/img/product-setup.png)
-
-## Dashboard
-A predefined wallet analytics can be viewed on the dashboard screen.
-
-![Dashboard](/img/dashboard.png)

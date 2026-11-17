@@ -56,6 +56,12 @@ const sidebars: SidebarsConfig = {
       label: 'Get Started',
     },
     {
+      type: 'doc',
+      id: 'backoffice/dashboard',
+      label: 'Dashboard',
+    },
+  
+    {
       type: 'category',
       label: 'General Ledger',
       items: [

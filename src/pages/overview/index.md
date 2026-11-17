@@ -1,118 +1,168 @@
-# OpenWallet Overview
+# OpenWallet – Platform & Solution Overview
 
-Welcome to **OpenWallet**, a secure and scalable digital wallet platform designed for banks, fintechs, and enterprises.  
-OpenWallet enables institutions to launch and manage wallet services end-to-end — from onboarding and KYC to payments, limits, fees, and reporting.
+Welcome to **OpenWallet**, a secure and scalable digital wallet platform designed for banks, fintechs, and enterprises. OpenWallet enables institutions to launch and manage wallet services end-to-end — from onboarding and KYC to payments, limits, fees, and reporting.
 
+This document provides a complete overview of the OpenWallet platform, including solution architecture, core modules, and transaction flows used across channels and integrations.
+
+## Solution Architecture
+
+Wallet offers a comprehensive set of modules to support end-to-end integrations and onboarding processes. This includes a middleware switch for third-party integrations, a digital channel for customer account opening, and an API gateway for seamless connectivity with internal and external systems to manage core financial transactions. 
+
+![Wallet Architecture](/img/wallet-architecture.png)
 ---
 
-## Vision and Introduction
+## 🌐 Vision & Introduction
 
 > We aspire to be the leading providers of innovative and impactful solutions for digital payments and financial services.
 
+OpenWallet provides an omni-channel wallet management ecosystem supporting:
 
-
-OpenWallet provides an omni-channel wallet management ecosystem that supports:
-
-- Wallet creation and onboarding  
-- Digital payments and transfers  
+- Wallet creation & onboarding  
+- Digital payments & transfers  
 - Merchant payments  
-- Transaction history and reporting  
-- Compliance and KYC controls  
-- Product, fee, and tax management  
-- Core ledger and reconciliation  
+- Transaction history & reporting  
+- Compliance & KYC controls  
+- Product, fee & tax configuration  
+- Core ledger & reconciliation  
 
 The platform is built for performance, security, and interoperability.
 
 ---
 
+# 1. Platform Overview
+
+OpenWallet enables institutions to manage:
+
+- Consumer & business wallets  
+- Wallet tiers mapped to KYC levels  
+- Limits, controls, fees, and taxes  
+- Operational & regulatory reporting  
+- API-driven payment flows  
+
+The engine is transaction-agnostic, supporting multiple financial flows including W2W, bank transfers, QR payments, POS, bill payments, and salary disbursements.
+
+---
+
+# 2. Solution Overview
+
+The OpenWallet platform is an extensive solution designed to manage consumer and dealer wallets or accounts. It enables institutions to define products for consumers and businesses, allowing users and corporate clients to open accounts and maintain balances seamlessly.
+
+The platform incorporates:
+
+- Multi-level Chart of Accounts (COA)  
+- Real-time GL posting  
+- Scalable application architecture  
+- Integrated onboarding & verification  
+- API Gateway for internal/external interactions  
+- Middleware switch for 3rd-party integrations  
+
+---
+
+## 2.1 Key Features
+
 ![Overview Intro Image](/img/overview-intro.png)
 
-With OpenWallet, institutions can manage:
-
-- Consumer and business wallets  
-- Wallet tiers and product groups  
-- KYC levels and upgrade journeys  
-- Limits and controls  
-- Fees, taxes, and settlement rules  
-- API-driven payment flows  
-- Operational and regulatory reporting  
-
-The engine is transaction-agnostic, so it can support a wide range of wallet and payment use cases.
 
 ---
 
-## Key Features
+## 2.2 Core Modules
 
+### **🔹 GL Setup**
+Configures a multi-level COA and supports:
 
-
-### 1. Transaction-Agnostic Engine
-
-Supports multiple financial flows, including:
-
-- Wallet-to-wallet transfers  
-- Wallet-to-bank transfers  
-- QR and POS payments  
-- Bill and utility payments  
-- Salary and bulk transfers  
-
-### 2. Flexible Wallet Operations
-
-- Individual and business wallet types  
-- Tiered wallet levels mapped to KYC stages  
-- Bulk or interactive onboarding  
-- Configurable product behavior per wallet type  
-
-### 3. Ledger Module
-
-- Real-time GL posting for every transaction  
-- Reconciliation and settlement support  
-- Audit-ready accounting history  
-- Financial and operational reporting  
-
-### 4. Dynamic Limit Management
-
-- Daily, monthly, and per-transaction limits  
-- Velocity and risk rules  
-- Balance ceilings by wallet tier  
-- Configurable controls per product or segment  
-
-### 5. Fee and Tax Management
-
-- Transaction-based fees and service charges  
-- Product-specific fee plans  
-- Tax rules and mappings  
-- Transparent calculation and posting into GL
+- Real-time transaction posting  
+- Structured financial hierarchy  
+- Accurate reconciliation  
+- Audit-ready tracking  
 
 ---
 
-## Customer Wallet Creation
+### **🔹 Master Setup**
+Prerequisite configurations for product setup:
 
-
-OpenWallet supports onboarding for:
-
-- Individual customers  
-- Merchants and businesses  
-
-Each wallet is associated with:
-
-- A product configuration  
-- A KYC group or tier  
-- Configured limits and controls  
-- Linked GL accounts for posting  
-- Full transaction history and audit trail  
-
-Wallets can be activated, upgraded, or restricted based on business rules, risk assessment, and regulatory requirements.
+- Channels  
+- Transactions  
+- Country  
+- City  
+- Currency  
+- Regions  
+- Merchant category codes  
+- Taxes  
+- Fees  
 
 ---
 
-## Summary
+### **🔹 Product Setup**
+Enables configuration of:
 
-OpenWallet provides a full stack digital wallet platform that combines:
+- Product KYC  
+- Customer KYC  
+- Transaction types  
+- GL mappings  
+- Transaction limits  
+- Fee plans  
+- Tax rules  
 
-- Wallet lifecycle management  
-- Strong KYC and compliance control  
-- Real-time ledger integration  
-- Flexible limits, fees, and taxes  
-- API-first architecture for channels and partners  
+---
 
-Use this overview as the starting point before diving into API Specifications, Backoffice flows, and Functional Specifications.
+### **🔹 API Gateway**
+Supports secure internal/external flows:
+
+- Customer onboarding  
+- Financial & non-financial transactions  
+- Statement retrieval  
+
+---
+
+### **🔹 Recurring Jobs (CBA)**
+
+- Daily settlement & reconciliation  
+- End-of-day processing  
+- Filer/Non-filer updates  
+- Tax certificates  
+- Compliance screening  
+- Profit calculation & disbursement  
+- Scheduled deductions  
+- Zakat calculation  
+
+---
+
+### **🔹 User Interface**
+
+- Digital account opening  
+- User management  
+- Back office  
+- Front office  
+- Reports  
+- Dashboards  
+
+---
+
+### **🔹 Customer Account Management**
+
+#### **1. Account Opening**
+Handles discrepancies, approvals, KYC, and compliance checks.
+
+#### **2. Account Closure**
+Supports closures due to customer request, deceased status, or regulatory requirements.
+
+---
+
+### **🔹 Integration with Allied Platforms**
+
+Supported via **OpenConnect**:
+
+- AML/CFT  
+- NADRA VeriSys / BVS  
+- PMD  
+- SMS / Email  
+- CMS  
+- RAAST  
+- 1LINK BPS  
+- 1LINK Authentic  
+- NADRA eSahulat  
+
+Supports REST, SOAP, ISO8583, ISO20022 with consistent CBA protocol.
+
+---
+

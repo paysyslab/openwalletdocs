@@ -1,18 +1,167 @@
 openapi: 3.0.1
 info:
-  title: OpenAPI definition
-  version: v0
+  title: OpenWallet API
+  version: '1.0'
+  description: |
+    The **OpenWallet API** lets you integrate channels, partner systems and back-office tools with the OpenWallet wallet management platform. It covers customer onboarding, accounts, products and KYC, transactions, the general ledger and transaction monitoring.
+
+    ## Getting started
+
+    1. **Authenticate.** Call the **Get Access Token** endpoint under *Authentication* to obtain an access token.
+    2. **Send the token** with every request in the `Authorization` header: `Authorization: Bearer <token>`.
+    3. **Identify the user.** Most back-office endpoints also expect a `UserId` header that identifies the user performing the action. It is recorded in the audit log and used for maker-checker approval.
+
+    ## Base URL
+
+    All endpoints are relative to the base URL of your OpenWallet environment, for example `https://api.example.com`. Your implementation team will provide the URLs for each environment.
+
+    ## Response format
+
+    Responses use a common envelope:
+
+    ```json
+    {
+      "code": 200,
+      "message": "SUCCESS",
+      "data": { }
+    }
+    ```
+
+    - `code`: the result code of the request.
+    - `message`: a short description of the result.
+    - `data`: the response payload, which varies by endpoint.
+
+    ## Conventions
+
+    - Request and response bodies are JSON.
+    - Dates use ISO 8601 format, e.g. `2026-01-29`.
+    - Requests that change configuration or financial data may require approval by a second user (maker-checker) before they take effect.
 servers:
-- url: http://10.6.60.8:8123
-  description: Generated server url
+- url: https://{host}
+  description: Your OpenWallet environment
+  variables:
+    host:
+      default: api.example.com
+      description: Host name of your OpenWallet deployment
+security:
+- bearerAuth: []
 tags:
+- name: Authentication
+  description: Obtain an access token for calling the OpenWallet APIs.
+- name: Customers
+  description: Manage wallet customers, account status and transaction history.
+- name: Digital Account Opening
+  description: Onboard customers through digital channels, including identity and biometric data.
+- name: Accounts
+  description: Retrieve and manage customer accounts.
+- name: Investors
+  description: Manage investor profiles.
+- name: Investor Type Groups
+  description: Configure investor type groups.
+- name: Validation
+  description: Validate customer input such as identity documents and KYC fields.
+- name: Products
+  description: Create and maintain wallet products.
+- name: Product Categories
+  description: Manage the categories used to classify products.
+- name: Product Transactions
+  description: Configure the channels and transaction types allowed for each product.
+- name: Product Fees
+  description: Set up fee profiles and fee slabs for products.
+- name: Product Taxes
+  description: Set up tax profiles and tax slabs for products.
+- name: Product KYC Mapping
+  description: Map KYC groups to products.
+- name: KYC Groups
+  description: Configure KYC groups and the fields each group requires.
+- name: KYC Attributes
+  description: Manage the KYC fields available to KYC groups.
+- name: Transactions
+  description: Execute and inquire on wallet transactions, including debit holds and releases.
+- name: Transaction Adjustments
+  description: Post, reverse and adjust customer transactions.
+- name: Transaction Activity
+  description: Retrieve transaction activity records.
+- name: Payment Modes
+  description: Manage the payment modes available for transactions.
+- name: Transaction Monitoring
+  description: Manage transaction monitoring alerts, rules and alert email recipients.
+- name: Chart of Accounts
+  description: Maintain the general ledger chart of accounts.
+- name: GL Categories
+  description: Retrieve general ledger categories.
+- name: GL Vouchers
+  description: Create and retrieve GL vouchers.
+- name: Approvals (Maker-Checker)
+  description: Submit and review maker-checker approval tasks across modules.
+- name: Configuration
+  description: Read and update system-wide configuration settings.
+- name: Audit Log
+  description: Retrieve the back-office audit log.
 - name: Open Digital
-  description: APIs for Open Digital Services
+  description: APIs for Open Digital services.
+- name: Countries
+  description: Reference list of countries.
+- name: Provinces
+  description: Reference list of provinces.
+- name: Districts
+  description: Reference list of districts.
+- name: Cities
+  description: Reference list of cities.
+- name: Predefined Lists
+  description: Reference lists used across the platform.
+x-tagGroups:
+- name: Getting Started
+  tags:
+  - Authentication
+- name: Customers & Onboarding
+  tags:
+  - Customers
+  - Digital Account Opening
+  - Accounts
+  - Investors
+  - Investor Type Groups
+  - Validation
+- name: Products & KYC
+  tags:
+  - Products
+  - Product Categories
+  - Product Transactions
+  - Product Fees
+  - Product Taxes
+  - Product KYC Mapping
+  - KYC Groups
+  - KYC Attributes
+- name: Transactions
+  tags:
+  - Transactions
+  - Transaction Adjustments
+  - Transaction Activity
+  - Payment Modes
+  - Transaction Monitoring
+- name: General Ledger
+  tags:
+  - Chart of Accounts
+  - GL Categories
+  - GL Vouchers
+- name: Administration
+  tags:
+  - Approvals (Maker-Checker)
+  - Configuration
+  - Audit Log
+  - Open Digital
+- name: Reference Data
+  tags:
+  - Countries
+  - Provinces
+  - Districts
+  - Cities
+  - Predefined Lists
 paths:
   /api/v1/wallet/customer/accountStatusChange:
     put:
       tags:
-      - customer-controller
+      - Customers
       summary: Account Status change request without C/M
       operationId: accountStatusChangeWithoutCM
       parameters:
@@ -21,6 +170,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -36,7 +186,7 @@ paths:
                 $ref: '#/components/schemas/ServiceResponse'
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Account Status change request
       operationId: accountStatusChange
       parameters:
@@ -45,6 +195,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -61,9 +212,8 @@ paths:
   /api/v1/wallet/validator/updateById:
     post:
       tags:
-      - validator-controller
-      description: Updates the specified Validator and its Arguments along with its
-        Types
+      - Validation
+      description: Updates the specified Validator and its Arguments along with its Types
       operationId: updateById
       requestBody:
         content:
@@ -78,10 +228,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update validation rule by ID
   /api/v1/wallet/validator/getRegexByKycCodeAndKycName:
     post:
       tags:
-      - validator-controller
+      - Validation
       description: Fetches the specified Regex by  Validator Name and attribute code
       operationId: getRegexByKycCodeAndKycName
       requestBody:
@@ -97,12 +248,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get regex by KYC code and KYC name
   /api/v1/wallet/validator/getRegexByIdenName:
     post:
       tags:
-      - validator-controller
-      description: Fetches the specified Regex by Product Code And Investor Type Code
-        And Validator Name
+      - Validation
+      description: Fetches the specified Regex by Product Code And Investor Type Code And Validator Name
       operationId: getRegexByIdenName
       requestBody:
         content:
@@ -117,10 +268,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get regex by identity name
   /api/v1/wallet/validator/add:
     post:
       tags:
-      - validator-controller
+      - Validation
       description: Add a new Validator along with its Arguments and Types
       operationId: add
       requestBody:
@@ -136,10 +288,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Create validation rule
   /api/v1/wallet/uiAuditLog/getUiLogs/{pageSize}/{currentPage}:
     post:
       tags:
-      - ui-audit-log-controller
+      - Audit Log
       description: Get All the UI Audit Logs (Non Financial)
       operationId: getAllUiAuditLogs
       parameters:
@@ -148,6 +301,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -172,10 +326,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all UI audit logs
   /api/v1/wallet/transactions/history:
     post:
       tags:
-      - transaction-activity-controller
+      - Transaction Activity
       summary: Get Customer Transaction History
       operationId: getCustomerTransactionHistory
       requestBody:
@@ -194,7 +349,7 @@ paths:
   /api/v1/wallet/transactions/account-statement:
     post:
       tags:
-      - transaction-activity-controller
+      - Transaction Activity
       summary: Get Customer Account Statement
       operationId: getAccountStatement
       requestBody:
@@ -213,7 +368,7 @@ paths:
   /api/v1/wallet/transactions/:
     post:
       tags:
-      - transaction-activity-controller
+      - Transaction Activity
       summary: Get Customer Transaction History Detail
       operationId: getTransactionDetail
       requestBody:
@@ -232,10 +387,10 @@ paths:
   /api/v1/wallet/tms/updateTmsRuleConfig:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       summary: Update TMS Alert Configuration
-      description: This api will update the TMS Alert Configuration from the TMS_ALERT_RULES
-        table with Enable/Disable rules and changing frequency and time limit
+      description: This api will update the TMS Alert Configuration from the TMS_ALERT_RULES table with Enable/Disable rules
+        and changing frequency and time limit
       operationId: updateTmsRuleConfig
       parameters:
       - name: UserId
@@ -243,6 +398,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -259,7 +415,7 @@ paths:
   /api/v1/wallet/tms/updateDelayTransactionStatus:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       operationId: updateDelayTransactionStatus
       parameters:
       - name: UserId
@@ -267,6 +423,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -285,10 +442,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update delay transaction status
   /api/v1/wallet/tms/inactive:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       operationId: updateEmail
       parameters:
       - name: UserId
@@ -296,6 +454,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -309,13 +468,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update email
   /api/v1/wallet/tms/getRelatedTransactions:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       summary: Get Related Transactions of the Account based on TMS Alert
-      description: This api will return the related transactions of the Account based
-        on TMS Alert
+      description: This api will return the related transactions of the Account based on TMS Alert
       operationId: getRelatedTransactions
       parameters:
       - name: UserId
@@ -323,6 +482,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -344,7 +504,7 @@ paths:
   /api/v1/wallet/tms/getDelayTransactions/{pageSize}/{currentPage}:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       operationId: getDelayTransactions
       parameters:
       - name: UserId
@@ -352,6 +512,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -381,10 +542,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get delay transactions
   /api/v1/wallet/tms/getAllTmsEmails/{pageSize}/{currentPage}:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       operationId: getTmsEmails
       parameters:
       - name: UserId
@@ -392,6 +554,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -421,10 +584,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get TMS emails
   /api/v1/wallet/tms/getAllTmsAlert/{pageSize}/{currentPage}:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       operationId: getAllTmsAlert
       parameters:
       - name: UserId
@@ -432,6 +596,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -461,16 +626,15 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all TMS alert
   /api/v1/wallet/tms/bulkUpdateAlertData:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       summary: Bulk or Single Update TMS Alerts Data
-      description: 'This API will Bulk or Single update TMS Alert Data eg: status,
-        assigneeRole, assignedTo, conclusion, comments. If the id''s List contain
-        only 1 id, then it will update the TMS Alert Data for that particular id.
-        If the id''s List contain more than 1 id, then it will update the TMS Alert
-        Data for all those ids.'
+      description: 'This API will Bulk or Single update TMS Alert Data eg: status, assigneeRole, assignedTo, conclusion, comments.
+        If the id''s List contain only 1 id, then it will update the TMS Alert Data for that particular id. If the id''s List
+        contain more than 1 id, then it will update the TMS Alert Data for all those ids.'
       operationId: bulkUpdateTmsAlertData
       parameters:
       - name: UserId
@@ -478,6 +642,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -499,7 +664,7 @@ paths:
   /api/v1/wallet/tms/assignAlert:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       operationId: assignTmsAlert
       parameters:
       - name: UserId
@@ -507,6 +672,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -525,10 +691,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Assign TMS alert
   /api/v1/wallet/tms/add:
     post:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       operationId: addEmail
       parameters:
       - name: UserId
@@ -536,6 +703,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -549,10 +717,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Add email
   /api/v1/wallet/productkycset/getByProdInvstCode:
     post:
       tags:
-      - product-kyc-set-controller
+      - Product KYC Mapping
       description: Fetches the specified KycAttributes by ProductCode And InvestorCode
       operationId: getByProdInvstCode
       parameters:
@@ -561,6 +730,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -574,10 +744,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by product investor code
   /api/v1/wallet/productchanneltran/updateById:
     post:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Updates the specified ProductChannelTranRel by Id
       operationId: updateById_1
       parameters:
@@ -586,6 +757,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -599,10 +771,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update product channel transaction by ID
   /api/v1/wallet/productchanneltran/add:
     post:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Add a new ProductChannelTranRel
       operationId: add_1
       parameters:
@@ -611,6 +784,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -624,10 +798,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Create product channel transaction
   /api/v1/wallet/productTax/updateTax:
     post:
       tags:
-      - product-tax-controller
+      - Product Taxes
       description: Update Product Fee
       operationId: updateTax
       parameters:
@@ -636,6 +811,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -649,10 +825,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update tax
   /api/v1/wallet/productTax/getAllTax/{pageSize}/{currentPage}:
     post:
       tags:
-      - product-tax-controller
+      - Product Taxes
       description: View all the Product Taxes with pagination
       operationId: getAllProductTax
       parameters:
@@ -661,6 +838,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -686,10 +864,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all product tax
   /api/v1/wallet/productTax/addTax:
     post:
       tags:
-      - product-tax-controller
+      - Product Taxes
       description: Add a new Product Fee
       operationId: addTax
       parameters:
@@ -698,6 +877,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -711,10 +891,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Add tax
   /api/v1/wallet/productFee/updateFee:
     post:
       tags:
-      - product-fee-controller
+      - Product Fees
       description: Update Product Fee
       operationId: updateFee
       parameters:
@@ -723,6 +904,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -736,10 +918,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update fee
   /api/v1/wallet/productFee/getAllFee/{pageSize}/{currentPage}:
     post:
       tags:
-      - product-fee-controller
+      - Product Fees
       description: View all the Product Fees with pagination
       operationId: getAllProductFees
       parameters:
@@ -748,6 +931,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -773,10 +957,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all product fees
   /api/v1/wallet/productFee/addFee:
     post:
       tags:
-      - product-fee-controller
+      - Product Fees
       description: Add a new Product Fee
       operationId: addFee
       parameters:
@@ -785,6 +970,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -798,10 +984,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Add fee
   /api/v1/wallet/productFee/addFed:
     post:
       tags:
-      - product-fee-controller
+      - Product Fees
       description: All Fee Fed for Tax on Fees
       operationId: addFeeFed
       parameters:
@@ -810,6 +997,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -823,10 +1011,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Add fee FED
   /api/v1/wallet/productCategory/update:
     post:
       tags:
-      - product-category-controller
+      - Product Categories
       description: Updates the specified Product Category with BPM Flow
       operationId: updateByCode
       parameters:
@@ -835,6 +1024,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -848,10 +1038,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update product category by code
   /api/v1/wallet/productCategory/add:
     post:
       tags:
-      - product-category-controller
+      - Product Categories
       description: Add a new Product Category with BPM Flow
       operationId: add_2
       parameters:
@@ -860,6 +1051,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -873,10 +1065,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Create product category
   /api/v1/wallet/product/update:
     post:
       tags:
-      - product-controller
+      - Products
       description: Update Product and its related details
       operationId: update
       parameters:
@@ -885,6 +1078,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -898,10 +1092,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update product
   /api/v1/wallet/product/getAll/{pageSize}/{currentPage}:
     post:
       tags:
-      - product-controller
+      - Products
       description: View all the Product
       operationId: getAllProducts
       parameters:
@@ -910,6 +1105,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -935,10 +1131,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all products
   /api/v1/wallet/product/add:
     post:
       tags:
-      - product-controller
+      - Products
       description: Add a new Product
       operationId: add_3
       parameters:
@@ -947,6 +1144,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -960,10 +1158,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Create product
   /api/v1/wallet/payments/title:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: titleFetch
       requestBody:
         content:
@@ -978,10 +1177,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Title fetch
   /api/v1/wallet/payments/executeTrx:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: executeTrx
       requestBody:
         content:
@@ -996,10 +1196,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Execute transaction
   /api/v1/wallet/payments/debitRelease:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: debitRelease
       requestBody:
         content:
@@ -1014,10 +1215,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Debit release
   /api/v1/wallet/payments/debitInquiry:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: debitInquiry
       requestBody:
         content:
@@ -1032,10 +1234,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Debit inquiry
   /api/v1/wallet/payments/debitHold:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: debitHold
       requestBody:
         content:
@@ -1050,10 +1253,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Debit hold
   /api/v1/wallet/payments/debitConfirm:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: debitConfirm
       requestBody:
         content:
@@ -1068,10 +1272,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Debit confirm
   /api/v1/wallet/payments/creditInquiry:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: creditInquiry
       requestBody:
         content:
@@ -1086,10 +1291,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Credit inquiry
   /api/v1/wallet/payments/balanceInquiry:
     post:
       tags:
-      - transaction-controller
+      - Transactions
       operationId: balanceInquiry
       requestBody:
         content:
@@ -1104,6 +1310,7 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/TransactionResponse'
+      summary: Balance inquiry
   /api/v1/wallet/opendigital/updateAttributes:
     post:
       tags:
@@ -1148,7 +1355,7 @@ paths:
     post:
       tags:
       - Open Digital
-      summary: initiate reactivation of account
+      summary: Initiate reactivation of account
       description: Initiate reactivation of account.
       operationId: initiateUpdateStatus
       requestBody:
@@ -1167,7 +1374,7 @@ paths:
   /api/v1/wallet/kycset-setattribute/updateStatusById:
     post:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: Active/Deactive the specified KycSet
       operationId: updateStatusById
       parameters:
@@ -1176,6 +1383,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1189,10 +1397,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update status by ID
   /api/v1/wallet/kycset-setattribute/updateKycSet:
     post:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: Updates the specified KycSet and its Attributes
       operationId: updateKycSet
       parameters:
@@ -1201,6 +1410,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1214,10 +1424,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update KYC set
   /api/v1/wallet/kycset-setattribute/getAll/{pageSize}/{currentPage}:
     post:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: View all the KYC Sets
       operationId: getAllKycSet
       parameters:
@@ -1226,6 +1437,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -1251,10 +1463,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all KYC set
   /api/v1/wallet/kycset-setattribute/addKycSet:
     post:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: Add a new KycSet and tag it with Attributes
       operationId: add_4
       parameters:
@@ -1263,6 +1476,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1276,10 +1490,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Create KYC group
   /api/v1/wallet/investortypegroup/updateStatusById:
     post:
       tags:
-      - investor-type-group-controller
+      - Investor Type Groups
       description: Active/Deactive the specified InvestorTypeGroup
       operationId: updateStatusById_1
       requestBody:
@@ -1295,10 +1510,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update status by ID
   /api/v1/wallet/investortypegroup/updateById:
     post:
       tags:
-      - investor-type-group-controller
+      - Investor Type Groups
       description: Updates the specified InvestorTypeGroup and its details
       operationId: updateById_2
       requestBody:
@@ -1314,10 +1530,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update investor type group by ID
   /api/v1/wallet/investortypegroup/add:
     post:
       tags:
-      - investor-type-group-controller
+      - Investor Type Groups
       description: Add a new InvestorTypeGroup and its details
       operationId: add_5
       requestBody:
@@ -1333,10 +1550,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Create investor type group
   /api/v1/wallet/investor/updateByCode:
     post:
       tags:
-      - investor-controller
+      - Investors
       description: Update Investor Type By Code.
       operationId: updateByCode_1
       requestBody:
@@ -1352,10 +1570,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Update investor by code
   /api/v1/wallet/investor/getByCodes:
     post:
       tags:
-      - investor-controller
+      - Investors
       description: Fetches the Investor Type by List of Codes
       operationId: getByCodes
       requestBody:
@@ -1373,10 +1592,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by codes
   /api/v1/wallet/investor/add:
     post:
       tags:
-      - investor-controller
+      - Investors
       description: Add a new Product
       operationId: add_6
       requestBody:
@@ -1392,10 +1612,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Create investor
   /api/v1/wallet/gl/voucher/post:
     post:
       tags:
-      - gl-voucher-controller
+      - GL Vouchers
       summary: Post Voucher
       description: This API will post new voucher
       operationId: post
@@ -1405,6 +1626,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1427,8 +1649,8 @@ paths:
   /api/v1/wallet/gl/voucher/get/{pageSize}/{currentPage}:
     post:
       tags:
-      - gl-voucher-controller
-      summary: get all Vouchers
+      - GL Vouchers
+      summary: Get all Vouchers
       description: This API will return all vouchers with paging
       operationId: getVouchers
       parameters:
@@ -1449,6 +1671,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1471,7 +1694,7 @@ paths:
   /api/v1/wallet/gl/coa/update/sapAccount:
     post:
       tags:
-      - gl-coa-controller
+      - Chart of Accounts
       summary: Update Sap account code
       description: Update Sap account code
       operationId: sapAccountUpdate
@@ -1481,6 +1704,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1497,7 +1721,7 @@ paths:
   /api/v1/wallet/gl/coa/update/account:
     post:
       tags:
-      - gl-coa-controller
+      - Chart of Accounts
       summary: Initiate bpm process
       description: Initiate bpm process
       operationId: update_1
@@ -1507,6 +1731,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1523,7 +1748,7 @@ paths:
   /api/v1/wallet/gl/coa/add/account:
     post:
       tags:
-      - gl-coa-controller
+      - Chart of Accounts
       summary: Initiate bpm process
       description: Initiate bpm process
       operationId: post_1
@@ -1533,6 +1758,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1549,7 +1775,7 @@ paths:
   /api/v1/wallet/dao/customer/document/upload:
     post:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Upload documents
       description: This API will upload document of customer
       operationId: uploadDocument
@@ -1559,6 +1785,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1581,7 +1808,7 @@ paths:
   /api/v1/wallet/dao/customer/customer/create:
     post:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Create Customer initiated from DAO
       description: This API will create the customer which is approved from DAO.
       operationId: createCustomer
@@ -1591,6 +1818,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1613,7 +1841,7 @@ paths:
   /api/v1/wallet/dao/customer/bvs/add:
     post:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Upgrade Account
       description: This API will Upgrade account of given customer
       operationId: addBvsData
@@ -1623,6 +1851,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1645,10 +1874,9 @@ paths:
   /api/v1/wallet/dao/customer/attributeByProduct/exist:
     post:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Check if an attribute (Customer) exists by Product Code
-      description: This API checks whether a given attribute (Customer) exists in
-        the system with the product code.
+      description: This API checks whether a given attribute (Customer) exists in the system with the product code.
       operationId: attributeExistsByProduct
       parameters:
       - name: UserId
@@ -1656,6 +1884,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1678,7 +1907,7 @@ paths:
   /api/v1/wallet/dao/customer/attribute/exist:
     post:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Check if an attribute exists
       description: This API checks whether a given attribute exists in the system.
       operationId: attributeExists
@@ -1688,6 +1917,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1710,7 +1940,7 @@ paths:
   /api/v1/wallet/dao/customer/account/upgrade:
     post:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Upgrade Account
       description: This API will Upgrade account of given customer
       operationId: upgradeAccount
@@ -1720,6 +1950,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1742,7 +1973,7 @@ paths:
   /api/v1/wallet/dao/customer/account/add:
     post:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Add Account
       description: This API will create account of given customer
       operationId: addAccount
@@ -1752,6 +1983,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1774,7 +2006,7 @@ paths:
   /api/v1/wallet/customer/submitLienMarking:
     post:
       tags:
-      - transaction-adjustment-controller
+      - Transaction Adjustments
       summary: Submit Lien Marking for a Customer's Transaction
       operationId: submitLienMarking
       parameters:
@@ -1783,6 +2015,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1799,7 +2032,7 @@ paths:
   /api/v1/wallet/customer/postReversal:
     post:
       tags:
-      - transaction-adjustment-controller
+      - Transaction Adjustments
       summary: Get Customer transactions for Reversal
       operationId: postReversal
       parameters:
@@ -1808,6 +2041,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1894,8 +2128,8 @@ paths:
   /api/v1/wallet/customer/getReversalList/{pageSize}/{currentPage}:
     post:
       tags:
-      - transaction-adjustment-controller
-      summary: get customer posting list
+      - Transaction Adjustments
+      summary: Get customer posting list
       description: get customer posting list
       operationId: getReversalList
       parameters:
@@ -1904,6 +2138,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -1932,9 +2167,8 @@ paths:
   /api/v1/wallet/customer/getMotherAndPlaceOfBirthRelation:
     post:
       tags:
-      - customer-controller
-      summary: Get Relation of Mother and Place of Birth, Returns True if relation
-        exists
+      - Customers
+      summary: Get Relation of Mother and Place of Birth, Returns True if relation exists
       operationId: getRelationBetweenMotherAndDateOfPlace
       parameters:
       - name: UserId
@@ -1942,6 +2176,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -1958,7 +2193,7 @@ paths:
   /api/v1/wallet/customer/getLienMarkingList/{pageSize}/{currentPage}:
     post:
       tags:
-      - transaction-adjustment-controller
+      - Transaction Adjustments
       summary: Get List View of Lien Marking
       operationId: getLienMarkingList
       parameters:
@@ -1967,6 +2202,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -1995,7 +2231,7 @@ paths:
   /api/v1/wallet/customer/getCustomer:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get Detail of customer
       operationId: getCustomer
       parameters:
@@ -2004,6 +2240,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2020,7 +2257,7 @@ paths:
   /api/v1/wallet/customer/getCustomerTransactions/{pageSize}/{currentPage}:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get Transaction of customer
       operationId: getCustomerTransactions
       parameters:
@@ -2041,6 +2278,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2057,7 +2295,7 @@ paths:
   /api/v1/wallet/customer/getCustomerTransactionForReversal/{pageSize}/{currentPage}:
     post:
       tags:
-      - transaction-adjustment-controller
+      - Transaction Adjustments
       summary: Get Customer transactions for Reversal
       operationId: getCustomerTransactionForReversal
       parameters:
@@ -2072,6 +2310,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: currentPage
         in: path
         required: true
@@ -2094,7 +2333,7 @@ paths:
   /api/v1/wallet/customer/getCustomerRisk:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get Risks of customer
       operationId: getCustomerRisk
       parameters:
@@ -2103,6 +2342,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2119,8 +2359,8 @@ paths:
   /api/v1/wallet/customer/getCustomerPosting/{pageSize}/{currentPage}:
     post:
       tags:
-      - transaction-adjustment-controller
-      summary: get customer posting list
+      - Transaction Adjustments
+      summary: Get customer posting list
       description: get customer posting list
       operationId: getCustomerPosting
       parameters:
@@ -2129,6 +2369,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -2157,7 +2398,7 @@ paths:
   /api/v1/wallet/customer/getCustomerLimits:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get Available limit of customer
       operationId: getCustomerLimits
       parameters:
@@ -2166,6 +2407,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2182,7 +2424,7 @@ paths:
   /api/v1/wallet/customer/getCustomerDocument:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get Documents of customer
       operationId: getCustomerDocument
       parameters:
@@ -2191,6 +2433,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2207,10 +2450,9 @@ paths:
   /api/v1/wallet/customer/getCddAlerts/{pageSize}/{currentPage}:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get Customers CDD Alerts
-      description: Fetch and return CDD alerts for customers cdd alerts based on the
-        provided request parameters.
+      description: Fetch and return CDD alerts for customers cdd alerts based on the provided request parameters.
       operationId: getCddAlerts
       parameters:
       - name: pageSize
@@ -2230,6 +2472,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -2250,7 +2493,7 @@ paths:
   /api/v1/wallet/customer/getAllCustomers/{pageSize}/{currentPage}:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get All Customers
       description: View all the Customers
       operationId: getAllCustomer
@@ -2260,6 +2503,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: pageSize
         in: path
         required: true
@@ -2288,7 +2532,7 @@ paths:
   /api/v1/wallet/customer/getAllAccountStatusChangeLogs/{pageSize}/{currentPage}:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Get All Account Status Change Logs
       operationId: getAllAccountStatusChangeLogs
       parameters:
@@ -2309,6 +2553,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2325,7 +2570,7 @@ paths:
   /api/v1/wallet/customer/customerPosting:
     post:
       tags:
-      - transaction-adjustment-controller
+      - Transaction Adjustments
       summary: Initiate bpm process
       description: Initiate bpm process
       operationId: customerPosting
@@ -2335,6 +2580,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2421,10 +2667,9 @@ paths:
   /api/v1/wallet/customer/changeCddAlertStatus:
     post:
       tags:
-      - customer-controller
+      - Customers
       summary: Change CDD Alerts Status Maker/Checker
-      description: Change Cdd Alerts status and customer status with respect to the
-        changing state.
+      description: Change Cdd Alerts status and customer status with respect to the changing state.
       operationId: changeCddAlertStatus
       parameters:
       - name: UserId
@@ -2432,6 +2677,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -2453,7 +2699,7 @@ paths:
   /api/v1/wallet/configuration/updateConfigurations:
     post:
       tags:
-      - configuration-controller
+      - Configuration
       summary: Update Referral Configuration by Key and Value
       description: Update Configuration
       operationId: updateReferralConfig
@@ -2463,6 +2709,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2479,7 +2726,7 @@ paths:
   /api/v1/wallet/configuration/configureCdd:
     post:
       tags:
-      - configuration-controller
+      - Configuration
       summary: Configure CDD of Risk Customers
       operationId: configureCdd
       parameters:
@@ -2488,6 +2735,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2504,7 +2752,7 @@ paths:
   /api/v1/wallet/bpm/updateTmsAlertConfig/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of TMS Alert Config (Checker End)
       description: User Review Tasks of TMS Alert Config (Checker End)
       operationId: userReturnedTasksReview
@@ -2514,6 +2762,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2530,7 +2779,7 @@ paths:
   /api/v1/wallet/bpm/transaction/tms/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of TMS Email Config (Checker End)
       description: User Review Tasks of TMS Email (Checker End)
       operationId: userReturnedTasksReview_1
@@ -2540,6 +2789,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2556,7 +2806,7 @@ paths:
   /api/v1/wallet/bpm/reviewtasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks (Checker End)
       description: User Review Tasks (Checker End)
       operationId: userPendingTasksReview
@@ -2566,6 +2816,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: operation
         in: header
         required: false
@@ -2587,7 +2838,7 @@ paths:
   /api/v1/wallet/bpm/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks (Checker End)
       description: User Review Tasks (Checker End)
       operationId: userReturnedTasksReview_2
@@ -2597,6 +2848,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2613,7 +2865,7 @@ paths:
   /api/v1/wallet/bpm/product/taxProfile/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of Product TAX PROFILE (Checker End)
       description: User Review Tasks of Product TAX PROFILE (Checker End)
       operationId: userReturnedTasksReview_3
@@ -2623,6 +2875,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2639,7 +2892,7 @@ paths:
   /api/v1/wallet/bpm/product/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of Product Config (Checker End)
       description: User Review Tasks of Product Config (Checker End)
       operationId: userReturnedTasksReview_4
@@ -2649,6 +2902,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2665,7 +2919,7 @@ paths:
   /api/v1/wallet/bpm/product/productCategory/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of Product Category Config (Checker End)
       description: User Review Tasks of Product Category Config (Checker End)
       operationId: userReturnedTasksReview_5
@@ -2675,6 +2929,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2691,7 +2946,7 @@ paths:
   /api/v1/wallet/bpm/product/feeProfile/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of Product FEE PROFILE (Checker End)
       description: User Review Tasks of Product FEE PROFILE (Checker End)
       operationId: userReturnedTasksReview_6
@@ -2701,6 +2956,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2717,7 +2973,7 @@ paths:
   /api/v1/wallet/bpm/lienMarking/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of Lien Marking (Checker End)
       description: User Review Tasks of Lien Marking (Checker End)
       operationId: userReturnedTasksReview_7
@@ -2727,6 +2983,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2743,7 +3000,7 @@ paths:
   /api/v1/wallet/bpm/kyc/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of Kyc Set (Checker End)
       description: User Review Tasks of Kyc Set (Checker End)
       operationId: userReturnedTasksReview_8
@@ -2753,6 +3010,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2769,7 +3027,7 @@ paths:
   /api/v1/wallet/bpm/configureCdd/reviewReturnedTasks:
     post:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: User Review Tasks of CDD Configuration (Checker End)
       description: User Review Tasks of CDD Configuration (Checker End)
       operationId: userReturnedTasksReview_9
@@ -2779,6 +3037,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2795,9 +3054,9 @@ paths:
   /api/v1/wallet/authenticate:
     post:
       tags:
-      - jwt-authentication-controller
+      - Authentication
       summary: Get Access Token
-      description: This API create token
+      description: Creates an access token. Send the token in the `Authorization` header of all other requests.
       operationId: createAuthenticationToken
       requestBody:
         content:
@@ -2812,10 +3071,11 @@ paths:
             '*/*':
               schema:
                 type: object
+      security: []
   /api/v1/wallet/account/verifyReferralCode:
     post:
       tags:
-      - account-controller
+      - Accounts
       summary: Verify Referral Code if its available and the user is not registered.
       description: Verify Referral Code
       operationId: verifyReferralCode
@@ -2825,6 +3085,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2841,7 +3102,7 @@ paths:
   /api/v1/wallet/account/updateStatus:
     post:
       tags:
-      - account-controller
+      - Accounts
       summary: Initiate BPM for Account Status Change.
       description: Initiate BPM for Account Status Change
       operationId: updateStatus
@@ -2851,6 +3112,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2867,7 +3129,7 @@ paths:
   /api/v1/wallet/account/getAccountStatusChangeRequestList/{pageSize}/{currentPage}:
     post:
       tags:
-      - account-controller
+      - Accounts
       summary: Get Account status Change Request list.
       description: Get Account status Change Request list
       operationId: getAccountStatusChangeRequestList
@@ -2889,6 +3151,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       requestBody:
         content:
           application/json:
@@ -2905,7 +3168,7 @@ paths:
   /api/v1/wallet/validator/getIdentifierFiller:
     get:
       tags:
-      - validator-controller
+      - Validation
       description: Fetches the specified Validator by Name
       operationId: getIdentifierFiller
       responses:
@@ -2915,10 +3178,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get identifier filler
   /api/v1/wallet/validator/getByName/{name}:
     get:
       tags:
-      - validator-controller
+      - Validation
       description: Fetches the specified Validator by Name
       operationId: getByName
       parameters:
@@ -2934,10 +3198,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by name
   /api/v1/wallet/validator/getById/{id}:
     get:
       tags:
-      - validator-controller
+      - Validation
       description: Fetches the specified Validator by Id
       operationId: getById
       parameters:
@@ -2954,10 +3219,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get validation rule by ID
   /api/v1/wallet/validator/getAll:
     get:
       tags:
-      - validator-controller
+      - Validation
       description: View all the Validators
       operationId: getAllValidator
       responses:
@@ -2967,10 +3233,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all validator
   /api/v1/wallet/validator/filler:
     get:
       tags:
-      - validator-controller
+      - Validation
       description: Validator List Filler
       operationId: filler
       responses:
@@ -2980,10 +3247,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Filler
   /api/v1/wallet/uiAuditLog/{id}:
     get:
       tags:
-      - ui-audit-log-controller
+      - Audit Log
       description: Get UI Audit Log by ID (Non Financial)
       operationId: getUiAuditLogById
       parameters:
@@ -2992,6 +3260,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: id
         in: path
         required: true
@@ -3004,13 +3273,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get UI audit log by ID
   /api/v1/wallet/tms/getTmsRules:
     get:
       tags:
-      - transaction-monitoring-system-controller
+      - Transaction Monitoring
       summary: Get Related Transactions of the Account based on TMS Alert
-      description: This api will return the related transactions of the Account based
-        on TMS Alert
+      description: This api will return the related transactions of the Account based on TMS Alert
       operationId: getTmsRules
       parameters:
       - name: UserId
@@ -3018,6 +3287,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: ModuleName
         in: header
         required: true
@@ -3033,7 +3303,7 @@ paths:
   /api/v1/wallet/province/getByCountry/{countryCode}:
     get:
       tags:
-      - province-controller
+      - Provinces
       description: Fetches Provinces by Country Code
       operationId: getProvincesByCountryCode
       parameters:
@@ -3049,10 +3319,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get provinces by country code
   /api/v1/wallet/province/getAll:
     get:
       tags:
-      - province-controller
+      - Provinces
       description: Fetches all Provinces
       operationId: getAllProvinces
       responses:
@@ -3062,10 +3333,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all provinces
   /api/v1/wallet/productkycset/getByProductCode/{code}:
     get:
       tags:
-      - product-kyc-set-controller
+      - Product KYC Mapping
       description: Fetches the specified ProductKycSet by ProductCode
       operationId: getByProductCode
       parameters:
@@ -3074,6 +3346,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: code
         in: path
         required: true
@@ -3086,10 +3359,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by product code
   /api/v1/wallet/productkycset/getById/{id}:
     get:
       tags:
-      - product-kyc-set-controller
+      - Product KYC Mapping
       description: Fetches the specified ProductKycSet by Id
       operationId: getById_1
       parameters:
@@ -3104,6 +3378,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3111,10 +3386,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get product KYC mapping by ID
   /api/v1/wallet/productkycset/deleteById/{Id}:
     get:
       tags:
-      - product-kyc-set-controller
+      - Product KYC Mapping
       description: Deletes the specified ProductKycSet
       operationId: deleteById
       parameters:
@@ -3123,6 +3399,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: Id
         in: path
         required: true
@@ -3136,10 +3413,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Delete by ID
   /api/v1/wallet/productchanneltran/getByTransactionCode/{transactionCode}:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Fetches the specified ProductChannelTranRel by TransactionCode
       operationId: getByTransactionCode
       parameters:
@@ -3148,6 +3426,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: transactionCode
         in: path
         required: true
@@ -3160,10 +3439,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by transaction code
   /api/v1/wallet/productchanneltran/getByTaxId/{taxId}:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Fetches the specified ProductChannelTranRel by TaxId
       operationId: getByTaxId
       parameters:
@@ -3172,6 +3452,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: taxId
         in: path
         required: true
@@ -3185,10 +3466,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by tax ID
   /api/v1/wallet/productchanneltran/getByPurchaseCode/{purchaseCode}:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Fetches the specified ProductChannelTranRel by PurchaseModeCode
       operationId: getByPurchaseCode
       parameters:
@@ -3197,6 +3479,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: purchaseCode
         in: path
         required: true
@@ -3209,10 +3492,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by purchase code
   /api/v1/wallet/productchanneltran/getByProductCode/{productCode}:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Fetches the specified ProductChannelTranRel by ProductCode
       operationId: getByProductCode_1
       parameters:
@@ -3221,6 +3505,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: productCode
         in: path
         required: true
@@ -3233,10 +3518,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by product code
   /api/v1/wallet/productchanneltran/getById/{id}:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Fetches the specified ProductChannelTranRel by Id
       operationId: getById_2
       parameters:
@@ -3251,6 +3537,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3258,10 +3545,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get product channel transaction by ID
   /api/v1/wallet/productchanneltran/getByFeeId/{feeId}:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Fetches the specified ProductChannelTranRel by FeeId
       operationId: getByFeeId
       parameters:
@@ -3270,6 +3558,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: feeId
         in: path
         required: true
@@ -3283,10 +3572,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by fee ID
   /api/v1/wallet/productchanneltran/getByChannelCode/{channelCode}:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: Fetches the specified ProductChannelTranRel by ChannelCode
       operationId: getByChannelCode
       parameters:
@@ -3295,6 +3585,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: channelCode
         in: path
         required: true
@@ -3307,10 +3598,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by channel code
   /api/v1/wallet/productchanneltran/getAll:
     get:
       tags:
-      - product-channel-tran-controller
+      - Product Transactions
       description: View all the ProductChannelTranRel
       operationId: getAllProductChannelTranRel
       parameters:
@@ -3319,6 +3611,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3326,10 +3619,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all product channel tran rel
   /api/v1/wallet/productTax/getTaxById/{id}:
     get:
       tags:
-      - product-tax-controller
+      - Product Taxes
       description: Update Product Fee
       operationId: getTaxById
       parameters:
@@ -3344,6 +3638,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3351,13 +3646,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get tax by ID
   /api/v1/wallet/productTax/getAllConfiguredTaxes:
     get:
       tags:
-      - product-tax-controller
+      - Product Taxes
       summary: Get all configured and non-configured Product Taxes
-      description: View all the Product Taxes in a simple list, configured for both
-        configured and non-configured fees
+      description: View all the Product Taxes in a simple list, configured for both configured and non-configured fees
       operationId: getAllConfiguredTaxes
       parameters:
       - name: UserId
@@ -3365,6 +3660,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: isConfigured
         in: query
         required: true
@@ -3380,7 +3676,7 @@ paths:
   /api/v1/wallet/productFee/getFeeById/{id}:
     get:
       tags:
-      - product-fee-controller
+      - Product Fees
       description: Update Product Fee
       operationId: getFeeById
       parameters:
@@ -3395,6 +3691,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3402,10 +3699,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get fee by ID
   /api/v1/wallet/productFee/getAllFeeFed:
     get:
       tags:
-      - product-fee-controller
+      - Product Fees
       description: View all the Product Fees FED
       operationId: getAllProductFeesFed
       parameters:
@@ -3414,6 +3712,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3421,13 +3720,13 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all product fees FED
   /api/v1/wallet/productFee/getAllConfiguredFees:
     get:
       tags:
-      - product-fee-controller
+      - Product Fees
       summary: Get all configured and non-configured Product Fees
-      description: View all the Product Fees in a simple list, configured for both
-        configured and non-configured fees
+      description: View all the Product Fees in a simple list, configured for both configured and non-configured fees
       operationId: getAllConfiguredFees
       parameters:
       - name: UserId
@@ -3435,6 +3734,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: isConfigured
         in: query
         required: true
@@ -3450,10 +3750,9 @@ paths:
   /api/v1/wallet/productFee/getAllConfiguredFed:
     get:
       tags:
-      - product-fee-controller
+      - Product Fees
       summary: Get all configured and non-configured Product Fee Feds
-      description: View all the Product Fee Feds in a simple list, configured for
-        both configured and non-configured Fee Feds
+      description: View all the Product Fee Feds in a simple list, configured for both configured and non-configured Fee Feds
       operationId: getAllConfiguredFed
       parameters:
       - name: UserId
@@ -3461,6 +3760,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: isConfigured
         in: query
         required: true
@@ -3476,7 +3776,7 @@ paths:
   /api/v1/wallet/productCategory/getByCode/{categoryCode}:
     get:
       tags:
-      - product-category-controller
+      - Product Categories
       description: Fetches the specified Product Category by Code
       operationId: getByCode
       parameters:
@@ -3485,6 +3785,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: categoryCode
         in: path
         required: true
@@ -3497,10 +3798,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by code
   /api/v1/wallet/productCategory/getAll:
     get:
       tags:
-      - product-category-controller
+      - Product Categories
       description: Fetches All The Product Categories both Active and Inactive
       operationId: getAll
       parameters:
@@ -3509,6 +3811,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3516,10 +3819,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: List product categorys
   /api/v1/wallet/productCategory/getAllActive:
     get:
       tags:
-      - product-category-controller
+      - Product Categories
       description: Fetches All Active The Product Categories
       operationId: getAllActive
       parameters:
@@ -3528,6 +3832,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3535,12 +3840,12 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all active
   /api/v1/wallet/product/getLovs:
     get:
       tags:
-      - product-controller
-      description: Fetches all Product Lovs(Trans Codes, Category Codes, Kyc Sets,
-        Channel Codes, Product Levels)
+      - Products
+      description: Fetches all Product Lovs(Trans Codes, Category Codes, Kyc Sets, Channel Codes, Product Levels)
       operationId: getProductLovs
       parameters:
       - name: UserId
@@ -3548,6 +3853,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3555,10 +3861,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get product lovs
   /api/v1/wallet/product/getByProductCategory/{productCategoryCode}:
     get:
       tags:
-      - product-controller
+      - Products
       description: Fetches the specified Products by Product Category Code
       operationId: getByProductCategory
       parameters:
@@ -3567,6 +3874,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: productCategoryCode
         in: path
         required: true
@@ -3579,10 +3887,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by product category
   /api/v1/wallet/product/getByLevelName/{levelName}:
     get:
       tags:
-      - product-controller
+      - Products
       description: Fetches all Products by Level Name
       operationId: getProductsByLevelName
       parameters:
@@ -3591,6 +3900,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: levelName
         in: path
         required: true
@@ -3603,10 +3913,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get products by level name
   /api/v1/wallet/product/getByCode/{productCode}:
     get:
       tags:
-      - product-controller
+      - Products
       description: Fetches the specified Product by Code
       operationId: getByCode_1
       parameters:
@@ -3615,6 +3926,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: productCode
         in: path
         required: true
@@ -3627,10 +3939,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by code
   /api/v1/wallet/product/getAllProducts:
     get:
       tags:
-      - product-controller
+      - Products
       operationId: getAllProducts_1
       parameters:
       - name: UserId
@@ -3638,6 +3951,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3645,10 +3959,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all products
   /api/v1/wallet/product/filler:
     get:
       tags:
-      - product-controller
+      - Products
       description: View all the Products that are active as a filer
       operationId: filler_1
       parameters:
@@ -3657,6 +3972,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3664,10 +3980,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Filler
   /api/v1/wallet/product/code/{id}:
     get:
       tags:
-      - product-controller
+      - Products
       description: Get Product by ID
       operationId: fetchByCode
       parameters:
@@ -3676,6 +3993,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: id
         in: path
         required: true
@@ -3688,10 +4006,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Fetch by code
   /api/v1/wallet/predefineList/getAll:
     get:
       tags:
-      - predefine-list-controller
+      - Predefined Lists
       description: Get all Predefine List
       operationId: getAll_1
       responses:
@@ -3701,10 +4020,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: List predefined lists
   /api/v1/wallet/predefineList/filler:
     get:
       tags:
-      - predefine-list-controller
+      - Predefined Lists
       description: Predefine List Filler
       operationId: filler_2
       responses:
@@ -3714,10 +4034,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Filler
   /api/v1/wallet/paymentmode/getPaymentModeByTranCode/{tranCode}:
     get:
       tags:
-      - payment-mode-controller
+      - Payment Modes
       description: Get Payement Mode By Transaction Code
       operationId: getPaymentModeByTranCode
       parameters:
@@ -3733,10 +4054,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get payment mode by tran code
   /api/v1/wallet/paymentmode/getByCustTypeCode/{custTypeCode}:
     get:
       tags:
-      - payment-mode-controller
+      - Payment Modes
       description: Get Payement Mode By Operating Mode
       operationId: getByOperModeCode
       parameters:
@@ -3752,10 +4074,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by oper mode code
   /api/v1/wallet/paymentmode/filler:
     get:
       tags:
-      - payment-mode-controller
+      - Payment Modes
       description: Get Payment Mode Filler
       operationId: getAllAccountStatus
       responses:
@@ -3765,10 +4088,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all account status
   /api/v1/wallet/kycset-setattribute/getByName/{name}:
     get:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: Fetches the specified KycSet by Name
       operationId: getByName_1
       parameters:
@@ -3777,6 +4101,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: name
         in: path
         required: true
@@ -3789,10 +4114,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by name
   /api/v1/wallet/kycset-setattribute/getByKycAttributeId/{getByKycAttributeId}:
     get:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: Fetches the specified KycSet by kyc attribute id
       operationId: getByKycAttributeId
       parameters:
@@ -3801,6 +4127,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: getByKycAttributeId
         in: path
         required: true
@@ -3813,10 +4140,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by KYC attribute ID
   /api/v1/wallet/kycset-setattribute/getById/{Id}:
     get:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: Fetches the specified KycSet by Id
       operationId: getById_3
       parameters:
@@ -3825,6 +4153,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: Id
         in: path
         required: true
@@ -3838,10 +4167,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get KYC group by ID
   /api/v1/wallet/kycset-setattribute/filler:
     get:
       tags:
-      - kyc-set-and-set-attributes-controller
+      - KYC Groups
       description: View all the active KycSets as a filer
       operationId: filler_3
       parameters:
@@ -3850,6 +4180,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3857,10 +4188,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Filler
   /api/v1/wallet/kycattribute-list/getById/{kycAttributeId}:
     get:
       tags:
-      - kyc-attribute-and-list-controller
+      - KYC Attributes
       description: Fetches the specified KycAttributes by Id
       operationId: getById_4
       parameters:
@@ -3869,6 +4201,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: kycAttributeId
         in: path
         required: true
@@ -3882,10 +4215,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get KYC attribute by ID
   /api/v1/wallet/kycattribute-list/getByCode/{attributeCode}:
     get:
       tags:
-      - kyc-attribute-and-list-controller
+      - KYC Attributes
       description: Fetches the specified KycAttributes by Code
       operationId: getByCode_2
       parameters:
@@ -3894,6 +4228,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: attributeCode
         in: path
         required: true
@@ -3906,10 +4241,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by code
   /api/v1/wallet/kycattribute-list/getAll:
     get:
       tags:
-      - kyc-attribute-and-list-controller
+      - KYC Attributes
       description: View all the KycAttributes and Lists
       operationId: getAll_2
       parameters:
@@ -3918,6 +4254,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -3925,10 +4262,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: List KYC attributes
   /api/v1/wallet/investortypegroup/getByName/{name}:
     get:
       tags:
-      - investor-type-group-controller
+      - Investor Type Groups
       description: Fetches the specified InvestorTypeGroup by Name
       operationId: getByName_2
       parameters:
@@ -3944,10 +4282,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by name
   /api/v1/wallet/investortypegroup/getById/{InvestorTypeGroupId}:
     get:
       tags:
-      - investor-type-group-controller
+      - Investor Type Groups
       description: Fetches the specified InvestorTypeGroup by Id
       operationId: getById_5
       parameters:
@@ -3964,10 +4303,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get investor type group by ID
   /api/v1/wallet/investortypegroup/getAll:
     get:
       tags:
-      - investor-type-group-controller
+      - Investor Type Groups
       description: View all the Active InvestorTypeGroups and its details
       operationId: getAllInvestorTypeGroupAndDetails
       responses:
@@ -3977,10 +4317,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all investor type group and details
   /api/v1/wallet/investortypegroup/filler:
     get:
       tags:
-      - investor-type-group-controller
+      - Investor Type Groups
       description: Filler for all the Active InvestorTypeGroups
       operationId: filler_4
       responses:
@@ -3990,10 +4331,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Filler
   /api/v1/wallet/investor/getByCode/{code}:
     get:
       tags:
-      - investor-controller
+      - Investors
       description: Get Investor Type by Code
       operationId: getByCode_3
       parameters:
@@ -4009,10 +4351,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get by code
   /api/v1/wallet/investor/getAll:
     get:
       tags:
-      - investor-controller
+      - Investors
       description: View all the Investor Types
       operationId: getAllInvestorTypes
       responses:
@@ -4022,10 +4365,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all investor types
   /api/v1/wallet/gl/voucher/getVoucherDetails:
     get:
       tags:
-      - gl-voucher-controller
+      - GL Vouchers
       summary: Get voucher detail
       description: This API will return voucher detail
       operationId: getVoucherDetails
@@ -4040,6 +4384,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4056,7 +4401,7 @@ paths:
   /api/v1/wallet/gl/voucher/getPurpose:
     get:
       tags:
-      - gl-voucher-controller
+      - GL Vouchers
       summary: Get voucher types
       description: This API will return purpose
       operationId: getPurpose
@@ -4066,6 +4411,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4082,7 +4428,7 @@ paths:
   /api/v1/wallet/gl/voucher/generate:
     get:
       tags:
-      - gl-voucher-controller
+      - GL Vouchers
       summary: Get voucher number
       description: This API will generate Voucher number for GL posting
       operationId: generateVoucherNo
@@ -4092,6 +4438,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4108,8 +4455,8 @@ paths:
   /api/v1/wallet/gl/coa/getParentsForAccountAdding:
     get:
       tags:
-      - gl-coa-controller
-      summary: get all Coa
+      - Chart of Accounts
+      summary: Get all Coa
       description: This API will return all GL Coa
       operationId: getParentsForAccountAdding
       parameters:
@@ -4118,6 +4465,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4134,8 +4482,8 @@ paths:
   /api/v1/wallet/gl/coa/getCounterAccount:
     get:
       tags:
-      - gl-coa-controller
-      summary: get all categories
+      - Chart of Accounts
+      summary: Get all categories
       description: This API will return all GL categories
       operationId: getCounterAccount
       parameters:
@@ -4144,6 +4492,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4160,8 +4509,8 @@ paths:
   /api/v1/wallet/gl/coa/getAll:
     get:
       tags:
-      - gl-coa-controller
-      summary: get all Coa
+      - Chart of Accounts
+      summary: Get all Coa
       description: This API will return all GL Coa
       operationId: getAll_3
       parameters:
@@ -4170,6 +4519,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4186,8 +4536,8 @@ paths:
   /api/v1/wallet/gl/coa/getAllHeirarchy:
     get:
       tags:
-      - gl-coa-controller
-      summary: get all categories
+      - Chart of Accounts
+      summary: Get all categories
       description: This API will return all GL categories
       operationId: getAllHeirarchy
       parameters:
@@ -4196,6 +4546,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4212,8 +4563,8 @@ paths:
   /api/v1/wallet/gl/coa/getAccountsForPosting:
     get:
       tags:
-      - gl-coa-controller
-      summary: get all categories
+      - Chart of Accounts
+      summary: Get all categories
       description: This API will return all GL categories
       operationId: getAccountsForPosting
       parameters:
@@ -4222,6 +4573,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4238,8 +4590,8 @@ paths:
   /api/v1/wallet/gl/category/getAll:
     get:
       tags:
-      - gl-category-controller
-      summary: get all categories
+      - GL Categories
+      summary: Get all categories
       description: This API will return all GL categories
       operationId: getAll_4
       parameters:
@@ -4248,6 +4600,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: SUCCESS
@@ -4264,7 +4617,7 @@ paths:
   /api/v1/wallet/district/getByCity/{cityCode}:
     get:
       tags:
-      - district-controller
+      - Districts
       description: Fetches Districts by City Code
       operationId: getDistrictsByCityCode
       parameters:
@@ -4280,10 +4633,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get districts by city code
   /api/v1/wallet/district/getAll:
     get:
       tags:
-      - district-controller
+      - Districts
       description: Fetches all Districts
       operationId: getAllDistricts
       responses:
@@ -4293,10 +4647,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all districts
   /api/v1/wallet/dao/customer/getProductDetail/{accountNumber}:
     get:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Get Product detail
       description: This API will return details of given product
       operationId: getProductDetail
@@ -4306,6 +4661,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: accountNumber
         in: path
         required: true
@@ -4327,7 +4683,7 @@ paths:
   /api/v1/wallet/dao/customer/getKyc/{identValue}/{mobileNumber}:
     get:
       tags:
-      - dao-customer-controller
+      - Digital Account Opening
       summary: Get Kyc
       description: This API will return Kyc of customer
       operationId: getKyc
@@ -4337,6 +4693,7 @@ paths:
         required: false
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: identValue
         in: path
         required: true
@@ -4363,7 +4720,7 @@ paths:
   /api/v1/wallet/customer/getListAdjustment:
     get:
       tags:
-      - transaction-adjustment-controller
+      - Transaction Adjustments
       summary: Get List of Adjustments Transaction codes
       operationId: getListAdjustment
       parameters:
@@ -4372,6 +4729,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -4382,9 +4740,9 @@ paths:
   /api/v1/wallet/customer/dashboard:
     get:
       tags:
-      - customer-controller
-      summary: View Details of Dashboard Analytics that includes total customers,
-        active customers, inactive customers, blocked customers, and pending customers.
+      - Customers
+      summary: View Details of Dashboard Analytics that includes total customers, active customers, inactive customers, blocked
+        customers, and pending customers.
       description: View Dashboard Analytics
       operationId: getDashboardAnalytics
       parameters:
@@ -4393,6 +4751,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -4403,7 +4762,7 @@ paths:
   /api/v1/wallet/country/getHierarchy:
     get:
       tags:
-      - country-controller
+      - Countries
       description: Fetches Full Hierarchy
       operationId: getHierarchy
       responses:
@@ -4413,10 +4772,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get hierarchy
   /api/v1/wallet/country/getAll:
     get:
       tags:
-      - country-controller
+      - Countries
       description: Fetches all Countries
       operationId: getAllCountries
       responses:
@@ -4426,10 +4786,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all countries
   /api/v1/wallet/configuration/getRiskCustomers:
     get:
       tags:
-      - configuration-controller
+      - Configuration
       summary: Get Detail of customer
       operationId: getCustomer_1
       parameters:
@@ -4438,6 +4799,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -4448,7 +4810,7 @@ paths:
   /api/v1/wallet/configuration/getConfigurations:
     get:
       tags:
-      - configuration-controller
+      - Configuration
       summary: Get Referral Configuration Details
       description: Get Referral Configuration
       operationId: getReferralConfig
@@ -4458,6 +4820,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -4468,7 +4831,7 @@ paths:
   /api/v1/wallet/configuration/getCddData:
     get:
       tags:
-      - configuration-controller
+      - Configuration
       summary: Get CDD Configured Data
       operationId: getCddData
       parameters:
@@ -4477,6 +4840,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       responses:
         '200':
           description: OK
@@ -4487,7 +4851,7 @@ paths:
   /api/v1/wallet/city/getByProvince/{provinceId}:
     get:
       tags:
-      - city-controller
+      - Cities
       description: Fetches Cities by Province ID
       operationId: getCitiesByProvinceId
       parameters:
@@ -4504,10 +4868,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get cities by province ID
   /api/v1/wallet/city/getAll:
     get:
       tags:
-      - city-controller
+      - Cities
       description: Fetches all Cities
       operationId: getAllCities
       responses:
@@ -4517,10 +4882,11 @@ paths:
             '*/*':
               schema:
                 $ref: '#/components/schemas/ServiceResponse'
+      summary: Get all cities
   /api/v1/wallet/bpm/process/getreturnedmergelist/{pageSize}/{currentPage}:
     get:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: Get Returned Pending List (Maker)
       description: Get Returned Pending List (Maker)
       operationId: returnedMergeResult
@@ -4530,6 +4896,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: operation
         in: header
         required: true
@@ -4557,7 +4924,7 @@ paths:
   /api/v1/wallet/bpm/process/getmergelist/{pageSize}/{currentPage}:
     get:
       tags:
-      - gl-bpm-controller
+      - Approvals (Maker-Checker)
       summary: Get merge pending list (Checker)
       description: Get merge pending list (Checker)
       operationId: mergeResult
@@ -4567,6 +4934,7 @@ paths:
         required: true
         schema:
           type: string
+        description: The back-office user performing the action. Used for audit and maker-checker approval.
       - name: operation
         in: header
         required: true
@@ -6717,3 +7085,9 @@ components:
           type: string
         identificationValue:
           type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Access token from the **Get Access Token** endpoint.

@@ -1,5 +1,8 @@
 # Wallet to Wallet Transfers
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant** | **Action**                                                  |
 | --------------- | ----------------------------------------------------------- |
 | Channel         | Customer confirms details, inputs MPIN, proceeds to payment |
@@ -28,5 +31,11 @@
 | Digital Service | IBT Response (RespCode, AuthID) sent to Channel             |
 | Channel         | e-Receipt shown to customer, in-app notifications sent      |
 
-
-![Wallet to Wallet Title Fetch](/img/wallet-to-wallet-transfers.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/wallet-to-wallet-transfers.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/wallet-to-wallet-transfers.png').default} alt="Wallet to Wallet Title Fetch" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

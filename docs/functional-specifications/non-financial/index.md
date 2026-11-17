@@ -3,6 +3,9 @@ id: index
 title: Dormant Account Activation
 ---
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | Participant              | Action |
 |--------------------------|--------|
 | OpenWallet               | Sends account status = 'Dormant' to OpenConnectMiddleware |
@@ -42,5 +45,11 @@ title: Dormant Account Activation
 | OpenDigital              | Sends in-app rejection notification |
 | OpenDigital              | Sends SMS/Email rejection alert |
 
-
-![Dashboard](/img/dormant-activation.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/dormant-activation.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/dormant-activation.png').default} alt="Dashboard" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

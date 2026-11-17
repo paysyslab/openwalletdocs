@@ -1,5 +1,8 @@
 # RAAST - Incoming Title Fetch
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant** | **Action**                                           |
 | --------------- | ---------------------------------------------------- |
 | RAAST           | Sent request for Channel account title fetch         |
@@ -15,4 +18,11 @@
 |                 | Title Fetch Response (BeneficiaryInfo) sent to RAAST |
 | RAAST           | Response back to sender bank                         |
 
-![RAAST Incoming Title Fetch](/img/raast-incoming-title-fetch.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/raast-incoming-title-fetch.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/raast-incoming-title-fetch.png').default} alt="RAAST Incoming Title Fetch" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

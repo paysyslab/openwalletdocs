@@ -1,5 +1,8 @@
 # Wallet to Wallet - Title Fetch
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant**     | **Action**                                                                                                 |
 | ------------------- | ---------------------------------------------------------------------------------------------------------- |
 | **Channel**         | Customer enters **Account#**, selects **payment purpose**, enters **amount**, and proceeds for title fetch |
@@ -22,5 +25,11 @@
 | **Digital Service** | Receives IBT Response *(authId)*                                                                           |
 | **Channel**         | Displays IBT Response *(authId)* to customer                                                               |
 
-
-![Wallet to Wallet Title Fetch](/img/wallet-to-wallet-title-fetch.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/wallet-to-wallet-title-fetch.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/wallet-to-wallet-title-fetch.png').default} alt="Wallet to Wallet Title Fetch" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

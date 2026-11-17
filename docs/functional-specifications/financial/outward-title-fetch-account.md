@@ -4,6 +4,9 @@ This flow describes the process when a channel initiates an outward title fetch,
 
 ---
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant**   | **Action** |
 |-------------------|------------|
 | **Channel** | Title Fetch Request (Acc#, BankId) initiated |
@@ -27,12 +30,18 @@ This flow describes the process when a channel initiates an outward title fetch,
 | **Digital Service** | Displays beneficiary information to customer |
 | **Channel** | Receives Title Fetch Response (beneficiary info + HostName) |
 
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/outward-title-fetch-account.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/outward-title-fetch-account.png').default} alt="Outward Title Fetch Flow" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>
+
 ---
 
 ## 📌 Notes
 
 - If IBAN is missing and fallback is allowed → OC fetches IMD and routes through 1LINK.
 - Final response includes the destination HostName and beneficiary details.
-
-![Outward Title Fetch Flow](/img/outward-title-fetch-account.png)
-

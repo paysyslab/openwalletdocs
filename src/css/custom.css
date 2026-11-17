@@ -32,3 +32,48 @@
   background-color: #ffffff !important;
   color: #000000 !important;
 }
+/* Functional specifications: participant table and flow diagram side by side */
+.spec-split {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: var(--ifm-leading);
+}
+.spec-split__table {
+  flex: 1 1 55%;
+  min-width: 0;
+}
+.spec-split__table table {
+  display: table;
+  width: 100%;
+  font-size: 0.85rem;
+  margin-bottom: 0;
+}
+.spec-split__table th,
+.spec-split__table td {
+  padding: 0.45rem 0.7rem;
+}
+.spec-split__diagram {
+  flex: 1 1 45%;
+  min-width: 0;
+  text-align: center;
+}
+.spec-split__diagram img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #ffffff;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 6px;
+  cursor: zoom-in;
+}
+.spec-split__hint {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--ifm-color-emphasis-600);
+}
+@media (max-width: 996px) {
+  .spec-split {
+    flex-direction: column;
+  }
+}

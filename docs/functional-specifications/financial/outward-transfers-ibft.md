@@ -1,5 +1,8 @@
 # Outward Transfers - IBFT
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant**      | **Action**                                                                 |
 | -------------------- | -------------------------------------------------------------------------- |
 | **Channel**          | Customer confirms receiver details, enters MPIN, and proceeds with payment |
@@ -32,5 +35,11 @@
 | **OpenWallet**       | Returns Credit Advise Response *(TYPE 0230)*                               |
 | **SAF Processor**    | Sends HTTP 200 acknowledgment                                              |
 
-
-![Outward IBFT Transfer Flow](/img/outward-transfers-ibft.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/outward-transfers-ibft.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/outward-transfers-ibft.png').default} alt="Outward IBFT Transfer Flow" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

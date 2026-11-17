@@ -1,5 +1,8 @@
 # Bill Payment
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant**  | **Action**                                                                            |
 | ---------------- | ------------------------------------------------------------------------------------- |
 | Channel          | Customer confirms bill details, provides MPIN for authorization, proceeds for payment |
@@ -32,5 +35,11 @@
 |                  | Loop: Bill Marking (TYPE 0230) from 1LINK                                             |
 | OpenConnect      | HTTP 200 acknowledgement sent                                                         |
 
-
-![Bill Payment](/img/bill-payment.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/bill-payment.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/bill-payment.png').default} alt="Bill Payment" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

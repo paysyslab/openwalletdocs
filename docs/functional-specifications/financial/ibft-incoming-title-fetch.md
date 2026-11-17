@@ -1,5 +1,8 @@
 # IBFT Incoming Title Fetch
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant** | **Action**                                                      |
 | --------------- | --------------------------------------------------------------- |
 | **1LINK**       | Sends request for wallet/account title fetch             |
@@ -16,4 +19,11 @@
 |                 | Sends Title Fetch Response *(ISO8583 – MTI 0210)* back to 1LINK |
 | **1LINK**       | Returns the response to the originating bank/sender             |
 
-![IBFT Incoming Title Fetch Flow](/img/ibft-incoming-title-fetch.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/ibft-incoming-title-fetch.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/ibft-incoming-title-fetch.png').default} alt="IBFT Incoming Title Fetch Flow" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

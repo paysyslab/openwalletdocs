@@ -1,5 +1,8 @@
 # RAAST Payment
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant**       | **Action**                                                                                |
 | --------------------- | ----------------------------------------------------------------------------------------- |
 | Channel               | Customer confirms receiver details, provides MPIN for authorization, proceeds for payment |
@@ -47,5 +50,11 @@
 |                       | Loop: Debit Confirmation Result (txnInfo)                                                 |
 | OpenConnect           | HTTP 200 acknowledgement sent                                                             |
 
-
-![RAAST Payment](/img/raast-payment-flow.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/raast-payment-flow.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/raast-payment-flow.png').default} alt="RAAST Payment" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

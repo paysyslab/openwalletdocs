@@ -1,6 +1,9 @@
 # IBFT Credit Request
 
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant**   | **Action**                                                                   |
 | ----------------- | ---------------------------------------------------------------------------- |
 | **1LINK**         | Sends credit request for the wallet account                                      |
@@ -27,5 +30,11 @@
 |                   | Sends credit SMS                                                             |
 | **SAF Processor** | Returns **HTTP 200** (acknowledgment)                                        |
 
-
-![IBFT Credit Request Flow](/img/ibft-credit-request.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/ibft-credit-request.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/ibft-credit-request.png').default} alt="IBFT Credit Request Flow" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

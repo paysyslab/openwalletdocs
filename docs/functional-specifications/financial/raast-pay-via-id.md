@@ -1,5 +1,8 @@
 # Pay via RAAST ID
 
+<div className="spec-split">
+<div className="spec-split__table">
+
 | **Participant** | **Action**                                                                                                                                     |
 | --------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
 | Channel         | Customer selects transfer mode (RAAST ID / Account# / IBAN), enters RAAST ID, selects payment purpose, enters amount, proceeds for Title Fetch |
@@ -20,5 +23,11 @@
 | Digital Service | GetDefaultByRAASTIDResponse (AccInfo, HostName) sent to Channel                                                                                |
 | Channel         | Display beneficiary info to customer                                                                                                           |
 
-
-![Pay via RAAST ID](/img/pay-via-raast-id.png)
+</div>
+<div className="spec-split__diagram">
+<a href={require('@site/static/img/pay-via-raast-id.png').default} target="_blank" rel="noopener noreferrer" title="Open full-size diagram">
+<img src={require('@site/static/img/pay-via-raast-id.png').default} alt="Pay via RAAST ID" />
+</a>
+<div className="spec-split__hint">Click the diagram to view it full size</div>
+</div>
+</div>

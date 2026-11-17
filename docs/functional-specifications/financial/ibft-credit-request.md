@@ -3,7 +3,7 @@
 
 | **Participant**   | **Action**                                                                   |
 | ----------------- | ---------------------------------------------------------------------------- |
-| **1LINK**         | Sends credit request for Payvay account                                      |
+| **1LINK**         | Sends credit request for the wallet account                                      |
 | **Open Connect**  | Receives Credit Request *(Type: 0220 [ISO8583])*                             |
 |                   | Validates account                                                            |
 |                   | Logs the request                                                             |

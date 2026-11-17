@@ -2,7 +2,7 @@
 
 | **Participant** | **Action**                                                      |
 | --------------- | --------------------------------------------------------------- |
-| **1LINK**       | Sends request for Payvay wallet/account title fetch             |
+| **1LINK**       | Sends request for wallet/account title fetch             |
 | **OpenConnect** | Receives Title Fetch Request *(ISO8583 – MTI 0200)* from 1LINK  |
 |                 | Prepares Title Fetch Request for OpenWallet                     |
 |                 | Logs the incoming request                                       |

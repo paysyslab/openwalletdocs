@@ -27,7 +27,7 @@ This section defines the identity of the product.
 Unique system-wide identifier for the product.
 
 ### **Product Name**
-Display name such as **“Payvay Account”**.
+Display name such as **“Wallet Account”**.
 
 ### **Product Category**
 Defines the product type:

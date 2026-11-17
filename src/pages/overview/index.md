@@ -153,14 +153,14 @@ Supports closures due to customer request, deceased status, or regulatory requir
 Supported via **OpenConnect**:
 
 - AML/CFT  
-- NADRA VeriSys / BVS  
+- National Identity Verification Service (identity and biometric verification)  
 - PMD  
 - SMS / Email  
 - CMS  
 - Domestic Instant Payment System (IPS)  
 - Domestic Payment Switch – Bill Payment Service  
 - Domestic Payment Switch – Authentication Service  
-- NADRA eSahulat  
+- National Identity Verification Service (e-services)  
 
 Supports REST, SOAP, ISO8583, ISO20022 with consistent CBA protocol.
 

@@ -80,6 +80,32 @@ Indicates whether the product group supports referral-based onboarding programs.
 
 ---
 
+### **9. Customer Identity Inclusive**
+Controls whether a customer's **identity number** can be shared between this product group and other product groups.
+
+---
+
+### **10. Mobile Number Inclusive**
+Controls whether a customer's **mobile number** can be shared between this product group and other product groups.
+
+---
+
+### **11. Email Inclusive**
+Controls whether a customer's **email address** can be shared between this product group and other product groups.
+
+---
+
+#### How the Inclusive settings work
+
+| Setting | Effect |
+| ------- | ------ |
+| **No** (exclusive) | A customer whose identity number, mobile number or email (as applicable) is already registered against a product in **any other product group** cannot be onboarded to this product group. Likewise, a value registered in this product group cannot be used to onboard to a product in another product group. |
+| **Yes** (inclusive) | The same identity number, mobile number or email can be used across this product group and other product groups, so one customer can hold products in more than one group. |
+
+Each setting is applied independently. For example, a group can require a unique identity number (**Customer Identity Inclusive = No**) while still allowing a mobile number that is already used elsewhere (**Mobile Number Inclusive = Yes**).
+
+---
+
 # 🔎 How Product Groups Operate
 
 Each product level inside a group has its own:

@@ -80,7 +80,7 @@ Each check can be configured as
 Supported verification types:
 
 - Biometric Verification  
-- Verisys / NADRA Check  
+- National Identity Verification Service check  
 - Email OTP  
 - SMS OTP 
 - AML Screening 

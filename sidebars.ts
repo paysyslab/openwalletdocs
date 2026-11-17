@@ -87,9 +87,11 @@ const sidebars: SidebarsConfig = {
       label: 'Transaction Management',
       items: [
         'backoffice/transaction-management/customer-posting',
+        'backoffice/transaction-management/bulk-customer-posting',
         'backoffice/transaction-management/transaction-reversal',
         'backoffice/transaction-management/lien-marking',
         'backoffice/transaction-management/transaction-monitoring',
+        'backoffice/transaction-management/alerts-email-recipients',
       ],
     },
     {
@@ -100,6 +102,14 @@ const sidebars: SidebarsConfig = {
         'backoffice/customer-management/call-center',
         'backoffice/customer-management/customer-due-diligence',
         'backoffice/customer-management/enhanced-due-diligence',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Configuration Management',
+      items: [
+        'backoffice/configuration-management/configurations',
+        'backoffice/configuration-management/configurable-tms-scenarios',
       ],
     },
     {

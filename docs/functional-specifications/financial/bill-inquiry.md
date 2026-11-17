@@ -11,8 +11,8 @@
 |                 | Validate limit                                                    |
 | OC              | Bill Inquiry Request (Consumer#, BillerId) received               |
 |                 | Validate request                                                  |
-|                 | Prepare message for 1LINK                                         |
-| 1LINK           | Bill Inquiry Request (Consumer#, BillerId) received               |
+|                 | Prepare message for Domestic Payment Switch                                         |
+| Domestic Payment Switch           | Bill Inquiry Request (Consumer#, BillerId) received               |
 |                 | Validate request                                                  |
 |                 | Inquire bill details                                              |
 |                 | Bill Inquiry Response (billInfo) sent                             |

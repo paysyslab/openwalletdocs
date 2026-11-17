@@ -31,6 +31,10 @@ Typical alert triggers may include:
 
 Each generated alert receives a unique **Alert ID**, visible in the detailed view.
 
+The configured rules and their alert thresholds are listed on the **Rules & Scenarios** tab:
+
+![Rules & Scenarios](/img/tms-rules.png)
+
 ---
 
 ## 👤 Customer Information

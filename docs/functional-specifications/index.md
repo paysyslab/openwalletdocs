@@ -4,7 +4,7 @@ This section provides detailed functional flows for all operations supported in 
 
 ## Financial Specifications
 
-Covers all transaction-related processes such as IBFT, RAAST, wallet transfers, bill payments, and related validations.
+Covers all transaction-related processes such as IBFT, Domestic Instant Payment System (IPS), wallet transfers, bill payments, and related validations.
 
 ## Non-Financial Specifications
 

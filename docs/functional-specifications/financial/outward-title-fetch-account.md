@@ -1,6 +1,6 @@
 # Outward Title Fetch
 
-This flow describes the process when a channel initiates an outward title fetch, with RAAST preferred and fallback allowed.
+This flow describes the process when a channel initiates an outward title fetch, with Domestic Instant Payment System (IPS) preferred and fallback allowed.
 
 ---
 
@@ -10,20 +10,20 @@ This flow describes the process when a channel initiates an outward title fetch,
 | **Participant**   | **Action** |
 |-------------------|------------|
 | **Channel** | Title Fetch Request (Acc#, BankId) initiated |
-| **Channel** | Request sent with: Preferred method = "RAAST", Fallback allowed = "Yes" |
+| **Channel** | Request sent with: Preferred method = "IPS", Fallback allowed = "Yes" |
 | **Digital Service** | Forwards Title Fetch Request (Acc#, BankId) to OpenConnect (OC) |
 | **OC** | Validates request |
 | **OC** | IBAN not found — request contains Account# |
 | **OC** | Fallback allowed → proceed with fallback |
 | **OC** | Retrieves IMD for destination bank |
-| **OC** | Sends Title Fetch Request to 1LINK |
-| **1LINK** | Receives Title Fetch Request (Acc#, IMD) |
-| **1LINK** | Validates request |
+| **OC** | Sends Title Fetch Request to Domestic Payment Switch |
+| **Domestic Payment Switch** | Receives Title Fetch Request (Acc#, IMD) |
+| **Domestic Payment Switch** | Validates request |
 | **Bank** | Receives Title Fetch Request |
 | **Bank** | Validates request |
 | **Bank** | Fetches beneficiary account information |
-| **Bank** | Sends Title Fetch Response back to 1LINK |
-| **1LINK** | Sends Title Fetch Response (beneficiary account info) to OC |
+| **Bank** | Sends Title Fetch Response back to Domestic Payment Switch |
+| **Domestic Payment Switch** | Sends Title Fetch Response (beneficiary account info) to OC |
 | **OC** | Validates response |
 | **OC** | Identifies response as **Success** |
 | **OC** | Sends Title Fetch Response (beneficiary info + HostName) to Digital Service |
@@ -43,5 +43,5 @@ This flow describes the process when a channel initiates an outward title fetch,
 
 ## 📌 Notes
 
-- If IBAN is missing and fallback is allowed → OC fetches IMD and routes through 1LINK.
+- If IBAN is missing and fallback is allowed → OC fetches IMD and routes through Domestic Payment Switch.
 - Final response includes the destination HostName and beneficiary details.

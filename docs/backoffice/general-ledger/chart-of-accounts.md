@@ -55,7 +55,7 @@ The final and most important level — (Digits 9–12)
 
 **Example:**
 
-- `020010010001` = 1LINK Payables  
+- `020010010001` = Domestic Payment Switch Payables  
 
 ---
 

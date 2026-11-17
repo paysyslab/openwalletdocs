@@ -10,6 +10,14 @@ This guide walks you through the first two essential configurations every instit
 
 ---
 
+# Navigating the Backoffice
+
+After you sign in, the **Home** screen groups every Backoffice module into collapsible sections, such as General Ledger, Product Management, Customer Management and Transaction Management. Expand a section and click a card to open that screen, or use **Expand All** / **Collapse All** to show or hide every section at once. The same modules are also listed in the navigation menu on the left.
+
+![Backoffice Home](/img/backoffice-home.png)
+
+---
+
 # 1. Chart of Accounts (COA) Setup
 
 The Chart of Accounts is the **foundation of your accounting system**. Every transaction—deposits, withdrawals, transfers, fees, settlements, taxes—eventually posts into the COA.

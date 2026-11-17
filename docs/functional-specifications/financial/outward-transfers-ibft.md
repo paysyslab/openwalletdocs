@@ -25,14 +25,14 @@
 | **OpenConnect**      | Receives DebitResponse *(RespCode, AuthId)*                                |
 |                      | Updates transaction log                                                    |
 |                      | Sends confirmation back to Digital Services                                |
-|                      | Prepares Credit Advise message for 1LINK                                   |
+|                      | Prepares Credit Advice message for Domestic Payment Switch                                   |
 |                      | Sends notifications to customer                                            |
 | **Digital Services** | Sends IBFT Response *(RespCode, AuthId)* to Channel                        |
 | **Channel**          | Shows e-Receipt to customer; in-app notification delivered                 |
 | **OpenConnect**      | Stores transaction in SAF queue                                            |
 | **SAF Processor**    | Receives queued transaction                                                |
-|                      | Performs loop execution: Sends Credit Advise *(TYPE 0220)* to OpenWallet   |
-| **OpenWallet**       | Returns Credit Advise Response *(TYPE 0230)*                               |
+|                      | Performs loop execution: Sends Credit Advice *(TYPE 0220)* to OpenWallet   |
+| **OpenWallet**       | Returns Credit Advice Response *(TYPE 0230)*                               |
 | **SAF Processor**    | Sends HTTP 200 acknowledgment                                              |
 
 </div>

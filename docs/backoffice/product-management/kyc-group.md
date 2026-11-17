@@ -15,7 +15,11 @@ This ensures the system enforces the correct KYC tier during onboarding, upgrade
 
 # 📌 Structure of a KYC Group
 
-A KYC Group is configured across **three main sections**:
+Start by naming the group on the **Add KYC Group** tab:
+
+![Add KYC Group](/img/add-kyc-group.png)
+
+The group is then configured across **three main sections**:
 
 ---
 

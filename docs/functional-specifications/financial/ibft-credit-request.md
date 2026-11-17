@@ -6,7 +6,7 @@
 
 | **Participant**   | **Action**                                                                   |
 | ----------------- | ---------------------------------------------------------------------------- |
-| **1LINK**         | Sends credit request for the wallet account                                      |
+| **Domestic Payment Switch**         | Sends credit request for the wallet account                                      |
 | **Open Connect**  | Receives Credit Request *(Type: 0220 [ISO8583])*                             |
 |                   | Validates account                                                            |
 |                   | Logs the request                                                             |
@@ -17,8 +17,8 @@
 |                   | Validates credit limit                                                       |
 |                   | Sends *Account Verification Response* (verificationResult)                   |
 | **Open Connect**  | Updates transaction log                                                      |
-|                   | Sends *Credit Response* *(Type: 0230 [ISO8583])* to 1LINK                    |
-| **1LINK**         | Sends response back to sender bank                                           |
+|                   | Sends *Credit Response* *(Type: 0230 [ISO8583])* to Domestic Payment Switch                    |
+| **Domestic Payment Switch**         | Sends response back to sender bank                                           |
 | **SAF Processor** | Stores transaction into SAF Queue                                            |
 | **OpenWallet**    | Receives Credit Request *(accountInfo, TxnInfo)* — **looped multiple times** |
 |                   | Sends Credit Response *(Success)*                                            |

@@ -157,9 +157,9 @@ Supported via **OpenConnect**:
 - PMD  
 - SMS / Email  
 - CMS  
-- RAAST  
-- 1LINK BPS  
-- 1LINK Authentic  
+- Domestic Instant Payment System (IPS)  
+- Domestic Payment Switch – Bill Payment Service  
+- Domestic Payment Switch – Authentication Service  
 - NADRA eSahulat  
 
 Supports REST, SOAP, ISO8583, ISO20022 with consistent CBA protocol.

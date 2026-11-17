@@ -25,14 +25,14 @@
 |                  | DebitResponse (RespCode, AuthId) sent                                                 |
 | OpenConnect      | Update transaction log                                                                |
 |                  | Send confirmation to Channel                                                          |
-|                  | Prepare message for 1LINK                                                             |
+|                  | Prepare message for Domestic Payment Switch                                                             |
 |                  | Send notifications to customer                                                        |
 | Digital Services | Bill Payment Response (RespCode, AuthId) sent                                         |
 | Channel          | eReceipt shown to customer; in-app notifications sent                                 |
 | OpenConnect      | Store transaction into SAF Queue                                                      |
 | SAF Processor    | Receives queued transaction                                                           |
-|                  | Loop: Bill Marking (TYPE 0220) to 1LINK                                               |
-|                  | Loop: Bill Marking (TYPE 0230) from 1LINK                                             |
+|                  | Loop: Bill Marking (TYPE 0220) to Domestic Payment Switch                                               |
+|                  | Loop: Bill Marking (TYPE 0230) from Domestic Payment Switch                                             |
 | OpenConnect      | HTTP 200 acknowledgement sent                                                         |
 
 </div>

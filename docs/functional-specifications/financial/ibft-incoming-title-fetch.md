@@ -5,8 +5,8 @@
 
 | **Participant** | **Action**                                                      |
 | --------------- | --------------------------------------------------------------- |
-| **1LINK**       | Sends request for wallet/account title fetch             |
-| **OpenConnect** | Receives Title Fetch Request *(ISO8583 – MTI 0200)* from 1LINK  |
+| **Domestic Payment Switch**       | Sends request for wallet/account title fetch             |
+| **OpenConnect** | Receives Title Fetch Request *(ISO8583 – MTI 0200)* from Domestic Payment Switch  |
 |                 | Prepares Title Fetch Request for OpenWallet                     |
 |                 | Logs the incoming request                                       |
 | **OpenWallet**  | Receives request containing *(ToAccount, Amount)*               |
@@ -16,8 +16,8 @@
 |                 | Validates credit limit exposure rules                           |
 |                 | Sends Title Fetch Response *(CustomerInfo)* back to OpenConnect |
 | **OpenConnect** | Updates transaction log                                         |
-|                 | Sends Title Fetch Response *(ISO8583 – MTI 0210)* back to 1LINK |
-| **1LINK**       | Returns the response to the originating bank/sender             |
+|                 | Sends Title Fetch Response *(ISO8583 – MTI 0210)* back to Domestic Payment Switch |
+| **Domestic Payment Switch**       | Returns the response to the originating bank/sender             |
 
 </div>
 <div className="spec-split__diagram">
